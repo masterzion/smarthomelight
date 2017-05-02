@@ -1,0 +1,155 @@
+@import url(http://fonts.googleapis.com/css?family=Dosis:200,400,500,600);
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+body {
+    text-align: center;
+    background: #f2f2f2;
+}
+
+div.content {
+    position: relative;
+    margin: 0 auto;
+    text-align: left;
+    width: 100%;
+}
+
+div.thermometers {
+    margin: 20px auto;
+    width: 840px;
+}
+
+div.thermometers .label {
+    position: relative;
+    float: left;
+    width: 280px;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Dosis';
+    font-weight: bold;
+}
+
+
+
+div.thermometers .details {
+    position: relative;
+    float: left;
+    width: 280px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Dosis';
+    font-weight: bold;
+}
+
+div.thermometers .last-update {
+    margin: 10px auto;
+    text-align: center;
+    width: 560px;
+    font-size: 12px;
+    font-family: 'Dosis';
+    font-weight: bold;
+}
+
+ .de .den, .de .dene, .de .denem, .de .deneme { position: absolute;  left: 50%; top: 50%; }
+
+.de {
+    position: relative;
+    float: left;
+    margin: 20px;
+    width: 240px;
+    height: 240px;
+    border-radius: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    background-color: transparent;
+}
+
+.den {
+    position: relative;
+    width: 210px;
+    height: 210px;
+    margin: -105px 0 0 -105px;
+    border-radius: 100%;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, .5), 0 2px 20px rgba(255, 255, 255, 1);
+    background: #df3341;
+    background: -moz-linear-gradient(left, #df3341 0%, #d4f355 50%, #61c0ec 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#df3341), color-stop(50%,#d4f355), color-stop(100%,#61c0ec));
+    background: -webkit-linear-gradient(left, #df3341 0%,#d4f355 50%,#61c0ec 100%);
+    background: linear-gradient(to right, #df3341 0%,#d4f355 50%,#61c0ec 100%);
+}
+
+.denh {
+    position: relative;
+    width: 210px;
+    height: 210px;
+    margin: -105px 0 0 -105px;
+    border-radius: 100%;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, .5), 0 2px 20px rgba(255, 255, 255, 1);
+    background: #df3341;
+    background: -moz-linear-gradient(left, #61c0ec 0%, #09ff00 50%, #61c0ec 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#61c0ec), color-stop(50%,#09ff00), color-stop(100%,#61c0ec));
+    background: -webkit-linear-gradient(left, #61c0ec 0%,#09ff00 50%,#61c0ec 100%);
+    background: linear-gradient(to right, #61c0ec 0%,#09ff00 50%,#61c0ec 100%);
+    left: 50%;
+    top: 50%;
+}
+
+
+ 
+
+.dene {
+    width: 180px;
+    height: 180px;
+    margin: -90px 0 0 -90px;
+    border-radius: 100%;
+    box-shadow: inset 0 2px 2px rgba(255, 255, 255, .4), 0 3px 13px rgba(0, 0, 0, .85);
+    background: #f2f6f5;
+    background: -moz-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f6f5), color-stop(100%, #cbd5d6));
+    background: -webkit-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+    background: -o-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+}
+.denem {
+    width: 160px;
+    height: 160px;
+    margin: -80px 0 0 -80px;
+    border-radius: 100%;
+    background: #cbd5d6;
+    background: -moz-linear-gradient(top, #cbd5d6 0%, #f2f6f5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cbd5d6), color-stop(100%, #f2f6f5));
+    background: -webkit-linear-gradient(top, #cbd5d6 0%, #f2f6f5 100%);
+}
+
+.deneme {
+    padding: 23px 10px 0 10px;
+    width: 120px;
+    height: 137px;
+    display: inline-block;
+    margin: -70px 0 0 -70px;
+    color: #555;
+    text-shadow: 1px 1px 1px white;
+    font-family: 'Dosis';
+    font-size: 70px;
+    font-weight: 400;
+    text-align: center;
+}
+.deneme span { font-size: 30px; font-weight: 200; }
+.deneme strong { position: absolute; right: 10px; top: 25px; font-size: 34px; }
+
+#chartdiv {
+    width: 100%;
+    height: 300px;
+    float: left;
+}
+
+
+#linkdiv {
+    width: 100%;
+    height: 300px;
+    float: left;
+    margin-top : 40px;
+    text-align: center;
+}
+
