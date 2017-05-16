@@ -74,11 +74,14 @@ while True:
             count += 1
             time.sleep(1)
 
-
     if mobile_status != last_mobile_status:
         if mobile_status:
             GPIO.output(gpioID, GPIO.LOW) #relay On
             lumens = int(readLight())
+            for x in range(0, 3):
+                time.sleep(1)
+                lumens += int(readLight())
+
             print "light sensor: " + str(lumens)
             if (lumens == 0.0) :
                 print "set On"
