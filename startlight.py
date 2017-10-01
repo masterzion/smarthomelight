@@ -63,7 +63,7 @@ while True:
     # check if the mobile is out of the network 3 times
     count=0
     while True:
-        if count > 80:
+        if count > 90:
             break
         r = pyping.ping(mobile_ip)
         mobile_status = (r.ret_code == 0)

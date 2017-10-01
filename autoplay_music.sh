@@ -35,7 +35,7 @@ do
 
     if [ "$LASTSTATE" == "$STATE" ]; then
         echo "if found state wasn't changed, wait 3 seconds."
-        sleep 3
+        sleep 30
     else
         # if found state was changed
         if [ "$STATE" == "0" ]; then
