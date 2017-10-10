@@ -1,0 +1,10 @@
+dtparam=spi=on
+dtparam=i2c_arm=on
+
+
+
+dtoverlay=w1-gpio
+
+
+dtoverlay=lirc-rpi,gpio_out_pin=21,gpio_in_pin=20
+
