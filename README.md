@@ -8,6 +8,11 @@ INSTALL
 ``` bash
 apt-get install python-setuptools git sqlite3 python-smbus i2c-tools
 
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+
+
 echo i2c-dev >> /etc/modules
 modprobe i2c-dev
 
