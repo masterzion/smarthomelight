@@ -6,7 +6,7 @@ try:
 except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
 
-import pyping, sys, milight, time, smbus
+import os, sys, milight, time, smbus
 
 
 gpioID = 23
@@ -18,14 +18,13 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(gpioID, GPIO.OUT)
 
 
-
 #if len(sys.argv) < 3:
 #    print "Usage:"
-#    print sys.argv[0] + " $MOBILE_IP $MILIGHT_IP $MILIGHT_PORT $MILIGHT_GROUP "
+#    print sys.argv[0] + " $LOCKFILE $MILIGHT_IP $MILIGHT_PORT $MILIGHT_GROUP "
 #    sys.exit(2)
 
 #get param 
-mobile_ip     = sys.argv[1]
+lock_file     = sys.argv[1]
 milight_ip    = sys.argv[2]
 milight_port  = int(sys.argv[3])
 milight_group = int(sys.argv[4])
@@ -53,7 +52,7 @@ def readLight(addr=DEVICE):
 
 
 #connect to milight 
-print mobile_ip + " " +  milight_ip + " " + str(milight_port) + " " + str(milight_group)
+print lock_file + " " +  milight_ip + " " + str(milight_port) + " " + str(milight_group)
 controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_duration=0)
 light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
 last_mobile_status = False
@@ -61,18 +60,9 @@ last_mobile_status = False
 # main loop
 while True:
     # check if the mobile is out of the network 3 times
-    count=0
-    while True:
-        if count > 90:
-            break
-        r = pyping.ping(mobile_ip)
-        mobile_status = (r.ret_code == 0)
-        print str(count) + " Mobile:" + str(mobile_status)
-        if mobile_status:
-            break
-        else:
-            count += 1
-            time.sleep(1)
+    mobile_status = not os.path.isfile(lock_file) 
+    print "mobile status " +  str(mobile_status)
+    print "last mobile status " + str(last_mobile_status)
 
     if mobile_status != last_mobile_status:
         if mobile_status:

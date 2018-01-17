@@ -7,7 +7,7 @@ except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
 
 
-min_temp = 21
+min_temp = 21.5
 max_temp = 23
 gpioID = 24
 
@@ -53,7 +53,6 @@ while True:
      print "offline time"
 
   print setEnable
-
 
   if setEnable != lastStatus :
      if setEnable:

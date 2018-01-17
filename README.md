@@ -32,7 +32,11 @@ dtoverlay=w1-gpio
 Set the variables in .bashrc file
 
 ``` bash
-MOBILE_IP="mobile_Ip"
+SMARTHOME_DIR=/root/weatherstation
+FILE="$SMARTHOME_DIR/houseisempt.lock"
+
+IP_LIST="192.168.0.5 192.168.0.3"
+
 SERVER_NAME="pass@localhost" 
 SERVER_PORT="6600"
 

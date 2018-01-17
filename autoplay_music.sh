@@ -9,25 +9,20 @@ source ~/.bashrc
 # MOBILE_IP=""
 # SERVER_NAME="password@ip" 
 
-echo "Mobile: "
-echo $MOBILE_IP
 echo "Server:"
 echo $SERVER_NAME
 
 function get_state() {
-    COUNT=$(ping "$MOBILE_IP" -c 5 -W 5 | grep "ttl=" | wc -l)
+  if [ -f $FILE_HOUSEISEMPTY ]; then
+     echo 0
+   else
+     echo 1
+   fi
 
-    if [ "$COUNT" == "0" ]; then
-        echo 0
-    else
-        echo 1
-    fi
 }
 
-
 LASTSTATE="-1"
-#while true
-#do
+
 while true;
 do
     # get the actual state
@@ -35,7 +30,7 @@ do
 
     if [ "$LASTSTATE" == "$STATE" ]; then
         echo "if found state wasn't changed, wait 3 seconds."
-        sleep 30
+        sleep 2
     else
         # if found state was changed
         if [ "$STATE" == "0" ]; then
