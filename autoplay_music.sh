@@ -5,6 +5,11 @@
 
 source ~/.bashrc
 
+MIN_HOUR=11
+MAX_HOUR=22
+
+
+
 # saver to add in .bashrc ;)
 # MOBILE_IP=""
 # SERVER_NAME="password@ip" 
@@ -42,7 +47,16 @@ do
         fi
 
         echo "send command to the server"
-        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND"
+	if [ "$SEND_COMMAND" == "play" ]; then
+	    HOUR=$(date +"%H")
+	    if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
+	       echo "but not at $HOUR hs"
+	       mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 75
+	       mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND"
+	    fi
+	else
+	    mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND"
+	fi
 
         echo "save last state = $STATE"
         LASTSTATE=$STATE
