@@ -3,7 +3,7 @@
 . ~/.bashrc
 
 MAX_RETRY=10
-SLEEP=60
+SLEEP=10
 
 get_state() {
     IP=$1
@@ -49,6 +49,7 @@ do
           rm -f $FILE_HOUSEISEMPTY
           RETRY=1
        fi
+       sleep 90
     fi
 
     ISEMPT=0
