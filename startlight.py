@@ -1,6 +1,4 @@
 #!/usr/bin/python
-
-
 try:
     import RPi.GPIO as GPIO
 except RuntimeError:
@@ -8,6 +6,7 @@ except RuntimeError:
 
 import os, sys, milight, time, smbus
 
+from time import gmtime, strftime
 
 gpioID = 23
 
@@ -59,6 +58,7 @@ last_mobile_status = False
 
 # main loop
 while True:
+    print strftime("%Y-%m-%d %H:%M:%S", gmtime())
     # check if the mobile is out of the network 3 times
     mobile_status = not os.path.isfile(lock_file) 
     print "mobile status " +  str(mobile_status)
