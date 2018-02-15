@@ -22,8 +22,9 @@ RETRY=1
 while true;
 do
 
-    for IP in $IP_LIST; do
-        echo "Cheking $IP ...."
+    for MAC in $MAC_LIST; do
+        echo "Cheking $MAC ...."
+        IP="$(arp-scan --localnet | grep $MAC  | awk ' { printf $1 } ')"
         ISEMPT=$(get_state $IP)
         if [ $ISEMPT -eq 1 ]; then
            echo "is active "

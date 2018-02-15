@@ -6,7 +6,7 @@ https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
 INSTALL
 ``` bash
-apt-get install python-setuptools git sqlite3 python-smbus i2c-tools
+apt-get install python-setuptools git sqlite3 python-smbus i2c-tools arp-scan
 
 git clone git://git.drogon.net/wiringPi
 cd wiringPi
@@ -35,12 +35,12 @@ Set the variables in .bashrc file
 SMARTHOME_DIR=/root/weatherstation
 FILE="$SMARTHOME_DIR/houseisempt.lock"
 
-IP_LIST="192.168.0.5 192.168.0.3"
+MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
 
 SERVER_NAME="pass@localhost" 
 SERVER_PORT="6600"
 
-MILIGHT_IP="milight_IP"
+MILIGHT_IP="$(arp-scan --localnet | grep milight_MAC  | awk ' { printf $1 } ')"
 MILIGHT_PORT="milight_port"
 MILIGHT_GROUP="1"
 ```
