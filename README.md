@@ -40,7 +40,7 @@ MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
 SERVER_NAME="pass@localhost" 
 SERVER_PORT="6600"
 
-MILIGHT_IP="$(arp-scan --localnet | grep milight_MAC  | awk ' { printf $1 } ')"
+MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
 MILIGHT_PORT="milight_port"
 MILIGHT_GROUP="1"
 ```
