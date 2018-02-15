@@ -2,8 +2,8 @@
 
 . ~/.bashrc
 
-MAX_RETRY=15
-SLEEP=60
+MAX_RETRY=40
+SLEEP=90
 
 get_state() {
     IP=$1
