@@ -2,8 +2,8 @@
 
 . ~/.bashrc
 
-MAX_RETRY=10
-SLEEP=10
+MAX_RETRY=15
+SLEEP=60
 
 get_state() {
     IP=$1
@@ -37,6 +37,7 @@ do
 
 
     if [ $ISEMPT -eq 0 ]; then
+        sleep $SLEEP
         if [ $RETRY -eq $MAX_RETRY ]; then
            echo "creating file  $FILE_HOUSEISEMPTY ..."
            touch $FILE_HOUSEISEMPTY
@@ -50,9 +51,8 @@ do
           rm -f $FILE_HOUSEISEMPTY
           RETRY=1
        fi
-       sleep 90
+       sleep 5
     fi
 
     ISEMPT=0
-    sleep $SLEEP
 done
