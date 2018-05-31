@@ -9,7 +9,7 @@ import os, sys, milight, time, smbus
 from time import gmtime, strftime
 
 gpioID = 23
-
+min_lumens = 4
 
 #set relay config
 GPIO.setwarnings(False)
@@ -54,7 +54,7 @@ def readLight(addr=DEVICE):
 print lock_file + " " +  milight_ip + " " + str(milight_port) + " " + str(milight_group)
 controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_duration=0)
 light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
-last_mobile_status = False
+last_mobile_status = True
 
 # main loop
 while True:
@@ -68,12 +68,12 @@ while True:
         if mobile_status:
             GPIO.output(gpioID, GPIO.LOW) #relay On
             lumens = int(readLight())
-            for x in range(0, 3):
-                time.sleep(1)
-                lumens += int(readLight())
+#            for x in range(0, 3):
+#                time.sleep(5)
+#            lumens += int(readLight())
 
             print "light sensor: " + str(lumens)
-            if (lumens == 0.0) :
+            if (lumens < min_lumens) :
                 print "set On"
                 time.sleep(4)
                 controller.send(light.fade_up(milight_group))
@@ -88,4 +88,7 @@ while True:
           last_mobile_status = mobile_status
 
     time.sleep(2)
-
+    lumens = int(readLight())
+    if (lumens > min_lumens) :
+      controller.send(light.all_off()) # Turn off all lights, equivalent to light.off(0)
+      print "set light Off"
