@@ -66,29 +66,25 @@ while True:
 
     if mobile_status != last_mobile_status:
         if mobile_status:
-            GPIO.output(gpioID, GPIO.LOW) #relay On
+            GPIO.output(gpioID, GPIO.LOW) #music box power On
             lumens = int(readLight())
-#            for x in range(0, 3):
-#                time.sleep(5)
-#            lumens += int(readLight())
 
             print "light sensor: " + str(lumens)
             if (lumens < min_lumens) :
-                print "set On"
+                print "set light and music On"
                 time.sleep(4)
                 controller.send(light.fade_up(milight_group))
                 light.wait(0)
                 last_mobile_status = mobile_status
-        else:
-          #controller.send(light.fade_down(milight_group))
+        else:       
           #controller.send(light.off(1)) # Turn off group 1 lights
           controller.send(light.all_off()) # Turn off all lights, equivalent to light.off(0)
-          print "set Off"
-          GPIO.output(gpioID, GPIO.HIGH) #relay Off
+          print "set light and music Off"
+          GPIO.output(gpioID, GPIO.HIGH) #music box power Off
           last_mobile_status = mobile_status
 
     time.sleep(2)
     lumens = int(readLight())
     if (lumens > min_lumens) :
-      controller.send(light.all_off()) # Turn off all lights, equivalent to light.off(0)
+      controller.send(light.all_off()) # Turn off all lights
       print "set light Off"
