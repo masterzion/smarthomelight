@@ -1,3 +1,4 @@
 smarthome.db
 *.pyc
 sensors.log
+web/js/salt.js

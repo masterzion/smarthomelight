@@ -43,6 +43,10 @@ SERVER_PORT="6600"
 MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
 MILIGHT_PORT="milight_port"
 MILIGHT_GROUP="1"
+
+export WEATHER_SERVER_PWD='WEB_PASSWORD'
+export WEATHER_SERVER_SALT='add some random chars here'
+
 ```
 
 
