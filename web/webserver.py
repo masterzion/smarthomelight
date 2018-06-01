@@ -1,8 +1,7 @@
-import os,sys,inspect
+import os,sys,inspect,json, hashlib
 import tornado.ioloop
 import tornado.web
-import json
-import hashlib
+
 from shutil import copyfile
 
 # import from parent directory

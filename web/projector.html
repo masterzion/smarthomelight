@@ -1,38 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Roomba Scheduler</title>
+    <head>
+        <title>Smart Home - Roomba Scheduler</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="/css/roomba_styles.css" />
+        <link rel="stylesheet" type="text/css" href="/jquery.tzCheckbox/jquery.tzCheckbox.css" />
 
-<link rel="stylesheet" type="text/css" href="/css/roomba_styles.css" />
-<link rel="stylesheet" type="text/css" href="/jquery.tzCheckbox/jquery.tzCheckbox.css" />
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-<script src="/js/projector.js"></script>
-<script src="/jquery.tzCheckbox/jquery.tzCheckbox.js"></script>
-</head>
-<body>
-
-<div id="page">
-
-	<form method="get" action="./" id="frm">
-	  <div id=items>
-	  <ul>
-          <li><label for="status">Cinema Mode</label><input type="checkbox" id="chk_status" name="status" data-on="ON" data-off="OFF" onchange="switchitem()" checked /></li>
-      </ul>	  
-	  </div>
-    </form>
-
-    
-    
-    <div id="footer">
-        <img class="displayed" src="/icons/projector.png">
-    </div>
-
-</div>
-
-
-
-
-</body>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        <script src="/js/projector.js"></script>
+        <script src="/jquery.tzCheckbox/jquery.tzCheckbox.js"></script>
+    </head>
+    <body>
+        <div id="page">
+	        <form method="get" action="./" id="frm">
+	          <div id=items>
+	          <ul>
+                  <li><label for="status">Cinema Mode</label><input type="checkbox" id="chk_status" name="status" data-on="ON" data-off="OFF" onchange="switchitem()" checked /></li>
+              </ul>	  
+	          </div>
+            </form>
+            
+            <div id="footer">
+                <img class="displayed" src="/icons/projector.png">
+            </div>
+        </div>
+    </body>
 </html>
