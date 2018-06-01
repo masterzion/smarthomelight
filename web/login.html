@@ -1,0 +1,24 @@
+<html>
+<head>
+<script src="js/md5.min.js"></script>
+
+<script>
+function DoSubmit(){
+  salt='sekjmdfoi934jr9jdoskjvnmkahow6e823rdihsadc654r987gr5g43z2sd4v3a43sd5456fa';
+  
+  document.passform.myinput.value = md5(document.getElementById("pwd").value+salt);
+  document.getElementById("myform").submit();
+}
+</script>
+
+</head>
+<body>
+    <center>
+        Password: <input type="password" id="pwd">
+        <form action="/" method="post" name="passform" id="passform" onsubmit="DoSubmit();">
+            <input type="hidden" value="">
+            <input type="submit" value="Send">
+        </form>
+    </center>
+</body>
+</html>

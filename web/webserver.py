@@ -20,6 +20,9 @@ ETC_CRON_DIR="/etc/cron.d/"
 
 PASS=os.environ["WEATHER_SERVER_PWD"]
 SALT=os.environ["WEATHER_SERVER_SALT"]
+FILE_CINEMAMODE=os.environ["FILE_CINEMAMODE"]
+
+
 
 #generate javascript salt file
 file = open('js/salt.js', 'w')
@@ -32,9 +35,6 @@ def CheckPass(SELF):
 
 def CheckPassStr(STR):
   return STR == hashlib.md5(PASS+SALT.encode('utf-8')).hexdigest()
-
-
-
 
 class TempLast(tornado.web.RequestHandler):
     def get(self):
@@ -51,6 +51,7 @@ class TempDay(tornado.web.RequestHandler):
 class RoombaStatus(tornado.web.RequestHandler):
     def get(self):
         if CheckPass(self):
+            self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             data=[]    
             for filename in os.listdir(ROOMBA_CRON_DIR):
                 target_file=ETC_CRON_DIR+CRON_PREFIX + filename
@@ -61,6 +62,25 @@ class RoombaStatus(tornado.web.RequestHandler):
                 else:
                      data.append([filename, False])
             self.write(json.dumps(data))
+
+class ProjectorStatus(tornado.web.RequestHandler):
+    def get(self):
+        if CheckPass(self):
+            self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            if os.path.exists(FILE_CINEMAMODE):
+               self.write('1')
+            else:
+               self.write('0')
+            
+            
+class ProjectorSwitch(tornado.web.RequestHandler):
+    def get(self):
+        if CheckPass(self):
+          if os.path.exists(FILE_CINEMAMODE):
+             os.remove(FILE_CINEMAMODE)
+          else:
+             open(FILE_CINEMAMODE, 'w').close()
+          self.write('ok')
 
 class RoombaSwitch(tornado.web.RequestHandler):
     def get(self):
@@ -113,13 +133,20 @@ class LoginHandler(BaseHandler):
            self.set_secure_cookie("password", '')
            self.redirect("/index.html")
 
+
+class NoCacheStaticFileHandler(tornado.web.StaticFileHandler):
+    def set_extra_headers(self, path):
+      self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+
 application = tornado.web.Application([
     (r"/roomba_status/", RoombaStatus),
     (r"/roomba_switch/", RoombaSwitch),
+    (r"/projector_status/", ProjectorStatus),
+    (r"/projector/", ProjectorSwitch),
     (r"/last/", TempLast),
     (r"/day/", TempDay),
     (r"/", LoginHandler),
-    (r"/(.*)", tornado.web.StaticFileHandler, {"path": root, "default_filename": "index.html"}),
+    (r"/(.*)",  NoCacheStaticFileHandler, {"path": root, "default_filename": "index.html"}),
 ], cookie_secret="MY_BIG_SECRET")
 
 

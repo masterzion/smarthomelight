@@ -33,7 +33,8 @@ Set the variables in .bashrc file
 
 ``` bash
 SMARTHOME_DIR=/root/weatherstation
-FILE="$SMARTHOME_DIR/houseisempt.lock"
+SMARTHOME_LOCKDIR="$SMARTHOME_DIR/lockfiles"
+FILE="$SMARTHOME_LOCKDIR/houseisempt.lock"
 
 MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
 
@@ -47,6 +48,7 @@ MILIGHT_GROUP="1"
 export WEATHER_SERVER_PWD='WEB_PASSWORD'
 export WEATHER_SERVER_SALT='add some random chars here'
 
+export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
 ```
 
 
