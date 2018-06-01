@@ -1,17 +1,21 @@
 <html>
 <head>
+    <link rel="icon" href="/icons/favicon.ico" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon">
     <script src="js/md5.min.js"></script>
     <script src="js/salt.js"></script>
     <script src="js/login.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/home.css" />
 </head>
 
 <body onKeyPress="return checkSubmit(event)">
-    <center>
-        <form action="/" method="post" name="passform" id="passform" onsubmit="DoSubmit();">
-            Password: <input type="password" id="pwd">
-            <input type="hidden" value="" name="password" id="password">
-            <input type="submit" value="Send" id="submit">
-        </form>
-    </center>
+        <img class="displayed" src="/icons/logo.png"  />
+        <div class="center">
+            <form action="/" method="post" name="passform" id="passform" onsubmit="DoSubmit();">
+                Password:<br /> 
+                <input type="password" id="pwd">
+                <input type="hidden" value="" name="password" id="password">
+                <input type="submit" value="Send" id="submit">
+            </form>
+        </div>
 </body>
 </html>
