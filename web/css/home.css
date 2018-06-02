@@ -2,11 +2,30 @@ IMG.displayed {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 10px;
+    padding: 10px;
 }
+
+IMG.mainmenu {
+    max-width: 13%;
+    max-height: 13%;
+    padding: 0.3%;
+}
+
+
+
+@media (pointer:none), (pointer:coarse) {
+    IMG.mainmenu {
+        min-width: 40%;
+        min-height: 40%;
+        padding: 2%;
+    }
+}
+
+
 
 .center {
     margin: auto;
     width: 20%;
     padding: 10px;
 }
+

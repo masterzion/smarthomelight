@@ -21,7 +21,7 @@ function RetItem(name, active) {
       checked = ' checked ';
      } 
 
-    return 	 '<li><label for="ch_'+name+'">'+name+': </label><input type="checkbox" id="ch_'+name+'" name="ch_'+name+'" data-on="ON" data-off="OFF" onchange="switchitem(\''+name+'\')" '+checked+ '/></li>';
+    return 	 '<li><label class="textleft" for="ch_'+name+'">'+name+': </label><input type="checkbox" id="ch_'+name+'" name="ch_'+name+'" data-on="ON" data-off="OFF" onchange="switchitem(\''+name+'\')" '+checked+ '/></li>';
 }
 
 

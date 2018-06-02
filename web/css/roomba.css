@@ -1,0 +1,11 @@
+@media (pointer:none), (pointer:coarse) {
+    #items{
+       height: 500px;	
+    }
+    
+    form label{
+	    font-size:45px;
+    }
+}
+
+

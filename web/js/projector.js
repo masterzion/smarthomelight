@@ -18,7 +18,7 @@ function getProjectorStatus() {
           }
     }
     
-    text='<ul><li><label for="status">Cinema Mode</label><input type="checkbox" id="chk_status" name="status" data-on="ON" data-off="OFF" onchange="switchitem()" '+ischecked+'/></li></ul>';
+    text='<ul><li><label class="textleft" for="status">Cinema Mode:</label><input type="checkbox" id="chk_status" name="status" data-on="ON" data-off="OFF" onchange="switchitem()" '+ischecked+'/></li></ul>';
     
     $("#items").html( text );
     $('input[type=checkbox]').tzCheckbox({labels:['Enable','Disable']});

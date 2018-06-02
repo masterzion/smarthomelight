@@ -54,6 +54,8 @@ export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
 
 add the crontabfile content in your crontab and reboot
 
+TODO:
+https://certbot.eff.org/lets-encrypt/debianwheezy-apache
 
 Using: 
 
