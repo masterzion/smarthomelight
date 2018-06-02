@@ -1,12 +1,10 @@
 #!/usr/bin/python
+import os, sys, milight, time, smbus, datetime, datetime
+
 try:
     import RPi.GPIO as GPIO
 except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
-
-import os, sys, milight, time, smbus
-
-from time import gmtime, strftime
 
 gpioID = 23
 min_lumens = 4
@@ -40,6 +38,9 @@ ONE_TIME_HIGH_RES_MODE_1 = 0x20
 ONE_TIME_HIGH_RES_MODE_2 = 0x21
 ONE_TIME_LOW_RES_MODE = 0x23
 bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
+
+FILE_CINEMAMODE=os.environ["FILE_CINEMAMODE"]
+SUNSET_RANGE = range(11,22)
  
 #light sensor funcs
 def convertToNumber(data):
@@ -58,18 +59,18 @@ last_mobile_status = True
 
 # main loop
 while True:
-    print strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    TIMENOW=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+" "
     # check if the mobile is out of the network 3 times
     mobile_status = not os.path.isfile(lock_file) 
-    print "mobile status " +  str(mobile_status)
-    print "last mobile status " + str(last_mobile_status)
+#    print "mobile status " +  str(mobile_status)
+#    print "last mobile status " + str(last_mobile_status)
+    lumens = int(readLight())
 
     if mobile_status != last_mobile_status:
         if mobile_status:
             GPIO.output(gpioID, GPIO.LOW) #music box power On
-            lumens = int(readLight())
 
-            print "light sensor: " + str(lumens)
+            print TIMENOW+"light sensor: " + str(lumens)
             if (lumens < min_lumens) :
                 print "set light and music On"
                 time.sleep(4)
@@ -77,14 +78,19 @@ while True:
                 light.wait(0)
                 last_mobile_status = mobile_status
         else:       
-          #controller.send(light.off(1)) # Turn off group 1 lights
-          controller.send(light.all_off()) # Turn off all lights, equivalent to light.off(0)
-          print "set light and music Off"
+          controller.send(light.off(milight_group)) 
+          print TIMENOW+"set light and music Off"
           GPIO.output(gpioID, GPIO.HIGH) #music box power Off
           last_mobile_status = mobile_status
 
     time.sleep(2)
-    lumens = int(readLight())
-    if (lumens > min_lumens) :
-      controller.send(light.all_off()) # Turn off all lights
-      print "set light Off"
+#    if (lumens > min_lumens) :
+#      print TIMENOW+"set light Off (lumens)"
+#      controller.send(light.off(milight_group)) 
+#      time.sleep(30)
+#     controller.send(light.all_off()) # Turn off all lights
+    if ( not os.path.exists(FILE_CINEMAMODE) ) and mobile_status and (lumens < min_lumens):
+        date = datetime.datetime.today()
+        if date.hour in SUNSET_RANGE:
+           print TIMENOW+"set light on (Sunset)"
+           controller.send(light.fade_up(milight_group))

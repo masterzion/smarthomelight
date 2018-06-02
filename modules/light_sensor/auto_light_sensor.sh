@@ -9,4 +9,4 @@ until [ ! -z "$MILIGHT_IP"  ]; do
 done
 
 
-/root/weatherstation/startlight.py $FILE_HOUSEISEMPTY $MILIGHT_IP $MILIGHT_PORT $MILIGHT_GROUP
+/root/weatherstation/auto_light.py $FILE_HOUSEISEMPTY $MILIGHT_IP $MILIGHT_PORT $MILIGHT_GROUP

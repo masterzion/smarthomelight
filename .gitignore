@@ -3,3 +3,4 @@ smarthome.db
 sensors.log
 web/js/salt.js
 lockfiles/*
+bkp/*

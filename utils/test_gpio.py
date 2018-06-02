@@ -12,12 +12,9 @@ if len(sys.argv) == 1:
 else:
    gpioID = int(sys.argv[1])
 
-
-
  
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(gpioID, GPIO.OUT)
-
 
 while True:
     time.sleep(1)
