@@ -1,5 +1,5 @@
 @media (pointer:none), (pointer:coarse) {
-    #items{
+    .items{
        height: 500px;	
     }
     

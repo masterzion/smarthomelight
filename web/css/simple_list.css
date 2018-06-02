@@ -1,10 +1,10 @@
 body{
 	background:url('../icons/page_bg.png') repeat-x;
-	font:18px/1.3 'Segoe UI',Arial, sans-serif;
 	color:#555;
+	font:18px/1.3 'Segoe UI',Arial, sans-serif;
 }
 
-#page{
+.page{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -21,26 +21,22 @@ form li{
    height: 30%;
    line-height:32px;
    list-style: none;
-   padding: 0 10px 10px 0;
    text-align: center;
 }
 
-
-
 form label{
-	width:250px;
-	font-size:35px;
 	color:#333;
 	display: inline-block;
+	font-size:35px;
+	width:250px;
 }
 
 .textleft {
    text-align: left;
 }
 
-
 @media (pointer:none), (pointer:coarse) {
-    #page{
+    .page{
 	    margin-top: 15%;
     }
 }

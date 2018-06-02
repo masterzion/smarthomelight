@@ -1,31 +1,26 @@
-IMG.displayed {
+.center {
+    margin: auto;
+    width: 20%;
+}
+
+.displayed {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
 }
 
-IMG.mainmenu {
-    max-width: 13%;
+.mainmenu {
     max-height: 13%;
+    max-width: 13%;
     padding: 0.3%;
 }
 
-
-
 @media (pointer:none), (pointer:coarse) {
-    IMG.mainmenu {
-        min-width: 40%;
+    .mainmenu {
         min-height: 40%;
+        min-width: 40%;
         padding: 2%;
     }
 }
 
-
-
-.center {
-    margin: auto;
-    width: 20%;
-    padding: 10px;
-}
 
