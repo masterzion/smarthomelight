@@ -1,2 +1,3 @@
 #!/bin/bash
-./memdb_server.py  &> /dev/null
+source ~/.bashrc
+./memorydb.py $SMARTHOME_MEMDB_PORT &> /dev/null

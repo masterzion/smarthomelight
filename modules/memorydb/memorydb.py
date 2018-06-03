@@ -1,6 +1,5 @@
 #!/usr/bin/python
-import asyncore
-import socket
+import asyncore, socket, sys
 
 Matrix = {}
 
@@ -49,8 +48,9 @@ class EchoServer(asyncore.dispatcher):
             sock, addr = pair
             print 'Incoming connection from %s' % repr(addr)
             handler = EchoHandler(sock)
-
-server = EchoServer('localhost', 3030)
+            
+split = sys.argv
+server = EchoServer('localhost', int(split[1]) )
 asyncore.loop()
 
 

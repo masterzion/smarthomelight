@@ -4,20 +4,12 @@ import tornado.web
 
 from shutil import copyfile
 
-# import from parent directory
-root = os.path.dirname(__file__)
-os.chdir(root)
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-sys.path.insert(0,parentdir) 
+split = sys.argv
 
-PORT=80
-
+MEMDB_PORT=int(split[1])
+WEB_PORT=int(split[2])
 PASS=os.environ["WEATHER_SERVER_PWD"]
 SALT=os.environ["WEATHER_SERVER_SALT"]
-
-#MEMDB_PORT=os.environ["MEMDB_PORT"]
-MEMDB_PORT=3030
 
 #generate javascript salt file
 file = open('js/salt.js', 'w')
@@ -107,9 +99,9 @@ application = tornado.web.Application([
     (r"/projector_status/", ProjectorStatus),
     (r"/projector/", ProjectorSwitch),
     (r"/", LoginHandler),
-    (r"/(.*)",  NoCacheStaticFileHandler, {"path": root, "default_filename": "index.html"}),
+    (r"/(.*)",  NoCacheStaticFileHandler, {"path": "./", "default_filename": "index.html"}),
 ], cookie_secret="MY_BIG_SECRET")
 
 if __name__ == '__main__':
-    application.listen(PORT)
+    application.listen(WEB_PORT)
     tornado.ioloop.IOLoop.instance().start()

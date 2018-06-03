@@ -1,3 +1,4 @@
+memorydb
 milight
 music
 sound
