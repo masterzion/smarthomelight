@@ -20,7 +20,12 @@ module_status () {
 }
 
 module_start () {
-    echo "Starting $MODULE_NAME... "
+    if [ ! -d "$SMARTHOME_DIR/modules/$MODULE_NAME" ]; then
+      echo "Module dir not found: $SMARTHOME_DIR/modules/$MODULE_NAME"
+      exit 2
+    fi
+
+    echo "Starting $MODULE_NAME... "    
     cd "$SMARTHOME_DIR/modules/$MODULE_NAME"
     ./start.sh &> /dev/null &
     PID=$!
@@ -30,6 +35,11 @@ module_start () {
 }
 
 module_stop () {
+    if [ ! -d "$SMARTHOME_DIR/modules/$MODULE_NAME" ]; then
+      echo "Module dir not found: $SMARTHOME_DIR/modules/$MODULE_NAME"
+      exit 2
+    fi
+
     echo "Stopping $MODULE_NAME... "
     PID=$(module_status)
     if [ "$PID" == "0" ] ; then

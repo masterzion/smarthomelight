@@ -1,2 +1,2 @@
 #!/bin/bash
-./memdb_server.py > /dev/null
+./memdb_server.py  &> /dev/null
