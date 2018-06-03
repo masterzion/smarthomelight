@@ -1,4 +1,8 @@
 SHELL=/bin/bash
+
+@reboot /root/weatherstation/memdb/memdb_server.py > /dev/null
+
+
 @reboot  /usr/bin/python /root/weatherstation/weather.py > /dev/null
 @reboot  /bin/bash /root/weatherstation/auto_music.sh > /dev/null
 @reboot  /bin/bash /root/weatherstation/auto_light.sh > /dev/null

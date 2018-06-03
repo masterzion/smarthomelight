@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # Echo client program
 import socket,sys
 
@@ -17,7 +18,7 @@ if len(split) < 3:
     else:
         print "ERROR: Minimum 2 paramters. Check the documentation. ;)\n"
 else:
-    HOST = '127.0.0.1'
+    HOST = 'localhost'
     PORT = 3030
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
