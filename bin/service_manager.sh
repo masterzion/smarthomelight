@@ -1,19 +1,21 @@
 #!/bin/bash 
 source ~/.bashrc
 
-MODULE_NAME="$1"
-ACTION="$2"
+ACTION="$1"
+MODULE_NAME="$2"
+MODULE_ITEM="$3"
+
 
 
 
 if [ "$2" == "" ] ; then
-    echo "$0 module_name {start|stop|restart|status}"
+    echo "$0 {start|stop|restart|status} module_name item"
     exit 2
 fi
 
 
 module_status () {
-    PID=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULE_NAME 2> /dev/null )
+    PID=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULE_NAME $MODULE_ITEM 2> /dev/null )
     if [ "$PID" == "" ] ; then 
        PID="0"
     fi
@@ -28,11 +30,11 @@ module_start () {
 
     echo "Starting $MODULE_NAME... "    
     cd "$SMARTHOME_DIR/modules/$MODULE_NAME"
-    ./start.sh  &
+    ./$MODULE_ITEM.sh  &
     PID=$!
     sleep 2
     echo "PID: $PID"
-    $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $PID
+    $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM $PID
 }
 
 module_stop () {
@@ -46,7 +48,7 @@ module_stop () {
     if [ "$PID" == "0" ] ; then
       echo "Module is not running"
     else
-      $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME 0 &> /dev/null
+      $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0 &> /dev/null
       pkill -P $PID &> /dev/null
     fi
 }

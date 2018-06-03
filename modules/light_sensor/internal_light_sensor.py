@@ -20,6 +20,8 @@ ONE_TIME_LOW_RES_MODE = 0x23
 bus = smbus.SMBus(1)  # Rev 2 Pi uses 1
 
 modulename=sys.argv[2]
+moduleitem='internal_light_sensor'
+
 
 #connect to the memory db
 port=int(sys.argv[1])
@@ -43,7 +45,7 @@ while True:
 #    print value
     
     #send to the server
-    s.send('S VALUES '+modulename+' '+value)
+    s.send('S VALUES '+modulename+' '+moduleitem+' '+value)
     
     #get the answer
     data = s.recv(1024)

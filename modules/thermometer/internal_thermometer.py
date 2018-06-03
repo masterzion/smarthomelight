@@ -8,9 +8,12 @@ import Adafruit_DHT
 # gpio pin used by the sensor
 gpio=18
 
+modulename=sys.argv[2]
+modulitem="internal_thermometer"
+
+
 #connect to the memory db
 port=int(sys.argv[1])
-modulename=sys.argv[1]
 host = 'localhost'
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
@@ -23,7 +26,7 @@ while True:
     #print value
     
     #send to the server
-    s.send('S VALUES '+modulename+' '+value)
+    s.send('S VALUES '+modulename+' '+modulitem+' '+value)
     
     #get the answer
     data = s.recv(1024)

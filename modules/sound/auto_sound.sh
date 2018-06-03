@@ -1,6 +1,5 @@
 #!/bin/bash
 source ~/.bashrc
-source $SMARTHOME_DIR/bash.lib.sh
 
 GPIO=23
 gpio -g mode $GPIO out
@@ -8,8 +7,6 @@ gpio -g mode $GPIO out
 
 while true;
 do
-    HOUSEISEMPT=$(get_houseisempt)
-    CINEMAMODE=$(get_cinemamode)
     HOUR=$(date +"%H")
 
     # house is empt    

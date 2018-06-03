@@ -10,26 +10,27 @@ class EchoHandler(asyncore.dispatcher_with_send):
         if data:
             print "data: "+data+" \n"
             split = data.split(' ')
+            operation=split[0]
             if len(split) < 2:
                 if conn is not None:
                   self.send("ERROR: Minimum 2 paramters. Check the documentation. ;)\n")
             else:
-                if split[0] == 'L':
+                if operation == 'L':
                     data=""
                     for values in Matrix.keys():
                         if values[0] == split[1]:
-                            data+=values[1]  + ' ' + Matrix[values[0], values[1]] + "\n"
+                            data+=values[1]  + ' ' +values[2]+ ' ' + Matrix[values[0], values[1], values[2]] + "\n"
                     self.send( data + "\n" )
-                elif split[0] == 'G':
-                    if len(split) < 3:
-                      self.send("ERROR: Minimum 3 paramters for get operation. Check the documentation. ;)\n")
-                    else:
-                      self.send( Matrix[ split[1], split[2] ] )
-                elif split[0] == 'S':
+                elif operation == 'G':
                     if len(split) < 4:
-                      conn.send("ERROR: Minimum 4 paramters for set operation. Check the documentation. ;)\n")
+                      self.send("SERVER ERROR: Get requires 3 paramters.\n")
                     else:
-                      Matrix[ split[1], split[2] ] = split[3]
+                      self.send( Matrix[ split[1], split[2], split[3] ] )
+                elif operation == 'S':
+                    if len(split) < 5:
+                      self.send("SERVER ERROR: Set requires 4 paramters.\n")
+                    else:
+                      Matrix[ split[1], split[2], split[3] ] = split[4]
                       self.send("OK\n")
 
 
@@ -49,8 +50,12 @@ class EchoServer(asyncore.dispatcher):
             print 'Incoming connection from %s' % repr(addr)
             handler = EchoHandler(sock)
             
-split = sys.argv
-server = EchoServer('localhost', int(split[1]) )
+port= int(sys.argv[1])
+if port == "":
+   port=3030
+   print "Starting in the default port 3030"
+
+server = EchoServer('localhost', port )
 asyncore.loop()
 
 
