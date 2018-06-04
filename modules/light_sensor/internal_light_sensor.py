@@ -23,12 +23,6 @@ modulename=sys.argv[2]
 moduleitem='internal_light_sensor'
 
 
-#connect to the memory db
-port=int(sys.argv[1])
-host = 'localhost'
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((host, port))
-
 #light sensor funcs
 def convertToNumber(data):
   return ((data[1] + (256 * data[0])) / 1.2)
@@ -37,6 +31,12 @@ def readLight(addr=DEVICE):
   data = bus.read_i2c_block_data(addr,ONE_TIME_HIGH_RES_MODE_1)
   return convertToNumber(data)
 
+
+#connect to the memory db
+port=int(sys.argv[1])
+host = 'localhost'
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((host, port))
 
 
 # main loop

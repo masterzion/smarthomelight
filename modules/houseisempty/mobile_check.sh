@@ -1,9 +1,11 @@
 #!/bin/bash
-
-. ~/.bashrc
+source ~/.bashrc
 
 MAX_RETRY=100
 SLEEP=20
+
+MODULENAME=$(cat modulename.txt)
+ITEMNAME="mobile_check"
 
 get_state() {
     IP=$1
@@ -17,17 +19,13 @@ get_state() {
 }
 
 
-ISEMPT=0
+ISEMPT=1
 RETRY=1
 while true;
 do
-
     for MAC in $MAC_LIST; do
         IP="$(arp-scan --localnet | grep $MAC  | awk ' { printf $1 } ')"
-        echo "Cheking $MAC - IP $IP - TRY - $RETRY / $MAX_RETRY"
-
-#        ISEMPT=$(get_state $IP)
-#        if [ $ISEMPT -eq 1 ]; then
+#        echo "Cheking $MAC - IP $IP - TRY - $RETRY / $MAX_RETRY"
         if [ ! -z "$IP" ]; then
             ISEMPT=1
 #           echo "is active "
@@ -37,26 +35,19 @@ do
            sleep $SLEEP
 #           echo "is not active "
         fi
-
     done
 
 
     if [ $ISEMPT -eq 0 ]; then
         if [ $RETRY -eq $MAX_RETRY ]; then
-           date
-           echo "creating file  $FILE_HOUSEISEMPTY ..."
-           touch $FILE_HOUSEISEMPTY
+           $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
         else
 #            echo "Retry $RETRY"
             RETRY=$((RETRY+1))
         fi
     else
-       if [ -f $FILE_HOUSEISEMPTY ]; then
-          date
-          echo "deleting file  $FILE_HOUSEISEMPTY ..."
-          rm -f $FILE_HOUSEISEMPTY
-          RETRY=1
-       fi
+        $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
+        RETRY=1
     fi
     sleep 5
     ISEMPT=0

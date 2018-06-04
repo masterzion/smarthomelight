@@ -50,6 +50,7 @@ module_stop () {
     else
       $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0 &> /dev/null
       pkill -P $PID &> /dev/null
+      kill $PID &> /dev/null
     fi
 }
 
