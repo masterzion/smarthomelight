@@ -22,7 +22,7 @@ s.connect((host, port))
 while True:
     #get the value of the sensor                                             v-- Using DHT22 here
     sensor2_value_h, sensor2_value_t = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
-    value='['+str(sensor2_value_h)+','+str(sensor2_value_t)+']'
+    value=str(sensor2_value_h)+','+str(sensor2_value_t)
     #print value
     
     #send to the server
