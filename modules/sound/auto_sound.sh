@@ -9,7 +9,7 @@ while true;
 do
     HOUR=$(date +"%H")
 
-    # house is empt    
+    # house is empt
     if [ "$CINEMAMODE" == "1" ] ; then
        gpio -g write $GPIO 0
     else

@@ -1,1 +1,1 @@
-* * * * * root sleep 50 && /usr/bin/irsend SEND_ONCE  iRobot_Roomba clean --count 5 >/dev/null 2>&1 && rm -f /etc/cron.d/ROOMBA_Now
+* * * * * root /usr/bin/irsend SEND_ONCE  iRobot_Roomba clean --count 5 >/dev/null 2>&1 && rm -f /etc/cron.d/ROOMBA_Now
