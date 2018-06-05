@@ -1,32 +1,31 @@
 #!/bin/bash
 source ~/.bashrc
 
-GPIO=23
-gpio -g mode $GPIO out
+
+MODULE_NAME=$(cat modulename.txt)
+MODULE_ITEM="turn_on"
+
+
+CINEMAMODE_STRING="cinemamode cinemamode_on"
+PLAYMUSIC_STRING="sound play"
+
+
+
+$SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME $MODULE_ITEM 1 > /dev/null
 
 
 while true;
 do
-    HOUR=$(date +"%H")
-
+    CINEMAMODE=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G PIDS $CINEMAMODE_STRING  )
+    PLAY_MUSIC=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G PIDS $PLAYMUSIC_STRING  )
+    ACTIVE="$(($CINEMAMODE + $PLAY_MUSIC))"
+    
     # house is empt
-    if [ "$CINEMAMODE" == "1" ] ; then
-       gpio -g write $GPIO 0
+    if [ "$ACTIVE" == "0" ] ; then
+       $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0 > /dev/null
     else
-        # house is empt
-        if [ "$HOUSEISEMPT" == "1" ] ; then
-            gpio -g write $GPIO 1
-        else
-            # too late, turn off
-            if [ "$HOUR" -ge "$MAX_HOUR" ] ; then
-               if [ "$CINEMAMODE" == "0" ] ; then
-                   gpio -g write $GPIO 1
-               fi
-            else
-               # not so late, turn on
-               gpio -g write $GPIO 0
-            fi
-        fi
+       $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM -1 > /dev/null
     fi
-    sleep 2
+
+    sleep 5
 done

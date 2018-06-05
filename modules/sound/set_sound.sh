@@ -2,7 +2,7 @@
 source ~/.bashrc
 
 MODULE_NAME=$(cat modulename.txt)
-MODULE_ITEM="set_sound"
+MODULE_ITEM="turn_on"
 
 GPIO=23
 
@@ -11,12 +11,12 @@ gpio -g mode $GPIO out
 gpio -g write $GPIO 0
 
 
-$SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME $MODULE_ITEM $VALUE 2> /dev/null
+$SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM $VALUE 2> /dev/null
 
 while true;
 do
     sleep 5
-    VALUE=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G VALUES $MODULE_NAME $MODULE_ITEM) # 2> /dev/null
+    VALUE=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULE_NAME $MODULE_ITEM) # 2> /dev/null
 
     if [ "$VALUE" == "0" ] ; then
        gpio -g write $GPIO 1
