@@ -25,16 +25,14 @@ MIN_HOUR=10
 
 while true;
 do
-
-
     # get the actual state
     PLAY=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G PIDS $MODULE_NAME $MODULE_ITEM)
-    
-    if [ "$LASTSTATE" == "$PLAY" ]; then
+
+    if [ ! "$LASTSTATE" == "$PLAY" ]; then
         if [ "$PLAY" == "0" ]; then
            SEND_COMMAND="pause"
         else
-           SEND_COMMAND="play" #play
+           SEND_COMMAND="play"
         fi
         
         if [ "$SEND_COMMAND" == "play" ]; then
@@ -49,7 +47,7 @@ do
         else
             mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
         fi
-        LASTSTATE=$HOUSEISEMPT
+        LASTSTATE=$PLAY
     fi
    
     
