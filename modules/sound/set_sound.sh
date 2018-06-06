@@ -15,7 +15,6 @@ $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MO
 
 while true;
 do
-    sleep 5
     VALUE=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULE_NAME $MODULE_ITEM) # 2> /dev/null
 
     if [ "$VALUE" == "0" ] ; then
@@ -23,4 +22,5 @@ do
     else
        gpio -g write $GPIO 0
     fi
+    sleep 10
 done

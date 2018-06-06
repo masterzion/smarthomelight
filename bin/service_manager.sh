@@ -6,8 +6,6 @@ MODULE_NAME="$2"
 MODULE_ITEM="$3"
 
 
-
-
 if [ "$2" == "" ] ; then
     echo "$0 {start|stop|restart|status} module_name item"
     exit 2
@@ -49,8 +47,10 @@ module_stop () {
       echo "Module is not running"
     else
       $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0 &> /dev/null
-      pkill -P $PID &> /dev/null
-      kill $PID &> /dev/null
+      if [ "$PID" -ne "-1" ] ; then
+         pkill -P $PID &> /dev/null
+         kill $PID &> /dev/null
+      fi
     fi
 }
 

@@ -57,16 +57,16 @@ while True:
     
     if mobile_status != last_mobile_status:
         if mobile_status:
-            print TIMENOW+"light sensor: " + str(lumens)
+#            print TIMENOW+"light sensor: " + str(lumens)
             if (lumens < min_lumens) :
-                print "set light and music On"
+#                print "set light on"
                 time.sleep(4)
                 controller.send(light.fade_up(milight_group))
                 light.wait(0)
                 last_mobile_status = mobile_status
         else:       
           controller.send(light.off(milight_group)) 
-          print TIMENOW+"set light Off"
+#          print TIMENOW+"set light Off"
           last_mobile_status = mobile_status
 
     time.sleep(2)
@@ -78,5 +78,5 @@ while True:
     if ( not houseisempty( s ) ) and mobile_status and (lumens < min_lumens):
         date = datetime.datetime.today()
         if date.hour in SUNSET_RANGE:
-           print TIMENOW+"set light on (Sunset)"
+#           print TIMENOW+"set light on (Sunset)"
            controller.send(light.fade_up(milight_group))

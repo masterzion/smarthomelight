@@ -4,9 +4,13 @@ source ~/.bashrc
 
 
 #Restore status
-for i in $( ls /etc/cron.d/ | grep ROOMBA_ ); do
- echo "Restoring the status of ${i/ROOMBA_/}"
- $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS roomba_520 "${i/ROOMBA_/}" "-1" > /dev/null
+for i in $( ls $SMARTHOME_DIR/modules/roomba_520/cron/ ); do
+ echo "Restoring the status of $i"
+ if [ -f "/etc/cron.d/ROOMBA_$i" ] ; then
+   $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS roomba_520 "${i/ROOMBA_/}" "-1" > /dev/null 
+ else
+   $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS roomba_520 "${i/ROOMBA_/}" "0" > /dev/null
+ fi
 done
 
 
@@ -22,12 +26,12 @@ do
             fi
        else
             if [ ! -f $FILE ]; then
- #              echo "copy ROOMBA_$i"
+#              echo "copy ROOMBA_$i"
                cp $SMARTHOME_DIR/modules/roomba_520/cron/$i $FILE
             fi
        fi
    done
-   sleep 2
+   sleep 45
 done
 
 
