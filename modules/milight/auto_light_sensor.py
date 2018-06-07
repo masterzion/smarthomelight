@@ -49,10 +49,10 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
 
 
-time.sleep(60)
 
 # main loop
 while True:
+    time.sleep(60)
     TIMENOW=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+" "
 
     mobile_status = houseisempty( s )
@@ -83,4 +83,3 @@ while True:
         if date.hour in SUNSET_RANGE:
 #           print TIMENOW+"set light on (Sunset)"
            controller.send(light.fade_up(milight_group))
-    time.sleep(10)

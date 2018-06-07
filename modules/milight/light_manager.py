@@ -46,4 +46,4 @@ while True:
                     controller.send(light.fade_down(migroup))
                 time.sleep(0.2)
     last_status = status
-    time.sleep(0.5)
+    time.sleep(5)
