@@ -20,7 +20,7 @@ host = 'localhost'
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
 
-get_internal_thermometer_string='G VALUES thermometer internal_thermometer'
+get_internal_thermometer_string='G VALUES thermometer internal_thermometer_temperature'
 get_houseisempty_string='G VALUES houseisempty mobile_check'
 
 def gethouseisempty( s ):
@@ -29,7 +29,7 @@ def gethouseisempty( s ):
 #   print data
    return bool(data == "0")
 
-def getinternalthermometer( s ):
+def gettemperature( s ):
    s.send(get_internal_thermometer_string)
    data =  s.recv(1024).split(',')[1]
 #   print data
@@ -51,12 +51,12 @@ while True:
     if houseisempty:
         if not date.weekday() in [5,6]:
             if date.hour in workinghours:
-                internal_temp=getinternalthermometer(s)
+                internal_temp=gettemperature(s)
                 if internal_temp in turnon_temperature_range:
                     setEnable = True
     else:
         if date.hour not in silenthours:
-            internal_temp=getinternalthermometer(s)
+            internal_temp=gettemperature(s)
 #            print internal_temp
             if internal_temp in turnon_temperature_range:
                 setEnable = True

@@ -20,17 +20,19 @@ s.connect((host, port))
 
 #main loop
 while True:
-    #get the value of the sensor                                             v-- Using DHT22 here
-    sensor2_value_h, sensor2_value_t = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
-    value=str(sensor2_value_h)+','+str(sensor2_value_t)
-    #print value
+    #get the value of the sensor                  v-- Using DHT22 here
+    data = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
+
+    #print data
     
     #send to the server
-    s.send('S VALUES '+modulename+' '+modulitem+' '+value)
-    
-    #get the answer
+    humidity=str(data[0])
+    temperature=str(data[1])
+    s.send('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
     data = s.recv(1024)
-    #print data
+        
+    s.send('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
+    data = s.recv(1024)
 
     #wait
     time.sleep(60)

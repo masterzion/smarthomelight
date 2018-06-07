@@ -18,13 +18,13 @@ host = 'localhost'
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
 
-get_internal_thermometer_string='G VALUES thermometer internal_thermometer'
+get_internal_thermometer_string='G VALUES thermometer internal_thermometer_temperature'
 
 
-def getInternalThermometer( s ):
+def gettemperature( s ):
    s.send(get_internal_thermometer_string)
-   data =  s.recv(1024).split(',')[1]
-   print data
+   data =  s.recv(1024)
+#   print data
    return float(data)
 
 
@@ -41,7 +41,7 @@ while True:
 
 #  print date
   if date.hour not in silenthours:
-     internal_temp = getInternalThermometer( s );
+     internal_temp = gettemperature( s );
      
      if setEnable:
          if internal_temp > max_temp-1:

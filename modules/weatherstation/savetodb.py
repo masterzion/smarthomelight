@@ -19,8 +19,11 @@ while True:
     s.send('G VALUES thermometer external_thermometer')
     sensor1_value = s.recv(1024)
     
-    s.send('G VALUES thermometer internal_thermometer')
-    sensor2_value_h, sensor2_value_t = s.recv(1024).split(',')
+    s.send('G VALUES thermometer internal_thermometer_humidity')
+    sensor2_value_h=s.recv(1024)
+    
+    s.send('G VALUES thermometer internal_thermometer_temperature')
+    sensor2_value_t = s.recv(1024)
     
 #    print sensor1_value,sensor2_value_t, sensor2_value_h, datetime
 

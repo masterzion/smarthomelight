@@ -2,7 +2,7 @@
 source ~/.bashrc
 
 MODULE_NAME=$(cat modulename.txt)
-MODULE_ITEM="turn_on"
+MODULE_ITEM="sound_turnon"
 
 GPIO=23
 
