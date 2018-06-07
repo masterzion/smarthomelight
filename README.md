@@ -52,6 +52,9 @@ export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
 ```
 
 add the crontabfile content in your crontab and reboot
+``` bash
+@reboot $SMARTHOME_DIR/bin/service_manager.sh start autostart start_modules
+```
 
 RECOMENDED:
 ``` bash

@@ -7,6 +7,8 @@ SLEEP=20
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
 
+$SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
+
 get_state() {
     IP=$1
     COUNT=$(ping "$IP" -c 5 -W 5 | grep "ttl=" | wc -l)

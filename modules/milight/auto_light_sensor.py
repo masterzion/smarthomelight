@@ -30,22 +30,26 @@ controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_du
 light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
 last_mobile_status = True
 
-
 def getlumens( s ):
    s.send(get_lumens_string)
-   return float(s.recv(1024))
+   data = s.recv(1024)
+#   print data
+   return float(data)
 
 def houseisempty( s ):
    s.send(get_houseisempty_string)
-   temp = s.recv(1024)
-#   print temp
-   return bool(temp == "0")
+   data = s.recv(1024)
+#   print data
+   return bool(data == "0")
 
 #connect to the memory db
 port=int(sys.argv[1])
 host = 'localhost'
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host, port))
+
+
+time.sleep(60)
 
 # main loop
 while True:
@@ -62,14 +66,13 @@ while True:
 #                print "set light on"
                 time.sleep(4)
                 controller.send(light.fade_up(milight_group))
-                light.wait(0)
+#                light.wait(0)
                 last_mobile_status = mobile_status
         else:       
           controller.send(light.off(milight_group)) 
 #          print TIMENOW+"set light Off"
           last_mobile_status = mobile_status
 
-    time.sleep(2)
 #    if (lumens > min_lumens) :
 #      print TIMENOW+"set light Off (lumens)"
 #      controller.send(light.off(milight_group)) 
@@ -80,3 +83,4 @@ while True:
         if date.hour in SUNSET_RANGE:
 #           print TIMENOW+"set light on (Sunset)"
            controller.send(light.fade_up(milight_group))
+    time.sleep(10)
