@@ -58,8 +58,9 @@ while True:
     mobile_status = houseisempty( s )
     lumens = getlumens(s)
 #    print mobile_status
-    
-    if mobile_status != last_mobile_status:
+
+    if True:
+#    if mobile_status != last_mobile_status:
         if mobile_status:
 #            print TIMENOW+"light sensor: " + str(lumens)
             if (lumens < min_lumens) :

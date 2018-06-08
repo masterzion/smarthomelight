@@ -1,10 +1,7 @@
 #!/usr/bin/python
 import datetime, time, socket, sys
 
-
-
 gpioID = 24
-
 
 lastStatus = 99
 setEnable = True
@@ -12,7 +9,7 @@ setEnable = True
 modulename=sys.argv[2]
 item_name='fan_turnon'
 
-turnon_temperature_range = range(25,35)
+turnon_temperature_range = range(24,35)
 
 #connect to the memory db
 port=int(sys.argv[1])
@@ -27,11 +24,11 @@ def gethouseisempty( s ):
    s.send(get_houseisempty_string)
    data = s.recv(1024)
 #   print data
-   return bool(data == "0")
+   return (data == "1")
 
 def gettemperature( s ):
    s.send(get_internal_thermometer_string)
-   data =  s.recv(1024).split(',')[1]
+   data =  s.recv(1024)
 #   print data
    return int(float(data))
 
@@ -41,14 +38,16 @@ silenthours = silenthours + range(20,23)
 workinghours = range(16,18)
 
 
-while True:
-    time.sleep(20 * 60)
+#time.sleep(10)
 
+
+while True:
     setEnable = False
     date = datetime.datetime.today()
     houseisempty = gethouseisempty(s)
 
     if houseisempty:
+#        print "is empty"
         if not date.weekday() in [5,6]:
             if date.hour in workinghours:
                 internal_temp=gettemperature(s)
@@ -72,3 +71,6 @@ while True:
             s.send('S PIDS '+modulename+' '+item_name+' 0')
             data = s.recv(1024)
         lastStatus = setEnable
+    time.sleep(120)
+
+

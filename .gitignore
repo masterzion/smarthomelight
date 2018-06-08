@@ -4,3 +4,4 @@ lockfiles/*
 bkp/*
 modules/weatherstation/smarthome.*
 modules/weatherstation/*.pyc
+modules/webserver/home/js/*.json

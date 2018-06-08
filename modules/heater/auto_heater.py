@@ -53,7 +53,7 @@ while True:
      setEnable = False
 #     print "offline time"
 
-  print setEnable
+#  print setEnable
   if setEnable != lastStatus :
      if setEnable:
         s.send('S PIDS '+modulename+' '+item_name+' 1')

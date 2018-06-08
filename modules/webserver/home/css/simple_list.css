@@ -12,19 +12,14 @@ body{
 }
 
 
-form ul{
-  display: block; 
-  height: 100%;
-}
-
-form li{
+.checklist {
    height: 30%;
    line-height:32px;
    list-style: none;
    text-align: center;
 }
 
-form label{
+.checklist label{
 	color:#333;
 	display: inline-block;
 	font-size:35px;

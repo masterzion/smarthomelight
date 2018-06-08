@@ -40,6 +40,7 @@ else:
         if operation == 'G':
             if len(split) < 6:
                 print("CLIENT ERROR: Get requires 4 paramters. Check the documentation. ;)\n")
+                sys.exit(2)
             else:
                 module=split[4]
                 item=split[5]
@@ -48,6 +49,7 @@ else:
         elif operation == 'S':
             if len(split) < 7:
                 print("CLIENT ERROR: Get requires 6 paramters. Check the documentation. ;)\n")
+                sys.exit(2)
             else:
                 module=split[4]
                 item=split[5]

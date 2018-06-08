@@ -1,22 +1,34 @@
 // -----------  get data result  ----------- 
+
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
 function getLastTempResult() {
-  $.getJSON('/last/', function( data ) {
+  $.getJSON('/getmodules/thermometer/external_thermometer', function( data ) {
     if (typeof data != 'undefined') {
-        ar=data[0].toString().split(".");
+        data=roundToTwo(data);
+        ar=data.toString().split(".");
         $("#currenttemp").html(  ar[0]  );
         $("#currenttemp_decimal").html(  ar[1]  );
-
-        ar=data[1].toString().split(".");
-        $("#currenttemp_int").html(  ar[0]  );
-        $("#currenttemp_int_decimal").html(  ar[1]  );
-
-        ar=data[2].toString().split(".");
-        $("#humidity_int").html(  ar[0]  );
-        $("#humidity_int_decimal").html(  ar[1]  );
-
-
     }
   });
+  
+  $.getJSON('/getmodules/thermometer/internal_thermometer_temperature', function( data ) {
+        data=roundToTwo(data);
+        ar=data.toString().split(".");
+        $("#currenttemp_int").html(  ar[0]  );
+        $("#currenttemp_int_decimal").html(  ar[1]  );
+  });
+  
+
+  $.getJSON('/getmodules/thermometer/internal_thermometer_humidity', function( data ) {
+        data=roundToTwo(data);
+        ar=data.toString().split(".");
+        $("#humidity_int").html(  ar[0]  );
+        $("#humidity_int_decimal").html(  ar[1]  );  
+  });
+  
 }
 
 // ----------- charts  ----------- 
@@ -24,7 +36,7 @@ google.load('visualization', '1', {packages: ['corechart', 'line']});
 google.setOnLoadCallback(drawCurveTypes);
 
 function drawCurveTypes() {
-  $.getJSON('/day/', function( jsondata ) {
+  $.getJSON('/js/day.json', function( jsondata ) {
     if (typeof jsondata != 'undefined') {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Hour');
