@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import os, sys, milight, time, datetime, socket
+import os, sys,  time, datetime, socket
 
 gpioID = 23
 min_lumens = 5
@@ -12,23 +12,46 @@ min_lumens = 5
 
 
 #get param 
-lock_file     = sys.argv[1]
-milight_ip    = sys.argv[2]
-milight_port  = int(sys.argv[3])
-milight_group = int(sys.argv[4])
+
 
 SUNSET_RANGE = range(11,22)
+
+modulename=sys.argv[2]
+
 
 get_lumens_string='G VALUES light_sensor internal_light_sensor'
 get_houseisempty_string='G VALUES houseisempty mobile_check'
 
-
+milight_string=' VALUES '+modulename+' light_manager'
 
 #connect to milight 
-print lock_file + " " +  milight_ip + " " + str(milight_port) + " " + str(milight_group)
-controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_duration=0)
-light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
-last_mobile_status = True
+last_mobile_status = False
+
+
+def setmilight( s , val):
+#   print "setmilight: "+'G' + milight_string
+   s.send('G' + milight_string)
+   data = s.recv(1024)
+#   print data
+   if data == "":
+     data = '1,0,0,0'
+   
+   data =  val+data[1:]
+#   print data   
+   s.send('S' + milight_string +' '+  data)
+   data = s.recv(1024)
+#   print data
+   return data
+
+
+
+
+def getlumens( s ):
+   s.send(get_lumens_string)
+   data = s.recv(1024)
+#   print data
+   return float(data)
+
 
 def getlumens( s ):
    s.send(get_lumens_string)
@@ -52,25 +75,22 @@ s.connect((host, port))
 
 # main loop
 while True:
-    time.sleep(60)
     TIMENOW=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+" "
 
     mobile_status = houseisempty( s )
     lumens = getlumens(s)
 #    print mobile_status
 
-    if True:
-#    if mobile_status != last_mobile_status:
+
+    if mobile_status != last_mobile_status:
         if mobile_status:
 #            print TIMENOW+"light sensor: " + str(lumens)
             if (lumens < min_lumens) :
 #                print "set light on"
-                time.sleep(4)
-                controller.send(light.fade_up(milight_group))
-#                light.wait(0)
+                setmilight(s, "1")
                 last_mobile_status = mobile_status
         else:       
-          controller.send(light.off(milight_group)) 
+          setmilight(s, "0")
 #          print TIMENOW+"set light Off"
           last_mobile_status = mobile_status
 
@@ -83,4 +103,5 @@ while True:
         date = datetime.datetime.today()
         if date.hour in SUNSET_RANGE:
 #           print TIMENOW+"set light on (Sunset)"
-           controller.send(light.fade_up(milight_group))
+           setmilight(s, "1")
+    time.sleep(6)
