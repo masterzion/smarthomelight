@@ -104,4 +104,4 @@ while True:
         if date.hour in SUNSET_RANGE:
 #           print TIMENOW+"set light on (Sunset)"
            setmilight(s, "1")
-    time.sleep(6)
+    time.sleep(60)

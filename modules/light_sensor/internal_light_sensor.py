@@ -52,4 +52,4 @@ while True:
 #    print data
 
     #wait
-    time.sleep(50)
+    time.sleep(60)

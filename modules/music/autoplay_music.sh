@@ -14,6 +14,9 @@ CINEMAMODE_STRING="cinemamode cinemamode_on"
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="play"
 
+MAX_HOUR=21
+MIN_HOUR=10
+
 
 while true;
 do
@@ -27,7 +30,10 @@ do
         if [ "$CINEMAMODE" == "1" ]; then
             $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM 0 > /dev/null
         else
-            $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM -1 > /dev/null
+            HOUR=$(date +"%H")
+            if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
+                $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM -1 > /dev/null
+            fi
         fi
     fi
 

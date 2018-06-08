@@ -33,6 +33,9 @@ while True:
     #get the answer
     s.send('G VALUES '+modulename+' '+modulitem)
     status = s.recv(1024)
+    if status == "":
+        "0,0,0,0"
+    
     if not status == last_status :
         for group in [0,1,2,3] :
             ar_status = status.split(',')
@@ -47,4 +50,4 @@ while True:
                     controller.send(light.fade_down(migroup))
 
     last_status = status
-    time.sleep(1)
+    time.sleep(2)
