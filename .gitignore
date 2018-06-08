@@ -1,5 +1,7 @@
-smarthome.db
-*.pyc
 sensors.log
 web/js/salt.js
 lockfiles/*
+bkp/*
+modules/weatherstation/smarthome.*
+modules/weatherstation/*.pyc
+modules/webserver/home/js/*.json

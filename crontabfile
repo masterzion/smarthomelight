@@ -1,8 +1,0 @@
-SHELL=/bin/bash
-@reboot  /usr/bin/python /root/weatherstation/sensors.py > /dev/null
-@reboot  /bin/bash /root/weatherstation/autoplay_music.sh > /dev/null
-@reboot  /root/weatherstation/run_startlight.sh > /dev/null
-@reboot  /usr/bin/python /root/weatherstation/heater.py > /dev/null
-@reboot  /root/weatherstation/houseisempty.sh > /dev/null
-#@reboot  /usr/bin/python  -m tornado.autoreload   /root/weatherstation/web/webserver.py
-@reboot /bin/bash -c 'source ~/.bashrc &&  /usr/bin/python  -m tornado.autoreload   /root/weatherstation/web/webserver.py'

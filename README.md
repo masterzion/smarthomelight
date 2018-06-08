@@ -51,8 +51,15 @@ export WEATHER_SERVER_SALT='add some random chars here'
 export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
 ```
 
-
 add the crontabfile content in your crontab and reboot
+``` bash
+@reboot $SMARTHOME_DIR/bin/service_manager.sh start autostart start_modules
+```
+
+RECOMENDED:
+``` bash
+  apt-get install sysstat
+```
 
 TODO:
 https://certbot.eff.org/lets-encrypt/debianwheezy-apache

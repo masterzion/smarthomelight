@@ -1,0 +1,50 @@
+#!/usr/bin/python
+import os, sys, milight, socket, time
+
+memdb_host = 'localhost'
+memdb_port=int(sys.argv[1])
+modulename=sys.argv[2]
+
+milight_ip    = sys.argv[3]
+milight_port  = int(sys.argv[4])
+
+modulitem='light_manager'
+
+#connect to milight 
+controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_duration=0)
+light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
+
+
+#connect to the memory db
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((memdb_host, memdb_port))
+
+#Turn off all lights
+controller.send(light.all_off())
+
+status="0,0,0,0"
+last_status=status
+
+s.send('S VALUES '+modulename+' '+modulitem+' '+status)
+data = s.recv(1024)
+
+# main loop
+while True:
+    #get the answer
+    s.send('G VALUES '+modulename+' '+modulitem)
+    status = s.recv(1024)
+    if not status == last_status :
+        for group in [0,1,2,3] :
+            ar_status = status.split(',')
+            ar_last_status = last_status.split(',')
+            if not ar_last_status[group] == ar_status[group]:
+#                print "group "+str(group) + ": "+ ar_status[group]
+                migroup=int(group)+1
+                if ar_status[group] == '1' :
+                    controller.send(light.white(1))
+                    controller.send(light.fade_up(migroup))
+                else:
+                    controller.send(light.fade_down(migroup))
+
+    last_status = status
+    time.sleep(1)

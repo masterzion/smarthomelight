@@ -1,0 +1,336 @@
+.center {
+    margin: auto;
+    width: 20%;
+}
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mainmenu {
+    max-height: 13%;
+    max-width: 13%;
+    padding: 0.3%;
+}
+
+@media (pointer:none), (pointer:coarse) {
+    .mainmenu {
+        min-height: 40%;
+        min-width: 40%;
+        padding: 2%;
+    }
+}
+
+
+
+.header .image {
+    background: url("/icons/favicon64.ico") 
+                no-repeat;
+    width: 5%;
+    min-width: 65px;
+    height: 65px;
+}
+
+.header .text {
+    font: x-large sans-serif;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.header .image, 
+.header .text {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    
+}
+
+
+.group {
+  display: block;
+}
+
+.group ul {
+  list-style: none;
+}
+
+.group ul li { 
+	display: inline;
+	list-style: none;
+  	float: left;
+  	padding: 0 10px 0 0;
+  	text-align:center; 
+}
+
+.group ul li span a {
+	background-color: #fff;
+}
+
+.group ul li a {
+  display: block;
+  opacity: 0.75;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+.group ul li a:hover {
+  opacity: 1.0;
+}
+
+.group ul li a img {
+  border: 6px solid #e1d9ec;
+}
+
+
+
+
+
+
+
+.center {
+    margin: auto;
+    width: 20%;
+}
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mainmenu {
+    max-height: 13%;
+    max-width: 13%;
+    padding: 0.3%;
+}
+
+@media (pointer:none), (pointer:coarse) {
+    .mainmenu {
+        min-height: 40%;
+        min-width: 40%;
+        padding: 2%;
+    }
+}
+
+
+
+.header .image {
+    background: url("/icons/favicon64.ico") 
+                no-repeat;
+    width: 5%;
+    min-width: 65px;
+    height: 65px;
+}
+
+.header .text {
+    font: x-large sans-serif;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.header .image, 
+.header .text {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    
+}
+
+
+.group {
+  display: block;
+}
+
+.group ul {
+  list-style: none;
+}
+
+.group ul li { 
+	display: inline;
+	list-style: none;
+  	float: left;
+  	padding: 0 10px 0 0;
+  	text-align:center; 
+}
+
+.group ul li span a {
+	background-color: #fff;
+}
+
+.group ul li a {
+  display: block;
+  opacity: 0.75;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+.group ul li a:hover {
+  opacity: 1.0;
+}
+
+.group ul li a img {
+  border: 6px solid #e1d9ec;
+}
+
+
+
+
+
+
+
+.content {
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+    width: 100%;
+}
+
+.thermometers {
+    margin: 20px auto;
+    width: 840px;
+}
+
+.thermometers .label {
+    float: left;
+    font-family: 'Dosis';
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    width: 280px;
+}
+
+.thermometers .details {
+    float: left;
+    font-family: 'Dosis';
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    width: 280px;
+}
+
+.thermometers .last-update {
+    font-family: 'Dosis';
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px auto;
+    text-align: center;
+    width: 560px;
+}
+
+ .de .den, .de .dene, .de .denem, .de .deneme {
+   left: 50%; 
+   position: absolute;
+   top: 50%;
+}
+
+.de {
+    background-color: transparent;
+    border-radius: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    float: left;
+    height: 240px;
+    margin: 20px;
+    position: relative;
+    width: 240px;
+}
+
+.den {
+    background: #df3341;
+    background: -moz-linear-gradient(left, #df3341 0%, #d4f355 50%, #61c0ec 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#df3341), color-stop(50%,#d4f355), color-stop(100%,#61c0ec));
+    background: -webkit-linear-gradient(left, #df3341 0%,#d4f355 50%,#61c0ec 100%);
+    background: linear-gradient(to right, #df3341 0%,#d4f355 50%,#61c0ec 100%);
+    border-radius: 100%;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, .5), 0 2px 20px rgba(255, 255, 255, 1);
+    height: 210px;
+    margin: -105px 0 0 -105px;
+    position: relative;
+    width: 210px;
+}
+
+.denh {
+    background: #df3341;
+    background: -moz-linear-gradient(left, #61c0ec 0%, #09ff00 50%, #61c0ec 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#61c0ec), color-stop(50%,#09ff00), color-stop(100%,#61c0ec));
+    background: -webkit-linear-gradient(left, #61c0ec 0%,#09ff00 50%,#61c0ec 100%);
+    background: linear-gradient(to right, #61c0ec 0%,#09ff00 50%,#61c0ec 100%);
+    border-radius: 100%;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, .5), 0 2px 20px rgba(255, 255, 255, 1);
+    height: 210px;
+    left: 50%;
+    margin: -105px 0 0 -105px;
+    position: relative;
+    top: 50%;
+    width: 210px;
+}
+
+.dene {
+    background: #f2f6f5;
+    background: -moz-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f6f5), color-stop(100%, #cbd5d6));
+    background: -webkit-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+    background: -o-linear-gradient(top, #f2f6f5 0%, #cbd5d6 100%);
+    border-radius: 100%;
+    box-shadow: inset 0 2px 2px rgba(255, 255, 255, .4), 0 3px 13px rgba(0, 0, 0, .85);
+    height: 180px;    
+    margin: -90px 0 0 -90px;
+    width: 180px;
+}
+
+.denem {
+    background: #cbd5d6;
+    background: -moz-linear-gradient(top, #cbd5d6 0%, #f2f6f5 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cbd5d6), color-stop(100%, #f2f6f5));
+    background: -webkit-linear-gradient(top, #cbd5d6 0%, #f2f6f5 100%);
+    border-radius: 100%;
+    height: 160px;
+    margin: -80px 0 0 -80px;
+    width: 160px;
+}
+
+.deneme {
+    color: #555;
+    display: inline-block;
+    font-family: 'Dosis';
+    font-size: 70px;
+    font-weight: 400;
+    height: 137px;
+    margin: -70px 0 0 -70px;
+    padding: 23px 10px 0 10px;
+    text-align: center;
+    text-shadow: 1px 1px 1px white;
+    width: 120px;
+}
+
+.deneme span {
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.deneme strong { 
+  font-size: 34px;
+  position: absolute; 
+  right: 10px; 
+  top: 25px;
+}
+
+.chartdiv {
+    float: left;
+    height: 300px;
+    width: 100%;
+}
+
+.linkdiv {
+    float: left;
+    height: 300px;
+    margin-top : 40px;
+    text-align: center;
+    width: 100%;
+}
+

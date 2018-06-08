@@ -1,0 +1,1 @@
+Using the an infrared light to send the start signal.

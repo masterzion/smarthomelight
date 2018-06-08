@@ -1,0 +1,3 @@
+memorydb
+light_sensor
+houseisempty
