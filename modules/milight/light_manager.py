@@ -14,27 +14,27 @@ modulitem='light_manager'
 controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_duration=0)
 light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
 
-
-#connect to the memory db
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((memdb_host, memdb_port))
-
 #Turn off all lights
 controller.send(light.all_off())
 
 status="0,0,0,0"
 last_status=status
 
-s.send('S VALUES '+modulename+' '+modulitem+' '+status)
-data = s.recv(1024)
+def getgroup(group):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((memdb_host, memdb_port))
+    s.send('G PIDS '+modulename+' '+'switch_group'+str(group))
+    data = s.recv(1024)
+    if data in ["0", ""]:
+        return "0"
+    else:
+        return "1"
 
 # main loop
 while True:
     #get the answer
-    s.send('G VALUES '+modulename+' '+modulitem)
-    status = s.recv(1024)
-    if status == "":
-        "0,0,0,0"
+    status = getgroup(1)+','+getgroup(2)+','+getgroup(3)+','+getgroup(4)
+#    print status
     
     if not status == last_status :
         for group in [0,1,2,3] :
