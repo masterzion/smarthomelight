@@ -77,13 +77,13 @@ class BaseHandler(tornado.web.RequestHandler):
 class MainHandler(BaseHandler):
     def get(self):
         if not self.current_user:
-            self.redirect("/login")
+            self.redirect("/index.html")
             return
         PARAM=tornado.escape.xhtml_escape(self.password)
         if CheckPass(self):
-           self.redirect("/index.html")        
+           self.redirect("/home")
         else:
-            self.redirect("/login")
+            self.redirect("/index.html")
 
 
 class ListHome(tornado.web.RequestHandler):
@@ -225,7 +225,7 @@ class LoginHandler(BaseHandler):
         PARAM=self.get_argument("password")
         if CheckPassStr(PARAM):
            self.set_secure_cookie("password", PARAM)
-           self.redirect("/home.html")
+           self.redirect("/home")
         else:
            self.set_secure_cookie("password", '')
            self.redirect("/index.html")
