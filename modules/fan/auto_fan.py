@@ -71,6 +71,6 @@ while True:
             s.send('S PIDS '+modulename+' '+item_name+' 0')
             data = s.recv(1024)
         lastStatus = setEnable
-    time.sleep(120)
+    time.sleep(60)
 
 

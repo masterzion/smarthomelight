@@ -187,13 +187,13 @@ class ListItem(tornado.web.RequestHandler):
             for n in range(0, len(ar_items)) :
                 item=ar_items[n]
                 module, moduleitem=ar_modules[n]
-                patch=module+'/'+item
+                patch=module+'/'+moduleitem
                 if isinstance(ar_values[n], bool):
                     if ar_values[n] :
                         ischecked=" checked " 
                     else:
                         ischecked="" 
-                    data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="checkbox" id="chk_status_'+item+'" data-on="ON" data-off="OFF" onchange="switchitem(this,"'+patch+'")" '+ischecked+'/></li></ul></div>'+"\n"
+                    data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="checkbox" id="chk_status_'+item+'"  uri_val="'+patch+'"  data-on="ON" data-off="OFF" onchange="switchitem(this,\''+patch+'\')" '+ischecked+'/></li></ul></div>'+"\n"
                 if isinstance(ar_values[n], float):
                     integer, decimal =  str(round(ar_values[n], 2)).split('.')
                     data += '<div class="content"><div class="thermometers"><div class="de"><div class="den"><div class="dene"><div class="denem"><div class="deneme">'

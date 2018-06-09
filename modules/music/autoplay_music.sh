@@ -16,6 +16,8 @@ MODULE_ITEM="play"
 
 MAX_HOUR=21
 MIN_HOUR=10
+LAST_STATE="0"
+STATE=0
 
 
 while true;
@@ -24,18 +26,23 @@ do
     HOUSEISEMPT=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES $HOUSEISEMPTY_STRING)
 
     if [ "$HOUSEISEMPT" == "1" ]; then
-        $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM 0 > /dev/null
+        STATE=0
     else
         CINEMAMODE=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES $CINEMAMODE_STRING)
         if [ "$CINEMAMODE" == "1" ]; then
-            $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM 0 > /dev/null
+            STATE=0
         else
             HOUR=$(date +"%H")
             if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-                $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM -1 > /dev/null
+                STATE="-1"
             fi
         fi
     fi
+    
+    if [ ! "$LAST_STATE" == "$STATE" ] ; then 
+        $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM $STATE > /dev/null
+        LAST_STATE=$STATE
+    fi
 
-    sleep 5
+    sleep 30
 done

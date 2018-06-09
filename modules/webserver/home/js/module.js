@@ -1,14 +1,18 @@
-function switchitem(obj, patch){
+function switchitem(s){
+    obj=document.getElementById(s);
 
-    if (  document.getElementById(obj).checked ) {
+    if (  obj.checked ) {
        val=1;
     } else {
        val=0;
     }
+    
+    
+    uri=obj.attributes['uri_val'].value
+    s_url='/setmodules/'+uri+'/'+val;
 
-   
     $.ajax({
-      url: '/setmodules/fan/fan_turnon/'+val,
+      url: s_url,
     });
 }
 

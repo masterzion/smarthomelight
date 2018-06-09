@@ -22,5 +22,5 @@ do
     else
        gpio -g write $GPIO 0
     fi
-    sleep 5
+    sleep 30
 done

@@ -1,7 +1,8 @@
 #!/bin/bash
 source ~/.bashrc
 
-MAX_RETRY=100
+#MAX_RETRY=120
+MAX_RETRY=50
 SLEEP=20
 
 MODULENAME=$(cat modulename.txt)
@@ -34,13 +35,13 @@ do
            break
         else
            ISEMPT=0
-           sleep $SLEEP
 #           echo "is not active "
         fi
     done
 
 
     if [ $ISEMPT -eq 0 ]; then
+        sleep 5
         if [ $RETRY -eq $MAX_RETRY ]; then
            $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
         else
@@ -48,9 +49,9 @@ do
             RETRY=$((RETRY+1))
         fi
     else
+        sleep $SLEEP
         $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
         RETRY=1
     fi
-    sleep 5
     ISEMPT=0
 done

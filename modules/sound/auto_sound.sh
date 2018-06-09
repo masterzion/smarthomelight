@@ -37,5 +37,5 @@ do
        $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM -1 > /dev/null
     fi
 
-    sleep 5
+    sleep 20
 done
