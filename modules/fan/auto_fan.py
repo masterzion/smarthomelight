@@ -9,7 +9,7 @@ setEnable = True
 modulename=sys.argv[2]
 item_name='fan_turnon'
 
-turnon_temperature_range = range(24,35)
+turnon_temperature_range = range(25,40)
 
 #connect to the memory db
 port=int(sys.argv[1])
@@ -71,6 +71,6 @@ while True:
             s.send('S PIDS '+modulename+' '+item_name+' 0')
             data = s.recv(1024)
         lastStatus = setEnable
-    time.sleep(60)
+    time.sleep(60 * 10)
 
 
