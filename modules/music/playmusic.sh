@@ -40,7 +40,7 @@ do
             if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
                mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 75 > /dev/null
             else
-               mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 60 > /dev/null
+               mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 68 > /dev/null
             fi
             
             mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null

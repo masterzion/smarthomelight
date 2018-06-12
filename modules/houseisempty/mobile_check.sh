@@ -3,7 +3,6 @@ source ~/.bashrc
 
 #MAX_RETRY=120
 MAX_RETRY=50
-SLEEP=20
 
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
@@ -49,9 +48,9 @@ do
             RETRY=$((RETRY+1))
         fi
     else
-        sleep $SLEEP
         $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
         RETRY=1
+        sleep 60
     fi
     ISEMPT=0
 done
