@@ -28,6 +28,9 @@ $( window ).load(function() {
        switchitem(name);
     });
 
-  
+
+    $('#headerimage').click(function() {
+       window.location.assign("/")
+    });
 
 });

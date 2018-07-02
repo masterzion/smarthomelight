@@ -28,6 +28,7 @@
 .header .image {
     background: url("/icons/favicon64.ico") 
                 no-repeat;
+    cursor: pointer;
     width: 5%;
     min-width: 65px;
     height: 65px;
