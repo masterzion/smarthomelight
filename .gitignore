@@ -5,3 +5,4 @@ bkp/*
 modules/weatherstation/smarthome.*
 modules/weatherstation/*.pyc
 modules/webserver/home/js/*.json
+modules/tuya/tuya.conf

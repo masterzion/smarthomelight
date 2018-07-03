@@ -3,6 +3,7 @@
 source ~/.bashrc
 
 STATUS=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES milight light_manager)
+MODULENAME=$(cat modulename.txt)
 
 GROUP_STATUS=$(echo $STATUS | awk -F  "," '{print $3}')
 if [ "$GROUP_STATUS" -eq "0" ] ; then
@@ -14,4 +15,4 @@ fi
 
 STATUS=$(echo $STATUS | awk -F  "," '{print $1","$2",'$GROUP_STATUS',"$4}')
 
-$SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES milight light_manager $STATUS
+$SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME light_manager $STATUS
