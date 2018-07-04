@@ -22,7 +22,7 @@ ar_status = []
 
 
 def getstatus(index):
-#    print ids[index], ips[index], keys[index]
+#    print index
     try:
         d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
         data = d.status()  
@@ -30,16 +30,23 @@ def getstatus(index):
     except:
         return False
 
-def setstatus(index, status):
+def setstatus(index, status, count):
+#    print index,status
     try:
         d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
         data = d.status()  # NOTE this does NOT require a valid key
         if not status == data['dps']['1']:
             data = d.set_status(status)
-            data = d.status()  
-            return data['dps']['1']
+            time.sleep(2)
+            data = d.status()
+            return status
     except:
-        return False
+        time.sleep(1)
+        count+=1
+        if count < 3:
+          return setstatus(index, status, count)
+        else:
+          return False
 
 
 def setgroup(status):
@@ -98,9 +105,9 @@ while True:
 #                print "group "+str(group) + ": "+ ar_status[group]
                 migroup=int(group)+1
                 if ar_status[group] == '1' :
-                    setstatus(group, True)
+                    setstatus(group, True, 0)
                 else:
-                    setstatus(group, False)
+                    setstatus(group, False, 0)
 
     last_status = status
     time.sleep(1)
