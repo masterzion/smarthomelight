@@ -28,6 +28,7 @@ def getstatus(index):
         data = d.status()  
         return data['dps']['1']
     except:
+#        print "Unexpected error:", sys.exc_info()[0]
         return False
 
 def setstatus(index, status, count):
@@ -39,7 +40,8 @@ def setstatus(index, status, count):
             data = d.set_status(status)
             time.sleep(2)
             data = d.status()
-            return status
+#            print data
+            return data
     except:
         time.sleep(1)
         count+=1
@@ -92,11 +94,15 @@ setgroup(status)
 # main loop
 while True:
     #get the answer
-    status = getgroup(1)+','+getgroup(2)+','+getgroup(3)+','+getgroup(4)
+#    status = getgroup(1)+','+getgroup(2)+','+getgroup(3)+','+getgroup(4)
+    status = getgroup(1)+','+getgroup(2)+','+getgroup(3)
+
 #    print status
+#    print last_status
     
     if not status == last_status :
-        for group in [0,1,2,3] :
+#        for group in [0,1,2,3] :
+        for group in [0,1,2] :
             ar_status = status.split(',')
             ar_last_status = last_status.split(',')
 #            print ar_last_status[group]

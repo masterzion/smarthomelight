@@ -20,12 +20,17 @@ memdb_host = 'localhost'
 memdb_port=int(sys.argv[1])
 modulename=sys.argv[2]
 moduleitem="sound_turnon"
+cinemamode_str="cinemamode cinemamode_on"
 
-gpio=23
+
+gpio_relay=19
+gpio_channel=17
 
 GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(gpio, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(gpio_relay, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(gpio_channel, GPIO.OUT, initial=GPIO.LOW)
+
 sendtext('S VALUES '+modulename+' '+moduleitem+' 0')
 
 while True:
@@ -35,9 +40,23 @@ while True:
     if value == "":
        value="0"
 
+
     if value == "0":
-       GPIO.output(gpio, GPIO.HIGH)
+       GPIO.output(gpio_relay, GPIO.HIGH)
     else:
-       GPIO.output(gpio, GPIO.LOW)
+       GPIO.output(gpio_relay, GPIO.LOW)
    
+
+    cinemamode=sendtext('G PIDS '+cinemamode_str)
+
+    if cinemamode == "":
+       cinemamode="0"
+
+
+    if cinemamode == "0":
+       GPIO.output(gpio_channel, GPIO.LOW)
+    else:
+       GPIO.output(gpio_channel, GPIO.HIGH)
+
+
     time.sleep(5)

@@ -10,7 +10,6 @@ CINEMAMODE_STRING="cinemamode cinemamode_on"
 PLAYMUSIC_STRING="music play"
 
 
-
 $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME $MODULE_ITEM 1 > /dev/null
 
 

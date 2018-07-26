@@ -6,5 +6,5 @@ dtparam=i2c_arm=on
 dtoverlay=w1-gpio
 
 
-dtoverlay=lirc-rpi,gpio_out_pin=21,gpio_in_pin=20
+dtoverlay=lirc-rpi,gpio_out_pin=27,gpio_in_pin=22
 

@@ -20,7 +20,7 @@ memdb_port=int(sys.argv[1])
 modulename=sys.argv[2]
 moduleitem="heater_turnon"
 
-gpio=26
+gpio=13
 
 gpio_value=0
 GPIO.setmode(GPIO.BCM)
