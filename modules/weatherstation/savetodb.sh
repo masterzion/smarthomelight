@@ -2,4 +2,4 @@
 
 source ~/.bashrc
 
-./savetodb.py $SMARTHOME_MEMDB_PORT $(cat modulename.txt)
+/usr/bin/python ./savetodb.py $SMARTHOME_MEMDB_PORT "$(cat modulename.txt)" # >> savetodb.log  2>> error.log

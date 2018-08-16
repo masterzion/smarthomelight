@@ -31,36 +31,28 @@ group='1'
 port=int(sys.argv[1])
 host = 'localhost'
 
+
+
 def sendtext(text):
     #connect to the memory db
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))
-    print text
+#    print text
     s.send(text)
     data = s.recv(1024)
     s.close()
-    print data
+#    print data
     return data
-
-
-
 
 def setmilight(val):
 #   print "setmilight: "+'G' + milight_string
     data = sendtext('G' + milight_string)
-
     data = sendtext('S PIDS '+modulename+' '+'switch_group'+group+' '+val)
     return data
-
-
-
 
 def getlumens():
     data = sendtext(get_lumens_string)
     return float(data)
-
-
-
 
 def houseisempty():
     data = sendtext(get_houseisempty_string)
@@ -77,8 +69,6 @@ while True:
     lumens = getlumens()
 #    print last_mobile_status
 #    print mobile_status
-
-
     if mobile_status != last_mobile_status:
         if mobile_status:
 #            print TIMENOW+"light sensor: " + str(lumens)

@@ -64,7 +64,7 @@ while True:
     if setEnable != lastStatus :
 #        print "different"
         if setEnable:
-            s.send('S PIDS '+modulename+' '+item_name+' 1')
+            s.send('S PIDS '+modulename+' '+item_name+' -1')
             data = s.recv(1024)
         else:
             s.send('S PIDS '+modulename+' '+item_name+' 0')

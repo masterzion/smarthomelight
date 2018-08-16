@@ -28,7 +28,7 @@ def getstatus(index):
         data = d.status()  
         return data['dps']['1']
     except:
-#        print "Unexpected error:", sys.exc_info()[0]
+        print "Unexpected error:", sys.exc_info()[0]
         return False
 
 def setstatus(index, status, count):
