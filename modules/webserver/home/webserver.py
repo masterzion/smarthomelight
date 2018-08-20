@@ -43,7 +43,7 @@ class ModulesGetValue(tornado.web.RequestHandler):
             data = DBGet('VALUES', modules, item )
             self.write( data  )
 
-class ModulesSetStatus(tornado.web.RequestHandler):
+class ModulesSwitchStatus(tornado.web.RequestHandler):
     #TODO: check modules.conf
     def get(self, modules, item, status):
 #        print "set:" + modules + '|'+ item+ '|' +status
@@ -53,13 +53,23 @@ class ModulesSetStatus(tornado.web.RequestHandler):
             else:
                 action='web_servicemanager_stop'
                 
-
-
             values=DBGet('VALUES', 'webserver', item)
             if modules == '0':
                 self.write( DBSet('VALUES', 'webserver', action , modules+'/'+item ) )
             else:
                 self.write(  DBSet('VALUES', 'webserver', action , modules+'/'+item+';'+values ) )
+
+
+class ModulesSetStatus(tornado.web.RequestHandler):
+    #TODO: check modules.conf
+    def get(self, modules, item, status):
+#        print "set:[" + modules + '|'+ item+ '|' +status + "]"
+        if CheckPass(self):
+            if status == '1':
+                action='web_servicemanager_start'
+            else:
+                action='web_servicemanager_stop'
+            self.write( DBSet('VALUES', modules, item, status) )
 
 
 def CheckPass(SELF):
@@ -172,6 +182,10 @@ class ListItem(tornado.web.RequestHandler):
                                     elif ar_module[2] == "R,Bool":
                                         ar_items.append(info.split(':')[2])
                                         ar_values.append(bool(val))
+                                    elif ar_module[2] == "R,Percent":
+                                        ar_items.append(info.split(':')[2])
+                                        val="50"
+                                        ar_values.append(int(val))
                                     elif ar_module[2][0] == "F":
                                        filename=ar_module[2].split(',')[1]
                                        with open(filename, 'r') as fhtml:
@@ -188,20 +202,25 @@ class ListItem(tornado.web.RequestHandler):
                 item=ar_items[n]
                 module, moduleitem=ar_modules[n]
                 patch=module+'/'+moduleitem
-                if isinstance(ar_values[n], bool):
+                
+                if type(ar_values[n]) in (float, int):
+                    data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="range" step="2" min="1" max="100" value="'+str(ar_values[n])+'" uri_val="'+patch+'" class="slider" id="range_status_'+item+'" oninput="setvalue(this)"  onchange="setvalue(this)"></div>'+"\n"
+
+                elif isinstance(ar_values[n], bool):
                     if ar_values[n] :
                         ischecked=" checked " 
                     else:
                         ischecked="" 
-                    data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="checkbox" id="chk_status_'+item+'"  uri_val="'+patch+'"  data-on="ON" data-off="OFF" onchange="switchitem(this,\''+patch+'\')" '+ischecked+'/></li></ul></div>'+"\n"
-                if isinstance(ar_values[n], float):
+                    data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="checkbox" id="chk_status_'+item+'"  uri_val="'+patch+'"  data-on="ON" data-off="OFF" onchange="switchitem(this)" '+ischecked+'/></li></ul></div>'+"\n"
+                    
+                elif isinstance(ar_values[n], float):
                     integer, decimal =  str(round(ar_values[n], 2)).split('.')
                     data += '<div class="content"><div class="thermometers"><div class="de"><div class="den"><div class="dene"><div class="denem"><div class="deneme">'
                     data += '<label id="currenttemp_int">'+integer+'</label><span>. <label id="currenttemp_int_decimal">'+decimal+'</label></span><strong>&deg;</strong>'
                     data += '</div></div></div></div></div></div></div>'+"\n\n"
                     
 
-                if isinstance(ar_values[n], str):
+                elif isinstance(ar_values[n], str):
                     data += item+' '+ar_values[n]
 
             data = '<div id="page" class="page"><form method="post" action="./" id="frm"><div id="items" class="items">'+"\n"+data+'</div></form></div>'+"\n"
@@ -237,6 +256,7 @@ class NoCacheStaticFileHandler(tornado.web.StaticFileHandler):
 application = tornado.web.Application([
     (r"/getmodules/(.*)/(.*)", ModulesGetValue),
     (r"/setmodules/(.*)/(.*)/(.*)", ModulesSetStatus),
+    (r"/switchmodules/(.*)/(.*)/(.*)", ModulesSwitchStatus),
     (r"/module/(.*)", ListItem),
     (r"/home", ListHome),
     (r"/", LoginHandler),

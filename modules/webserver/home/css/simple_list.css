@@ -26,6 +26,10 @@ body{
 	width:250px;
 }
 
+.slider {
+	width:70px;
+}
+
 .textleft {
    text-align: left;
 }

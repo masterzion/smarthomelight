@@ -9,14 +9,21 @@ function switchitem(s){
     
     
     uri=obj.attributes['uri_val'].value
-    s_url='/setmodules/'+uri+'/'+val;
+    s_url='/switchmodules/'+uri+'/'+val;
 
     $.ajax({
       url: s_url,
     });
 }
 
+function setvalue(obj){
+    uri=obj.attributes['uri_val'].value
+    s_url='/setmodules/'+uri+'/'+obj.value;
 
+    $.ajax({
+      url: s_url,
+    });
+}
 
 
 

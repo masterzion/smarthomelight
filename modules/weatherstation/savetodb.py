@@ -30,13 +30,13 @@ def savetodb(num):
         s.send('G VALUES thermometer internal_thermometer_temperature')
         sensor2_value_t = s.recv(1024)
 
-        print sensor1_value,sensor2_value_t, sensor2_value_h, datetime
+#        print sensor1_value,sensor2_value_t, sensor2_value_h, datetime
 
         Sensors().InsertData(sensor1_value,sensor2_value_t, sensor2_value_h, datetime)
         return True
     except ValueError:
       if num < maxtry:
-         time.sleep(5)
+         time.sleep(30)
          print ValueError
          return savetodb(num+1)
       else:

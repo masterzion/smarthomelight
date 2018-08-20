@@ -9,7 +9,7 @@ setEnable = True
 modulename=sys.argv[2]
 item_name='fan_turnon'
 
-turnon_temperature_range = range(23,40)
+turnon_temperature_range = range(26,40)
 
 #connect to the memory db
 port=int(sys.argv[1])
