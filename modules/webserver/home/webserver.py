@@ -184,7 +184,6 @@ class ListItem(tornado.web.RequestHandler):
                                         ar_values.append(bool(val))
                                     elif ar_module[2] == "R,Percent":
                                         ar_items.append(info.split(':')[2])
-                                        val="50"
                                         ar_values.append(int(val))
                                     elif ar_module[2][0] == "F":
                                        filename=ar_module[2].split(',')[1]
