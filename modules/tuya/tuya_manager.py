@@ -43,9 +43,9 @@ def setstatus(index, status, count):
 #            print data
             return data
     except:
-        time.sleep(1)
+        time.sleep(2 * count)
         count+=1
-        if count < 3:
+        if count < 10:
           return setstatus(index, status, count)
         else:
           return False
