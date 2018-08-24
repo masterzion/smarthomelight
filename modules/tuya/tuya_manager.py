@@ -36,13 +36,15 @@ def setstatus(index, status, count):
     try:
         d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
         data = d.status()  # NOTE this does NOT require a valid key
+#        print data
         if not status == data['dps']['1']:
             data = d.set_status(status)
             time.sleep(2)
             data = d.status()
 #            print data
             return data
-    except:
+    except IOError as e:
+        print "I/O error({0}): {1}".format(e.errno, e.strerror)
         time.sleep(2 * count)
         count+=1
         if count < 10:

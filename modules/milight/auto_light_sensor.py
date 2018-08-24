@@ -25,6 +25,7 @@ get_houseisempty_string='G VALUES houseisempty mobile_check'
 milight_string=' VALUES '+modulename+' light_manager'
 
 #connect to milight 
+
 last_mobile_status = False
 group='1'
 
@@ -60,6 +61,9 @@ def houseisempty():
         data = "0"
     return bool(data == "0")
 
+
+setmilight("0")
+time.sleep(3)
 
 # main loop
 while True:
