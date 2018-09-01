@@ -1,0 +1,2 @@
+1 15 * * * root /root/weatherstation/bin/service_manager.sh stop tuya switch_group3 >/dev/null 2>&1
+
