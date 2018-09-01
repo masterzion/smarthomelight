@@ -6,7 +6,7 @@ https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
 INSTALL
 ``` bash
-apt-get install python-setuptools git sqlite3 python-smbus i2c-tools arp-scan
+apt-get install python-setuptools git sqlite3 python-smbus i2c-tools arp-scan bc
 
 git clone git://git.drogon.net/wiringPi
 cd wiringPi

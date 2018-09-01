@@ -22,6 +22,7 @@ $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM 0 > /de
 
 MAX_HOUR=22
 MIN_HOUR=10
+MIN_VOL=50
 
 while true;
 do
@@ -38,9 +39,9 @@ do
         if [ "$SEND_COMMAND" == "play" ]; then
             HOUR=$(date +"%H")
             if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 75 > /dev/null
+               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 50 > /dev/null
             else
-               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 68 > /dev/null
+               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 30 > /dev/null
             fi
         fi
         mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
@@ -51,6 +52,9 @@ do
     fi
 
     VOLUME=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES $MODULE_NAME sound_volume)
+    VOLUME=`echo "($VOLUME / 2) + $MIN_VOL" | bc`
+    VOLUME=${VOLUME%.*}
+
 
     mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume $VOLUME > /dev/null
     sleep 2
