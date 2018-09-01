@@ -42,16 +42,16 @@ do
             else
                $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 68 > /dev/null
             fi
-
-            mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
-        else
-            mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
         fi
+        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
         LASTSTATE=$PLAY
+    fi
+    if [ "$PLAY" == "0" ]; then
+       sleep 3
     fi
 
     VOLUME=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES $MODULE_NAME sound_volume)
 
     mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume $VOLUME > /dev/null
-    sleep 5
+    sleep 2
 done
