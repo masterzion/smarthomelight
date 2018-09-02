@@ -4,6 +4,12 @@ source ~/.bashrc
 #MAX_RETRY=120
 MAX_RETRY=50
 
+AIR_VICK_GPIO=13
+MAX_HOUR=23
+MIN_HOUR=08
+
+gpio -g mode $AIR_VICK_GPIO out
+
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
 
@@ -52,5 +58,16 @@ do
         RETRY=1
         sleep 60
     fi
+
+    AIRVICK_STATUS=1
+    HOUR=$(date +"%H")
+    if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
+        if [ $ISEMPT -eq 1 ]; then
+            AIRVICK_STATUS=0
+        fi
+    fi
+
+    gpio -g write $AIR_VICK_GPIO $AIRVICK_STATUS
+
     ISEMPT=0
 done
