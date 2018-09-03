@@ -6,7 +6,7 @@ MAX_RETRY=50
 
 AIR_VICK_GPIO=13
 MAX_HOUR=23
-MIN_HOUR=08
+MIN_HOUR=10
 
 gpio -g mode $AIR_VICK_GPIO out
 
@@ -62,7 +62,7 @@ do
     AIRVICK_STATUS=1
     HOUR=$(date +"%H")
     if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-        if [ $ISEMPT -eq 1 ]; then
+        if [ ! $ISEMPT -eq 0 ]; then
             AIRVICK_STATUS=0
         fi
     fi
