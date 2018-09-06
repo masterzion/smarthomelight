@@ -44,9 +44,9 @@ while True:
 #                print "group "+str(group) + ": "+ ar_status[group]
                 migroup=int(group)+1
                 if ar_status[group] == '1' :
-                    controller.send(light.white(migroup))
-                    time.sleep(2)
                     controller.send(light.fade_up(migroup))
+                    time.sleep(2)
+                    controller.send(light.white(migroup))
                 else:
                     controller.send(light.fade_down(migroup))
                     time.sleep(2)

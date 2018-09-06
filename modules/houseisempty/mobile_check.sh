@@ -14,7 +14,7 @@ MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
 
 $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
-gpio -g write $AIR_VICK_GPIO 0
+gpio -g write $AIR_VICK_GPIO 1
 
 get_state() {
     IP=$1
@@ -50,17 +50,17 @@ do
         sleep 5
         if [ $RETRY -eq $MAX_RETRY ]; then
            $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
-           HOUR=$(date +"%H")
-           if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-               gpio -g write $AIR_VICK_GPIO 0
-           fi
+           gpio -g write $AIR_VICK_GPIO 1
         else
 #            echo "Retry $RETRY"
             RETRY=$((RETRY+1))
         fi
     else
         $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
-        gpio -g write $AIR_VICK_GPIO 1
+        HOUR=$(date +"%H")
+        if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
+            gpio -g write $AIR_VICK_GPIO 0
+        fi
         RETRY=1
         sleep 60
     fi
