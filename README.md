@@ -1,11 +1,5 @@
 # weatherstation
 
-![hardware](/docs/circuit.jpg)
-![home screen](/docs/home.jpg)
-![weather](/docs/weather.jpg)
-![milight](/docs/milight.jpg)
-![music](/docs/music.jpg)
-
 Based in this tutorial:
 https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
@@ -78,8 +72,11 @@ Tornado (REST): http://www.tornadoweb.org/en/stable/
 
 Google Charts: https://developers.google.com/chart/
 
+![hardware](/docs/circuit.jpg)
+![home screen](/docs/home.jpg)
+![weather](/docs/weather.jpg)
+![milight](/docs/milight.jpg)
+![music](/docs/music.jpg)
 
 
-Online Sample:
 
-http://masterzion.no-ip.org:8888/
