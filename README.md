@@ -1,5 +1,11 @@
 # weatherstation
 
+![hardware](/docs/circuit.jpg)
+![home screen](/docs/home.jpg)
+![weather](/docs/weather.jpg)
+![milight](/docs/milight.jpg)
+![music](/docs/music.jpg)
+
 Based in this tutorial:
 https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
