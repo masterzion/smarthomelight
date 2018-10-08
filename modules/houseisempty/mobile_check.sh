@@ -60,6 +60,8 @@ do
         HOUR=$(date +"%H")
         if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
             gpio -g write $AIR_VICK_GPIO 0
+        else 
+            gpio -g write $AIR_VICK_GPIO 1
         fi
         RETRY=1
         sleep 60

@@ -6,6 +6,7 @@ from shutil import copyfile
 
 split = sys.argv
 
+memdb_host = 'localhost'
 MEMDB_PORT=int(split[1])
 WEB_PORT=int(split[2])
 PASS=os.environ["WEATHER_SERVER_PWD"]
@@ -18,7 +19,7 @@ file.close()
 
 def DBSendText(text):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(('localhost', MEMDB_PORT))
+    s.connect((memdb_host, MEMDB_PORT))
     s.send(text)
     data = s.recv(1024)
 #    print text+ ':'+data
@@ -52,7 +53,7 @@ class ModulesSwitchStatus(tornado.web.RequestHandler):
                 action='web_servicemanager_start'
             else:
                 action='web_servicemanager_stop'
-                
+
             values=DBGet('VALUES', 'webserver', item)
             if modules == '0':
                 self.write( DBSet('VALUES', 'webserver', action , modules+'/'+item ) )
@@ -101,14 +102,14 @@ class ListHome(tornado.web.RequestHandler):
         if CheckPass(self):
             with open('header.html', 'r') as f:
                 header = f.read()
-                
+
             with open('footer.html', 'r') as f:
                 footer = f.read()
-                
+
             header = header.replace('{header}', "- Home")
             header += '<div class="group"><ul id="horizontal-list">'
             footer = '</ul></div>'+footer
-                
+
             f = open('../modules.conf')
             ln = f.readline()
             ar_items = []
@@ -123,9 +124,9 @@ class ListHome(tornado.web.RequestHandler):
                             ar_items.append(menu_item)
                 ln = f.readline()
             f.close()
-               
 
-            data=""                   
+
+            data=""
             for item in ar_items:
                 img='/icons/'+item+'.png'
                 if not os.path.isfile("./"+img):
@@ -138,7 +139,7 @@ class ListHome(tornado.web.RequestHandler):
             self.write( header + data + footer  )
         else:
            self.redirect("/index.html")
-          
+
 
 class ListItem(tornado.web.RequestHandler):
     def get(self, menu):
@@ -147,7 +148,7 @@ class ListItem(tornado.web.RequestHandler):
 
             with open('header.html', 'r') as f:
                 header = f.read()
-                
+
             with open('footer.html', 'r') as f:
                 footer = f.read()
             header = header.replace('{header}', "- " + menu)
@@ -194,30 +195,30 @@ class ListItem(tornado.web.RequestHandler):
 
                 ln = f.readline()
             f.close()
-            
+
 #            print ar_items
 #            print ar_values
             for n in range(0, len(ar_items)) :
                 item=ar_items[n]
                 module, moduleitem=ar_modules[n]
                 patch=module+'/'+moduleitem
-                
+
                 if type(ar_values[n]) in (float, int):
                     data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="range" step="2" min="1" max="100" value="'+str(ar_values[n])+'" uri_val="'+patch+'" class="slider" id="range_status_'+item+'" oninput="setvalue(this)"  onchange="setvalue(this)"></div>'+"\n"
 
                 elif isinstance(ar_values[n], bool):
                     if ar_values[n] :
-                        ischecked=" checked " 
+                        ischecked=" checked "
                     else:
-                        ischecked="" 
+                        ischecked=""
                     data += '<div id="checklist"><ul class="checklist"><li><label class="textleft" for="status">'+item+'</label><input type="checkbox" id="chk_status_'+item+'"  uri_val="'+patch+'"  data-on="ON" data-off="OFF" onchange="switchitem(this)" '+ischecked+'/></li></ul></div>'+"\n"
-                    
+
                 elif isinstance(ar_values[n], float):
                     integer, decimal =  str(round(ar_values[n], 2)).split('.')
                     data += '<div class="content"><div class="thermometers"><div class="de"><div class="den"><div class="dene"><div class="denem"><div class="deneme">'
                     data += '<label id="currenttemp_int">'+integer+'</label><span>. <label id="currenttemp_int_decimal">'+decimal+'</label></span><strong>&deg;</strong>'
                     data += '</div></div></div></div></div></div></div>'+"\n\n"
-                    
+
 
                 elif isinstance(ar_values[n], str):
                     data += item+' '+ar_values[n]

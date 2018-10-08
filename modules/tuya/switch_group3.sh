@@ -18,4 +18,5 @@ fi
 STATUS=$(echo $STATUS | awk -F  "," '{print $1","$2",'$GROUP_STATUS',"$4}')
 
 $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME ${MODULENAME}_manager $STATUS
-$SMARTHOME_DIR/bin/memdb_client.py 3030 S PID $MODULENAME $MODULEITEM -1
+sleep 5
+$SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULENAME $MODULEITEM -1

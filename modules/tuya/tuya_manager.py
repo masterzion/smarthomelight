@@ -9,7 +9,7 @@ moduleitem=modulename+'_manager'
 
 
 
-configParser = ConfigParser.RawConfigParser()   
+configParser = ConfigParser.RawConfigParser()
 configFilePath = r'tuya.conf'
 configParser.read(configFilePath)
 
@@ -25,14 +25,14 @@ def getstatus(index):
 #    print index
     try:
         d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
-        data = d.status()  
+        data = d.status()
         return data['dps']['1']
     except:
         print "Unexpected error:", sys.exc_info()[0]
         return False
 
 def setstatus(index, status, count):
-#    print index,status
+    print index,status
     try:
         d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
         data = d.status()  # NOTE this does NOT require a valid key
@@ -60,6 +60,7 @@ def setgroup(status):
 #    print text
     s.send(text)
     data = s.recv(1024)
+#    print "data:" + data
     if data in ["0", ""]:
         return "0"
     else:
@@ -72,10 +73,11 @@ def getgroup(group):
     s.connect((memdb_host, memdb_port))
     s.send('G PIDS '+modulename+' '+'switch_group'+str(group))
     data = s.recv(1024)
-    if data in ["0", ""]:
-        return "0"
-    else:
+#    print data
+    if data == "-1":
         return "1"
+    else:
+        return "0"
 
 for index in range(count):
 #    print index
@@ -101,7 +103,7 @@ while True:
 
 #    print status
 #    print last_status
-    
+
     if not status == last_status :
 #        for group in [0,1,2,3] :
         for group in [0,1,2] :
@@ -119,4 +121,3 @@ while True:
 
     last_status = status
     time.sleep(1)
-

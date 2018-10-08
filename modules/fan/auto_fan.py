@@ -9,7 +9,7 @@ setEnable = True
 modulename=sys.argv[2]
 item_name='fan_turnon'
 
-turnon_temperature_range = range(26,40)
+turnon_temperature_range = range(25,40)
 
 #connect to the memory db
 port=int(sys.argv[1])
@@ -23,13 +23,13 @@ get_houseisempty_string='G VALUES houseisempty mobile_check'
 def gethouseisempty( s ):
    s.send(get_houseisempty_string)
    data = s.recv(1024)
-   print data
+#   print data
    return (data == "1")
 
 def gettemperature( s ):
    s.send(get_internal_thermometer_string)
    data =  s.recv(1024)
-   print "temperature:" + data
+#   print "temperature:" + data
    return int(float(data))
 
 

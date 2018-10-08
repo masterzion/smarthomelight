@@ -12,7 +12,7 @@ modulename=sys.argv[2]
 modulitem="internal_thermometer"
 memdb_port=int(sys.argv[1])
 
-def sendtext(text):
+def DBSendText(text):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(('localhost', memdb_port))
     s.send(text)
@@ -27,10 +27,13 @@ while True:
     data = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
 
     #send to the server
+#    print data
     humidity=str(data[0])
     temperature=str(data[1])
-    data=sendtext('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
-    data=sendtext('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
-
-    #wait
-    time.sleep(60)
+    if humidity == 'None' or temperature == 'None':
+        print 'None'
+        time.sleep(5)
+    else:
+        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
+        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
+        time.sleep(60)
