@@ -47,9 +47,11 @@ while True:
                     controller.send(light.fade_up(migroup))
                     time.sleep(2)
                     controller.send(light.white(migroup))
+                    controller.send(light.white(migroup))
                 else:
                     controller.send(light.fade_down(migroup))
-                    time.sleep(2)
+                    controller.send(light.fade_down(migroup))
+                    time.sleep(4)
                     controller.send(light.off(migroup))
 
     last_status = status

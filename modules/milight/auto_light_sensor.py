@@ -67,9 +67,13 @@ time.sleep(3)
 
 # main loop
 while True:
-    TIMENOW=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+" "
+    TIMENOW=time.strftime("%H:%M:%S", time.gmtime())
 
-    mobile_status = houseisempty()
+    if TIMENOW in ["12:00:00","12:00:01","12:00:02","12:00:03","12:00:04","12:00:05"]:
+       mobile_status = True
+    else:
+       mobile_status = houseisempty()
+    TIMENOW=TIMENOW+" "
     lumens = getlumens()
 #    print last_mobile_status
 #    print mobile_status
