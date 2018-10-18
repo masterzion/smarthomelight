@@ -47,6 +47,7 @@ while True:
                     controller.send(light.fade_up(migroup))
                     time.sleep(2)
                     controller.send(light.white(migroup))
+                    time.sleep(2)
                     controller.send(light.white(migroup))
                 else:
                     controller.send(light.fade_down(migroup))
