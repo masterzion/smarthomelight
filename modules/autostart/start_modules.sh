@@ -5,6 +5,7 @@ source ~/.bashrc
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="start_modules"
 
+sleep 30
 
 grep -v  '^#' itens.conf | grep -v -e '^$'  | while read -r line ; do
     echo  "Checking $line... "

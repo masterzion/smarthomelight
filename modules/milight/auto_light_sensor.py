@@ -1,9 +1,7 @@
 #!/usr/bin/python
 import os, sys,  time, datetime, socket
 
-gpioID = 23
-min_lumens = 5
-
+min_lumens = 8
 
 #if len(sys.argv) < 3:
 #    print "Usage:"

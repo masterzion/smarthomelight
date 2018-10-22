@@ -38,8 +38,8 @@ do
             fi
         fi
     fi
-    
-    if [ ! "$LAST_STATE" == "$STATE" ] ; then 
+
+    if [ ! "$LAST_STATE" == "$STATE" ] ; then
         $SMARTHOME_DIR/bin/memdb_client.py 3030 S PIDS $MODULE_NAME $MODULE_ITEM $STATE > /dev/null
         LAST_STATE=$STATE
     fi

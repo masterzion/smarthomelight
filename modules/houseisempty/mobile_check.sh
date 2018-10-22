@@ -9,7 +9,8 @@ MAX_HOUR=23
 MIN_HOUR=10
 
 gpio -g mode $AIR_VICK_GPIO out
-
+sleep 5
+gpio -g mode $AIR_VICK_GPIO out
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
 
