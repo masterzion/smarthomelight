@@ -14,7 +14,7 @@ fi
 
 module_status () {
     PID=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULE_NAME $MODULE_ITEM 2> /dev/null )
-    if [ "$PID" == "" ] ; then 
+    if [ "$PID" == "" ] ; then
        PID="0"
     fi
     echo $PID
@@ -26,13 +26,18 @@ module_start () {
       exit 2
     fi
 
-    echo "Starting $MODULE_NAME... "    
+    echo "Starting $MODULE_NAME... "
     cd "$SMARTHOME_DIR/modules/$MODULE_NAME"
     ./$MODULE_ITEM.sh  &
     PID=$!
-    sleep 2
-    echo "PID: $PID"
-    $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM $PID
+
+
+    if [[ "$MODULE_ITEM" =~ ^(start_modules|memorydb_server)$ ]]; then
+       echo "item ignored in db"
+    else
+       echo "PID: $PID"
+       $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM $PID
+    fi
 }
 
 module_stop () {

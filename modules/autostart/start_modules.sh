@@ -5,8 +5,6 @@ source ~/.bashrc
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="start_modules"
 
-sleep 30
-
 grep -v  '^#' itens.conf | grep -v -e '^$'  | while read -r line ; do
     echo  "Checking $line... "
     if [ "memorydb memorydb_server" == "$line" ] ; then
@@ -21,7 +19,7 @@ grep -v  '^#' itens.conf | grep -v -e '^$'  | while read -r line ; do
 
     if [ "$PID" == "0" ] ; then
        $SMARTHOME_DIR/bin/service_manager.sh start  $line
-       sleep 1
+       sleep 5
     else
        echo "is running."
     fi
