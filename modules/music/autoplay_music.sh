@@ -48,5 +48,5 @@ do
         LAST_STATE=$STATE
     fi
 
-    sleep 30
+    sleep 20
 done
