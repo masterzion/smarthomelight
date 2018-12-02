@@ -5,14 +5,6 @@ source ~/.bashrc
 #MAX_RETRY=120
 MAX_RETRY=50
 
-AIR_VICK_GPIO=13
-
-MAX_HOUR=23
-MIN_HOUR=10
-GPIO=/usr/local/bin/gpio
-
-$GPIO -g mode 13  out
-$GPIO -g write 13 1
 
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
@@ -60,16 +52,7 @@ do
         fi
     else
         $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
-        HOUR=$(date +"%H")
-        if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-            $GPIO -g write 13 0
-        else
-            $GPIO -g write 13 1
-        fi
         sleep 60
         RETRY=1
     fi
-
-    ISEMPT=0
 done
-
