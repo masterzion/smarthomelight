@@ -24,17 +24,16 @@ SMARTHOME_MEMDB_PORT=3030
 
 
 $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0  > /dev/null
-$SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 30 > /dev/null
 
 while true;
 do
     # get the actual state
-    HOUSEISEMPT=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G VALUES $HOUSEISEMPTY_STRING)
     STATE="0"
 
-    if [ "$HOUSEISEMPT" == "0" ]; then
-        HOUR=$(date +"%H")
-        if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
+    HOUR=$(date +"%H")
+    if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
+        HOUSEISEMPT=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G VALUES $HOUSEISEMPTY_STRING)
+        if [ "$HOUSEISEMPT" == "0" ]; then
             STATE="-1"
         fi
     fi
