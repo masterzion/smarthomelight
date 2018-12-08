@@ -25,5 +25,5 @@ do
       fi
     fi
     LAST_STATUS=STATUS
-    sleep 30
+    sleep 40
 done

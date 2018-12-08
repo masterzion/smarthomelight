@@ -8,9 +8,6 @@ source ~/.bashrc
 
 # saver to add in .bashrc ;)
 # SERVER_NAME="password@ip" 
-echo "Server: $SERVER_NAME"
-
-
 LASTSTATE="0"
 
 
@@ -39,9 +36,9 @@ do
         if [ "$SEND_COMMAND" == "play" ]; then
             HOUR=$(date +"%H")
             if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 50 > /dev/null
+               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 60 > /dev/null
             else
-               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 30 > /dev/null
+               $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 40 > /dev/null
             fi
         fi
         mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
