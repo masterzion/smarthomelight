@@ -43,6 +43,8 @@ do
         fi
         mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
         LASTSTATE=$PLAY
+        sleep 10
+        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
     fi
     if [ "$PLAY" == "0" ]; then
        sleep 3
