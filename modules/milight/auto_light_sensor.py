@@ -68,9 +68,9 @@ while True:
     TIMENOW=time.strftime("%H:%M:%S", time.gmtime())
 
     if TIMENOW in ["12:00:00","12:00:01","12:00:02","12:00:03","12:00:04","12:00:05"]:
-       mobile_status = True
-    else:
-       mobile_status = houseisempty()
+       last_mobile_status = False
+
+    mobile_status = houseisempty()
     TIMENOW=TIMENOW+" "
     lumens = getlumens()
 #    print last_mobile_status
@@ -87,11 +87,6 @@ while True:
 #          print TIMENOW+"set light Off"
           last_mobile_status = mobile_status
 
-#    if (lumens > min_lumens) :
-#      print TIMENOW+"set light Off (lumens)"
-#      controller.send(light.off(milight_group)) 
-#      time.sleep(30)
-#     controller.send(light.all_off()) # Turn off all lights
     if ( not houseisempty() ) and mobile_status and (lumens < min_lumens):
         date = datetime.datetime.today()
         if date.hour in SUNSET_RANGE:

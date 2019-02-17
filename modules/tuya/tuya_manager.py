@@ -32,21 +32,28 @@ def getstatus(index):
         return False
 
 def setstatus(index, status, count):
-    print index,status
+    count+=1
+#    print count,index,status
     try:
         d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
         data = d.status()  # NOTE this does NOT require a valid key
 #        print data
-        if not status == data['dps']['1']:
-            data = d.set_status(status)
-            time.sleep(2)
-            data = d.status()
-#            print data
-            return data
+        if isinstance(data, basestring):
+#            print basestring
+            time.sleep(2 * count)
+            return setstatus(index, status, count)
+        else:
+            if status == data['dps']['1']:
+               return status
+            else:
+               data = d.set_status(status)
+               time.sleep(2)
+               data = d.status()
+#               print data
+               return data
     except IOError as e:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
         time.sleep(2 * count)
-        count+=1
         if count < 10:
           return setstatus(index, status, count)
         else:
