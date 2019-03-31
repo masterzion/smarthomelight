@@ -1,11 +1,10 @@
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Dosis:200,400,500,600" /> 
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script> 
+        <script type="text/javascript" src="/js/Chart.min.js"></script>
         <script type="text/javascript" src="/js/weather.js"></script>
 
 
         <div class="content">
             <div class="thermometers">
-                <div class="label">External</div><div class="label">Internal</div> <div class="label">Humidity</div> 
+                <div class="label">External</div><div class="label">Internal</div> <div class="label">Humidity</div>
 
                 <div class="de">
                     <div class="den">
@@ -43,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div id="chartdiv" class="chartdiv"></div>
+            <canvas id="canvas"></canvas>
             <div id="linkdiv" class="linkdiv">
             <a href="https://github.com/masterzion/weatherstation">https://github.com/masterzion/weatherstation</a>
             </div>
