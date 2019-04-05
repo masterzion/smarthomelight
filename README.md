@@ -47,6 +47,8 @@ MILIGHT_GROUP="1"
 
 CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
 
+IFACE=eth0
+
 export WEATHER_SERVER_PWD='WEB_PASSWORD'
 export WEATHER_SERVER_SALT='add some random chars here'
 

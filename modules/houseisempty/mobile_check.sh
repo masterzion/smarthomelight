@@ -28,7 +28,7 @@ RETRY=1
 while true;
 do
     for MAC in $MAC_LIST; do
-        IP="$(arp-scan --localnet | grep $MAC  | awk ' { printf $1 } ')"
+        IP="$(arp-scan --localnet --interface=$IFACE | grep $MAC  | awk ' { printf $1 } ')"
 #        echo "Cheking $MAC - IP $IP - TRY - $RETRY / $MAX_RETRY"
         if [ ! -z "$IP" ]; then
             ISEMPT=1

@@ -9,7 +9,7 @@ LAST_STATUS=false
 
 while true;
 do
-    CHROMECAST_IP="$(arp-scan --localnet | grep $CHROMECAST_MAC  | awk ' { printf $1 } ')"
+    CHROMECAST_IP="$(arp-scan --localnet --interface=$IFACE | grep $CHROMECAST_MAC  | awk ' { printf $1 } ')"
     if [ "$CHROMECAST_IP" == "" ]; then
          STATUS=false
     else
