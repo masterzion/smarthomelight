@@ -24,8 +24,10 @@ do
 
     if [ "$VICK" == "0" ]; then
        $GPIO -g write $AIR_VICK_GPIO 1
+       $SMARTHOME_DIR/bin/service_manager.sh stop tuya switch_group1 > /dev/null
     else
        $GPIO -g write $AIR_VICK_GPIO 0
+       $SMARTHOME_DIR/bin/service_manager.sh start tuya switch_group1 > /dev/null
     fi
     sleep 10
 done

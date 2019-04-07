@@ -41,12 +41,6 @@ do
     if [ ! "$LAST_STATE" == "$STATE" ] ; then
         $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM $STATE > /dev/null
         LAST_STATE=$STATE
-
-        if [ "$STATE" == "0" ]; then
-            $SMARTHOME_DIR/bin/service_manager.sh stop tuya switch_group1
-        else
-            $SMARTHOME_DIR/bin/service_manager.sh start tuya switch_group1
-        fi
     fi
 
     sleep 120
