@@ -1,2 +1,2 @@
 memorydb
-thermometer internal_thermometer
+sound
