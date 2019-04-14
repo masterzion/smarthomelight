@@ -8,14 +8,15 @@ source ~/.bashrc
 
 # saver to add in .bashrc ;)
 # SERVER_NAME="password@ip" 
-LASTSTATE="000"
+LASTSTATE="-2"
 
 DEFAULT_PLAYLIST=$(cat defaultplaylist.txt)
+RADIO_PLAYLIST=$(cat radioplaylist.txt)
+
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="play"
 
-$SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0 > /dev/null
-mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "pause"
+mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "pause" > /dev/null
 
 RADIOEMISSOR_STRING="radioemissor radio_turnon"
 
@@ -26,16 +27,15 @@ LASTPLAYLIST=""
 
 addplaylists () {
     if [ ! "$LASTPLAYLIST" == "$1" ]; then
-       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  clear
+       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  clear > /dev/null
        LASTPLAYLIST="$1"
        for l in $1 ; do
-          mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  load $l
+          mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  load $l > /dev/null
        done
-       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  next
-       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  play
+       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  next > /dev/null
+       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  play > /dev/null
    fi
 }
-
 
 while true;
 do
@@ -82,7 +82,7 @@ do
         addplaylists $DEFAULT_PLAYLIST
     else
         sleep 6
-        addplaylists "Bathtub"
+        addplaylists $RADIO_PLAYLIST
 	VOLUME="100"
     fi
 
