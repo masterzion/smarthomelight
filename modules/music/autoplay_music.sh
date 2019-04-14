@@ -20,7 +20,6 @@ LAST_STATE="0"
 STATE=0
 SMARTHOME_MEMDB_PORT=3030
 
-
 $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S PIDS $MODULE_NAME $MODULE_ITEM 0  > /dev/null
 $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES $MODULE_NAME sound_volume 50 > /dev/null
 
