@@ -83,7 +83,7 @@ do
     else
         sleep 6
         addplaylists $RADIO_PLAYLIST
-	VOLUME="100"
+        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 100 > /dev/null
     fi
 
     sleep 2
