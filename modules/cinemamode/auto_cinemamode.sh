@@ -7,10 +7,13 @@ MODULE_ITEM=cinemamode_on
 
 LAST_STATUS=false
 
+$SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode 0
+
 while true;
 do
-    CHROMECAST_IP="$(arp-scan --localnet --interface=$IFACE | grep $CHROMECAST_MAC  | awk ' { printf $1 } ')"
-    if [ "$CHROMECAST_IP" == "" ]; then
+    CHROMECAST=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES cinemamode auto_cinemamode)
+
+    if [ "$CHROMECAST" == "0" ]; then
          STATUS=false
     else
          STATUS=true
@@ -25,5 +28,5 @@ do
       fi
     fi
     LAST_STATUS=STATUS
-    sleep 40
+    sleep 10
 done

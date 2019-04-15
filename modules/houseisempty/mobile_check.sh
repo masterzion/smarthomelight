@@ -3,7 +3,7 @@
 source ~/.bashrc
 
 #MAX_RETRY=120
-MAX_RETRY=50
+MAX_RETRY=100
 
 
 MODULENAME=$(cat modulename.txt)
@@ -11,38 +11,46 @@ ITEMNAME="mobile_check"
 
 $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
 
-get_state() {
-    IP=$1
-    COUNT=$(ping "$IP" -c 5 -W 5 | grep "ttl=" | wc -l)
-
-    if [ $COUNT -eq 0 ]; then
-        echo 0
-    else
-        echo 1
-    fi
-}
-
-
 ISEMPT=1
 RETRY=1
 while true;
 do
-    LIST="$(arp-scan --localnet --interface=wlan1 --quiet --ignoredups  | tail -n +3 | head -n -3 | cut -f2)"
-#    echo $LIST
-    for MAC in $MAC_LIST; do
+    ACTIVE_MACS="$(arp-scan --localnet --interface=wlan1 --quiet --ignoredups  | tail -n +3 | head -n -3 | cut -f2)"
+    CHROMECAST="0"
+    ISEMPT=1
+    for ACTIVEMAC in $ACTIVE_MACS; do
+#        echo $ACTIVEMAC
 
-        IP="$(echo $LIST | grep $MAC )"
-#        echo "Cheking $MAC - IP $IP - TRY - $RETRY / $MAX_RETRY"
-        if [ ! -z "$IP" ]; then
-            ISEMPT=1
-#           echo "is active "
-           break
-        else
-           ISEMPT=0
-#           echo "is not active "
+        if [ "$ACTIVEMAC" ==  "$CHROMECAST_MAC" ]; then
+#          echo "C"
+          CHROMECAST="1"
         fi
+
+        for MAC in $MAC_LIST; do
+#           echo "M"
+           if [ "$MAC" ==  "$CHROMECAST_MAC" ]; then
+             ISEMPT=0
+             break
+           fi
+       done
+
     done
 
+#    echo "CHROMECAST  $CHROMECAST"
+#    echo "ISEMPT $ISEMPT"
+
+    if [ "$CHROMECAST" == "1" ]; then
+#        echo "Chromecast online = 3"
+        $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode 3 > /dev/null
+        sleep 60
+    else
+        VAL=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES cinemamode auto_cinemamode)
+        if [ $VAL -gt 0 ]; then
+           VAL=$((VAL-1))
+        fi
+#        echo "Chromecast offline  $VAL"
+        $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode $VAL > /dev/null
+    fi
 
     if [ $ISEMPT -eq 0 ]; then
         sleep 5
@@ -54,8 +62,9 @@ do
             RETRY=$((RETRY+1))
         fi
     else
+#        echo "not empty"
         $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
-        sleep 60
+        sleep 30
         RETRY=1
     fi
 done
