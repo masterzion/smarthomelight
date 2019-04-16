@@ -10,7 +10,6 @@ MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="vickon"
 
 AIR_VICK_GPIO=13
-GPIO=/usr/local/bin/gpio
 
 $GPIO -g mode $AIR_VICK_GPIO  out
 $GPIO -g write $AIR_VICK_GPIO 1

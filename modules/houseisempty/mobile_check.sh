@@ -2,9 +2,7 @@
 
 source ~/.bashrc
 
-#MAX_RETRY=120
 MAX_RETRY=100
-
 
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
@@ -13,11 +11,12 @@ $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULENAME $I
 
 ISEMPT=1
 RETRY=1
+#echo $MAC_LIST
 while true;
 do
     ACTIVE_MACS="$(arp-scan --localnet --interface=wlan1 --quiet --ignoredups  | tail -n +3 | head -n -3 | cut -f2)"
     CHROMECAST="0"
-    ISEMPT=1
+    ISEMPT="1"
     for ACTIVEMAC in $ACTIVE_MACS; do
 #        echo $ACTIVEMAC
 
@@ -28,8 +27,8 @@ do
 
         for MAC in $MAC_LIST; do
 #           echo "M"
-           if [ "$MAC" ==  "$CHROMECAST_MAC" ]; then
-             ISEMPT=0
+           if [ "$MAC" ==  "$ACTIVEMAC" ]; then
+             ISEMPT="0"
              break
            fi
        done
@@ -52,11 +51,11 @@ do
         $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode $VAL > /dev/null
     fi
 
-    if [ $ISEMPT -eq 0 ]; then
-        sleep 5
+    if [ $ISEMPT == "1" ]; then
+        sleep 20
+#        echo " $RETRY -eq $MAX_RETRY"
         if [ $RETRY -eq $MAX_RETRY ]; then
            $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
-           $GPIO -g write $AIR_VICK_GPIO 1
         else
 #            echo "Retry $RETRY"
             RETRY=$((RETRY+1))
@@ -64,7 +63,7 @@ do
     else
 #        echo "not empty"
         $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULENAME $ITEMNAME 0 > /dev/null
-        sleep 30
+        sleep 50
         RETRY=1
     fi
 done
