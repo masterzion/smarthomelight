@@ -52,7 +52,7 @@ do
         if [ "$SEND_COMMAND" == "play" ]; then
             HOUR=$(date +"%H")
             if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-               $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 60 > /dev/null
+               $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 70 > /dev/null
             else
                $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 40 > /dev/null
             fi
