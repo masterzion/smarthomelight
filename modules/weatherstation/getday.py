@@ -7,16 +7,16 @@ import time
 
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
-dataday=[]
+dataday=""
 
 class MyThread(threading.Thread):
     def run(self):
         global dataday
         from models import Sensors
         while True:
-            dataday = Sensors().getDay()
+            dataday = json.dumps( Sensors().getDay() )
             time.sleep(30)
-
+        return 
 
 class myHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -26,7 +26,7 @@ class myHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
         self.send_header('Content-type','application/json')
         self.end_headers()
-        self.wfile.write( json.dumps( dataday ) )
+        self.wfile.write( dataday )
         return
     def log_message(self, format, *args):
         return
