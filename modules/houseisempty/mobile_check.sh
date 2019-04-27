@@ -14,7 +14,7 @@ RETRY=1
 #echo $MAC_LIST
 while true;
 do
-    ACTIVE_MACS="$(arp-scan --localnet --interface=wlan1 --quiet --ignoredups  | tail -n +3 | head -n -3 | cut -f2)"
+    ACTIVE_MACS="$(arp-scan --localnet --interface=$IFACE --quiet --ignoredups  | tail -n +3 | head -n -3 | cut -f2)"
     CHROMECAST="0"
     ISEMPT="1"
     for ACTIVEMAC in $ACTIVE_MACS; do

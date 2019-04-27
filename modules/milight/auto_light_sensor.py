@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import os, sys,  time, datetime, socket
 
-min_lumens = 20
+min_lumens = 30
 max_lumens = 40
 #if len(sys.argv) < 3:
 #    print "Usage:"
