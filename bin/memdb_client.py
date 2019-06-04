@@ -14,7 +14,8 @@ if len(split) < 3:
         print "Example:\n"
         print " "+cmd+" 3030 S VALUES thermometer internal 25.9"
         print " "+cmd+" 3030 G VALUES thermometer internal"
-        print " "+cmd+" 3030 L PIDS\n"
+        print " "+cmd+" 3030 L PIDS"
+        print " "+cmd+" 3030 L VALUES\n"
     else:
         print "ERROR: Minimum 4 paramters. Check the documentation. ;)\n"
 else:

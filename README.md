@@ -47,6 +47,10 @@ MILIGHT_GROUP="1"
 
 CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
 
+IFACE=eth0
+
+GPIO=/usr/local/bin/gpio
+
 export WEATHER_SERVER_PWD='WEB_PASSWORD'
 export WEATHER_SERVER_SALT='add some random chars here'
 

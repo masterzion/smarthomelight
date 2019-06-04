@@ -30,7 +30,7 @@ while True:
 #    print data
     humidity=str(data[0])
     temperature=str(data[1])
-    if humidity == 'None' or temperature == 'None':
+    if humidity == 'None' or temperature == 'None' or temperature < 5:
         print 'None'
         time.sleep(5)
     else:

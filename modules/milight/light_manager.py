@@ -77,8 +77,10 @@ while True:
                       controller.send(light.fade_down(migroup))
                       time.sleep(0.5)
                       controller.send(light.fade_down(migroup))
-                      time.sleep(6)
-                      controller.send(light.off(migroup))
+                      time.sleep(4)
+                      for force_off in [0,1,2,3] :
+                         time.sleep(1.5)
+                         controller.send(light.off(migroup))
 #                print "sleep"
                 time.sleep(2)
 

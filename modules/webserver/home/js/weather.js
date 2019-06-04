@@ -32,7 +32,7 @@ function getLastTempResult() {
 
 // ----------- charts  -----------
 function drawCurveTypes() {
-  $.getJSON('/js/day.json', function( jsondata ) {
+  $.getJSON(window.location.protocol+'//'+window.location.hostname+':8080', function( jsondata ) {
     if (typeof jsondata != 'undefined') {
       json_labels=[];
       json_internal=[];
