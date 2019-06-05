@@ -33,7 +33,7 @@ def gettemperature( s ):
    return int(float(data))
 
 
-silenthours = range(0,11)
+silenthours = range(0,9)
 workinghours = range(16,18)
 
 
@@ -53,6 +53,7 @@ while True:
                 if internal_temp in turnon_temperature_range:
                     setEnable = True
     else:
+#        print  date.hour 
         if date.hour not in silenthours:
             internal_temp=gettemperature(s)
 #            print internal_temp
