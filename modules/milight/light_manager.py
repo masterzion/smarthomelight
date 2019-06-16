@@ -61,7 +61,7 @@ while True:
             ar_last_status = last_status.split(',')
             ar_last_color  = last_color.split(',')
             if not (ar_last_status[group] == ar_status[group] and ar_last_color[group] == ar_color[group]):
-#                print "group "+str(group) + " - status "+ ar_status[group] +" - color " +ar_color[group]
+                print "group "+str(group) + " - status "+ ar_status[group] +" - color " +ar_color[group]
                 migroup=int(group)+1
                 if ar_status[group] == '1' :
 #                    print "on"

@@ -9,7 +9,7 @@ setEnable = True
 modulename=sys.argv[2]
 item_name='fan_turnon'
 
-turnon_temperature_range = range(24,40)
+turnon_temperature_range = range(25,40)
 
 #connect to the memory db
 port=int(sys.argv[1])
@@ -19,6 +19,30 @@ s.connect((host, port))
 
 get_internal_thermometer_string='G VALUES thermometer internal_thermometer_temperature'
 get_houseisempty_string='G VALUES houseisempty mobile_check'
+get_mintemp_string='G VALUES fan auto_fan_sensibility'
+set_mintemp_string='S VALUES fan auto_fan_sensibility '
+
+
+
+def getmintemp( s ):
+   s.send(get_mintemp_string)
+   data =  s.recv(1024)
+#   print "temp_sensibility:" + data
+   val= (100-int(data)) / 20
+   val = val+22
+#   print("temp:"+str(val))
+   return val
+
+
+
+def setmintemp( s, temp ):
+   s.send(set_mintemp_string+str(temp))
+   data =  s.recv(1024)
+#   print "settempres:" + data + str(temp)
+   return data
+
+
+
 
 def gethouseisempty( s ):
    s.send(get_houseisempty_string)
@@ -36,14 +60,16 @@ def gettemperature( s ):
 silenthours = range(0,9)
 workinghours = range(16,18)
 
-
-#time.sleep(10)
-
+setmintemp(s, 40)
+time.sleep(1)
+mintemp=getmintemp(s)
+time.sleep(1)
 
 while True:
     setEnable = False
     date = datetime.datetime.today()
     houseisempty = gethouseisempty(s)
+    turnon_temperature_range = range(mintemp, 40)
 
     if houseisempty:
 #        print "is empty"
@@ -71,6 +97,11 @@ while True:
             s.send('S PIDS '+modulename+' '+item_name+' 0')
             data = s.recv(1024)
         lastStatus = setEnable
-    time.sleep(60 * 10)
+    for n in range(10):
+       time.sleep(60)
+       newtemp=getmintemp(s)
+       if not newtemp == mintemp:
+          mintemp=newtemp
+          break
 
 
