@@ -2,7 +2,7 @@
 import os, sys,  time, datetime, socket
 
 min_lumens = 30
-max_lumens = 40
+max_lumens = 50
 #if len(sys.argv) < 3:
 #    print "Usage:"
 #    print sys.argv[0] + " $LOCKFILE $MILIGHT_IP $MILIGHT_PORT $MILIGHT_GROUP "

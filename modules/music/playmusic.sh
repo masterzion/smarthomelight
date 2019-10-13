@@ -18,7 +18,7 @@ MODULE_ITEM="play"
 
 mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "pause" > /dev/null
 
-RADIOEMISSOR_STRING="radioemissor radio_turnon"
+RADIOEMISSOR_STRING="radiotransmitter radio_turnon"
 
 MAX_HOUR=22
 MIN_HOUR=10

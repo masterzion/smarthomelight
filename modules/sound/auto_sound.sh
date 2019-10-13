@@ -8,7 +8,7 @@ MODULE_ITEM="sound_turnon"
 
 CINEMAMODE_STRING="cinemamode cinemamode_on"
 PLAYMUSIC_STRING="music play"
-RADIOEMISSOR_STRING="radioemissor radio_turnon"
+RADIOEMISSOR_STRING="radiotransmitter radio_turnon"
 
 
 $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME $MODULE_ITEM 1 > /dev/null
