@@ -18,7 +18,7 @@ light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
 controller.send(light.all_off())
 
 status="0,0,0,0"
-color='ffffff,ffffff,ffffff,ffffff'
+color='ff8800,ff8800,ff8800,ff8800'
 last_status=status
 last_color=color
 
