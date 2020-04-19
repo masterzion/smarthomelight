@@ -1,5 +1,5 @@
 #!/bin/bash
-# 
+#
 # require:  mpc
 # apt-get install mpc
 
@@ -7,7 +7,7 @@
 source ~/.bashrc
 
 # saver to add in .bashrc ;)
-# SERVER_NAME="password@ip" 
+# SERVER_NAME="password@ip"
 LASTSTATE="-2"
 
 DEFAULT_PLAYLIST=$(cat defaultplaylist.txt)
@@ -20,6 +20,7 @@ mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "pause" > /dev/null
 
 RADIOEMISSOR_STRING="radiotransmitter radio_turnon"
 
+LAST_VOLUME=0
 MAX_HOUR=22
 MIN_HOUR=10
 MIN_VOL=50
@@ -78,7 +79,10 @@ do
         VOLUME=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G VALUES $MODULE_NAME sound_volume)
         VOLUME=`echo "($VOLUME / 2) + $MIN_VOL" | bc`
         VOLUME=${VOLUME%.*}
-        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume $VOLUME > /dev/null
+        if [ ! "$LAST_VOLUME" == "$VOLUME" ] ; then
+          mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume $VOLUME > /dev/null
+          LAST_VOLUME=$VOLUME
+        fi
         addplaylists $DEFAULT_PLAYLIST
     else
         sleep 6
