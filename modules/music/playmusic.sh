@@ -33,8 +33,8 @@ addplaylists () {
        for l in $1 ; do
           mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  load $l > /dev/null
        done
-       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  next > /dev/null
        mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  play > /dev/null
+       mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  next > /dev/null
    fi
 }
 

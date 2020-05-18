@@ -6,16 +6,22 @@ https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
 INSTALL
 ``` bash
-sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd
+sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd mpc authbind
 
 sudo raspi-config
 ```
 
-In Interfacing Options
-enable IC2
+In Interfacing Options, enable IC2
+
+
 
 ``` bash
-sudo pip install tornado w1thermsensor pyping milight RPi.GPIO wiringPi Adafruit_DHT Adafruit_DHT
+sudo pip install tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT
+
+git clone https://github.com/masterzion/WiringPi.git
+cd WiringPi
+./build
+cd
 
 sudo mkdir /media/usb
 echo "/dev/sda1 /media/usb/ ntfs none 0 0" >> /dev/fstab
@@ -26,10 +32,18 @@ sudo git clone https://github.com/masterzion/smarthomelight.git
 sudo useradd -m smarthomelight -s /bin/bash
 sudo cp /home/pi/.bashrc  /opt/smarthomelight/.bashrc
 sudo chown -R smarthomelight smarthomelight
-sudo -u smarthomelight bash
-cd smarthomelight
+sudo usermod -a -G i2c smarthomelight
+sudo usermod -a -G gpio smarthomelight
 
+sudo touch /etc/authbind/byport/80
+sudo chmod 700 /etc/authbind/byport/80
+sudo chown smarthomelight /etc/authbind/byport/80
+
+sudo raspi-config
 ``` 
+In Interfacing Options, enable IC2
+
+
 
 add this line in  /boot/config.txt
 ``` ini
@@ -37,7 +51,7 @@ dtoverlay=w1-gpio
 ```
 
 
-Set the variables in .bashrc file
+Set the variables in /home/smarthome/.bashrc file
 
 ``` bash
 export SMARTHOME_DIR=/opt/smarthomelight
@@ -50,7 +64,7 @@ export SERVER_NAME="pass@localhost"
 export SERVER_PORT="6600"
 
 export MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
-export MILIGHT_PORT="milight_port"
+export MILIGHT_PORT="8899"
 export MILIGHT_GROUP="1"
 
 export CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
@@ -69,6 +83,14 @@ add the crontabfile content in your crontab and reboot
 ``` bash
 @reboot [SMARTHOME_DIR]/bin/service_manager.sh start autostart start_modules
 ```
+
+add to /etc/sudoers
+``` bash
+smarthomelight ALL= NOPASSWD: /usr/sbin/arp-scan
+
+```
+
+
 
 RECOMENDED:
 ``` bash
