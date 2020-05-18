@@ -6,20 +6,19 @@ https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
 INSTALL
 ``` bash
-apt-get install python-setuptools git sqlite3 python-smbus i2c-tools arp-scan bc
+sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git
 
-git clone git://git.drogon.net/wiringPi
-cd wiringPi
-./build
+sudo raspi-config
+```
 
+In Interfacing Options
+enable IC2
 
-echo i2c-dev >> /etc/modules
-modprobe i2c-dev
+``` bash
+sudo pip install tornado w1thermsensor pyping milight RPi.GPIO wiringPi
 
-easy_install pip
-pip install tornado w1thermsensor pyping milight RPi.GPIO
-
-git clone https://github.com/masterzion/weatherstation.git
+cd /opt
+sudo git clone https://github.com/masterzion/weatherstation.git
 cd weatherstation
 ``` 
 
