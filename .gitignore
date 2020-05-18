@@ -6,3 +6,4 @@ modules/weatherstation/smarthome.*
 modules/weatherstation/*.pyc
 modules/webserver/home/js/*.json
 modules/tuya/tuya.conf
+modules/webserver/home/js/salt.js
