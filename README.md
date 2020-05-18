@@ -18,7 +18,7 @@ enable IC2
 sudo pip install tornado w1thermsensor pyping milight RPi.GPIO wiringPi
 
 cd /opt
-sudo git clone https://github.com/masterzion/weatherstation.git
+sudo git clone https://github.com/masterzion/smarthomelight.git
 cd weatherstation
 ``` 
 
