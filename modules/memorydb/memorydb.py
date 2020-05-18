@@ -8,7 +8,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
     def handle_read(self):
         data = self.recv(8192)
         if data:
-            print "data: "+data+" \n"
+            print("data: "+data+" \n")
             split = data.split(' ')
             operation=split[0]
             if len(split) < 2:
@@ -49,11 +49,13 @@ class EchoServer(asyncore.dispatcher):
             sock, addr = pair
             print 'Incoming connection from %s' % repr(addr)
             handler = EchoHandler(sock)
-            
-port= int(sys.argv[1])
-if port == "":
-   port=3030
-   print "Starting in the default port 3030"
+port=3030
+print len(sys.argv)
+if len(sys.argv) > 1:
+   port=int(sys.argv[1])
+   print("Starting in the  port "+str(port) )
+else:
+   print("Starting in the default port 3030")
 
 server = EchoServer('localhost', port )
 asyncore.loop()

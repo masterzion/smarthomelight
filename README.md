@@ -6,7 +6,7 @@ https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
 INSTALL
 ``` bash
-sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git
+sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd
 
 sudo raspi-config
 ```
@@ -15,11 +15,20 @@ In Interfacing Options
 enable IC2
 
 ``` bash
-sudo pip install tornado w1thermsensor pyping milight RPi.GPIO wiringPi
+sudo pip install tornado w1thermsensor pyping milight RPi.GPIO wiringPi Adafruit_DHT Adafruit_DHT
+
+sudo mkdir /media/usb
+echo "/dev/sda1 /media/usb/ ntfs none 0 0" >> /dev/fstab
+sudo mount -a
 
 cd /opt
 sudo git clone https://github.com/masterzion/smarthomelight.git
-cd weatherstation
+sudo useradd -m smarthomelight -s /bin/bash
+sudo cp /home/pi/.bashrc  /opt/smarthomelight/.bashrc
+sudo chown -R smarthomelight smarthomelight
+sudo -u smarthomelight bash
+cd smarthomelight
+
 ``` 
 
 add this line in  /boot/config.txt
@@ -31,24 +40,24 @@ dtoverlay=w1-gpio
 Set the variables in .bashrc file
 
 ``` bash
-SMARTHOME_DIR=/root/weatherstation
-SMARTHOME_LOCKDIR="$SMARTHOME_DIR/lockfiles"
-FILE="$SMARTHOME_LOCKDIR/houseisempt.lock"
+export SMARTHOME_DIR=/opt/smarthomelight
+export SMARTHOME_LOCKDIR="/tmp/"
+export SMARTHOME_MEMDB_PORT=3030
 
-MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
+export MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
 
-SERVER_NAME="pass@localhost" 
-SERVER_PORT="6600"
+export SERVER_NAME="pass@localhost"
+export SERVER_PORT="6600"
 
-MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
-MILIGHT_PORT="milight_port"
-MILIGHT_GROUP="1"
+export MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
+export MILIGHT_PORT="milight_port"
+export MILIGHT_GROUP="1"
 
-CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
+export CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
 
-IFACE=eth0
+export IFACE=eth0
 
-GPIO=/usr/local/bin/gpio
+export GPIO=/usr/local/bin/gpio
 
 export WEATHER_SERVER_PWD='WEB_PASSWORD'
 export WEATHER_SERVER_SALT='add some random chars here'
