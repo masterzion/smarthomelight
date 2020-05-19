@@ -1,4 +1,4 @@
 #!/bin/bash
-source ~/.bashrc
+source ~/.smarthomelight
 ./memorydb.py $SMARTHOME_MEMDB_PORT  &> /dev/null
 sleep 50

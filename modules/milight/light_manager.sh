@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 #echo $SMARTHOME_MEMDB_PORT
 MILIGHT_MAC=$(cat milight_port.conf | grep 'MAC'  | awk '{print $2}')

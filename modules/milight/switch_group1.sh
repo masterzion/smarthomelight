@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 MODULENAME=$(cat modulename.txt)
 STATUS=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES milight light_manager)

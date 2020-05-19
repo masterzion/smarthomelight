@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 MAX_RETRY=100
 

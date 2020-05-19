@@ -24,7 +24,7 @@ cd WiringPi
 cd
 
 sudo mkdir /media/usb
-echo "/dev/sda1 /media/usb/ ntfs none 0 0" >> /dev/fstab
+sudo echo "/dev/sda1 /media/usb/ ntfs none 0 0" >> /dev/fstab
 sudo mount -a
 
 cd /opt
@@ -40,6 +40,10 @@ sudo chmod 700 /etc/authbind/byport/80
 sudo chown smarthomelight /etc/authbind/byport/80
 sudo cp /opt/smarthomelight/cron_smarthomelight /etc/cron.d/
 sudo crontab -u smarthomelight /opt/smarthomelight/smartcron/00000_do_not_remove
+sudo chmod 775 /opt/smarthomelight/modules/weatherstation/db
+sudo mkdir /opt/smarthomelight/modules/weatherstation/db
+sudo chown smarthomelight:smarthomelight /opt/smarthomelight/modules/weatherstation/db
+
 sudo raspi-config
 ``` 
 In Interfacing Options, enable IC2

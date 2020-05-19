@@ -4,7 +4,7 @@
 # apt-get install mpc
 
 #!/bin/bash
-source ~/.bashrc
+source ~/.smarthomelight
 
 # saver to add in .bashrc ;)
 # SERVER_NAME="password@ip"

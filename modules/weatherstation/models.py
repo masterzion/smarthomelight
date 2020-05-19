@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 root = os.path.dirname(__file__)
-conn = sqlite3.connect(root + '/smarthome.db')
+conn = sqlite3.connect(root + '/db/smarthome.db')
 
 c = conn.cursor()
 c.execute('CREATE TABLE IF NOT EXISTS sensors (id INTEGER PRIMARY KEY AUTOINCREMENT, sensor1 real, sensor2_value_t real, sensor2_value_h real, datetime string )')

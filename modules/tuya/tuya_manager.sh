@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 ./tuya_manager.py $SMARTHOME_MEMDB_PORT $(cat modulename.txt)

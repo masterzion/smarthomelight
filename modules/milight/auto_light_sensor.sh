@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 MILIGHT_GROUP=1
 

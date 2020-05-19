@@ -4,7 +4,7 @@
 # apt-get install mpc
 
 #!/bin/bash
-source ~/.bashrc
+source ~/.smarthomelight
 
 LASTSTATE="0"
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="fan_turnon"

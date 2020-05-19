@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 MODULENAME=$(cat modulename.txt)
 MODULE_ITEM="switch_group3_color"

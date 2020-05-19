@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.bashrc
+source ~/.smarthomelight
 
 MODULENAME=$(cat modulename.txt)
 FILE_MASK=$(echo $MODULENAME"_" | tr '[a-z]' '[A-Z]')
