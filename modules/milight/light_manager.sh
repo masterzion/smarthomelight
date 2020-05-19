@@ -2,9 +2,7 @@
 
 source ~/.smarthomelight
 
-#echo $SMARTHOME_MEMDB_PORT
-MILIGHT_MAC=$(cat milight_port.conf | grep 'MAC'  | awk '{print $2}')
-MILIGHT_PORT=$(cat milight_port.conf | grep 'PORT'  | awk '{print $2}')
+export MILIGHT_MAC=$(echo "$MILIGHT_MAC" | tr '[:upper:]' '[:lower:]')
 
 MILIGHT_IP="$(sudo /usr/sbin/arp-scan --localnet --interface=$IFACE | grep $MILIGHT_MAC  | awk ' { printf $1 } ')"
 #wait for the milight box startup
