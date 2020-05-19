@@ -23,7 +23,7 @@ RADIOEMISSOR_STRING="radiotransmitter radio_turnon"
 LAST_VOLUME=0
 MAX_HOUR=22
 MIN_HOUR=10
-MIN_VOL=50
+MIN_VOL=10
 LASTPLAYLIST=""
 
 addplaylists () {
@@ -53,9 +53,9 @@ do
         if [ "$SEND_COMMAND" == "play" ]; then
             HOUR=$(date +"%H")
             if [ "$HOUR" -ge $MIN_HOUR -a "$HOUR" -le $MAX_HOUR ] ; then
-               $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 70 > /dev/null
-            else
                $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 40 > /dev/null
+            else
+               $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 20 > /dev/null
             fi
         else
             mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
