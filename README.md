@@ -44,6 +44,10 @@ sudo chmod 775 /opt/smarthomelight/modules/weatherstation/db
 sudo mkdir /opt/smarthomelight/modules/weatherstation/db
 sudo chown smarthomelight:smarthomelight /opt/smarthomelight/modules/weatherstation/db
 
+touch /opt/smarthomelight/modules/webserver/home/js/day.json
+chmod 765 /opt/smarthomelight/modules/webserver/home/js/day.json
+chown smarthomelight:smarthomelight /opt/smarthomelight/modules/webserver/home/js/day.json
+
 sudo raspi-config
 ``` 
 In Interfacing Options, enable IC2
