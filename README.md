@@ -16,7 +16,7 @@ In Interfacing Options, enable IC2
 
 
 ``` bash
-sudo pip install tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT
+sudo pip install tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT pytuya
 
 git clone https://github.com/masterzion/WiringPi.git
 cd WiringPi

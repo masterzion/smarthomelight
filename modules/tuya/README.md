@@ -1,3 +1,5 @@
+# tuya.conf
+
 ``` ini
 [MAIN]
 COUNT=2
