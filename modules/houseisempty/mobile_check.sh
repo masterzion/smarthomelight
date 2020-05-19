@@ -7,6 +7,8 @@ MAX_RETRY=100
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
 
+MAC_LIST=$(echo "$MAC_LIST" | tr '[:upper:]' '[:lower:]')
+
 $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULENAME $ITEMNAME 1 > /dev/null
 
 ISEMPT=1
