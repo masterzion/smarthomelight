@@ -1,1 +1,1 @@
-30 15 * * 1-5 root /usr/bin/irsend SEND_ONCE  iRobot_Roomba clean --count 5 >/dev/null 2>&1
+30 15 * * 1-5 /usr/bin/irsend SEND_ONCE  iRobot_Roomba clean --count 5 >/dev/null 2>&1

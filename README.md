@@ -38,7 +38,8 @@ sudo usermod -a -G gpio smarthomelight
 sudo touch /etc/authbind/byport/80
 sudo chmod 700 /etc/authbind/byport/80
 sudo chown smarthomelight /etc/authbind/byport/80
-
+sudo cp /opt/smarthomelight/cron_smarthomelight /etc/cron.d/
+sudo crontab -u smarthomelight /opt/smarthomelight/smartcron/00000_do_not_remove
 sudo raspi-config
 ``` 
 In Interfacing Options, enable IC2
@@ -51,7 +52,7 @@ dtoverlay=w1-gpio
 ```
 
 
-Set the variables in /home/smarthome/.bashrc file
+Create the variables ~/.smarthomelight 
 
 ``` bash
 export SMARTHOME_DIR=/opt/smarthomelight
@@ -79,17 +80,25 @@ export WEATHER_SERVER_SALT='add some random chars here'
 export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
 ```
 
+Add it to the ~/.bashrc file
+
+``` bash
+source ~/.smarthomelight
+``` 
+
+
 add the crontabfile content in your crontab and reboot
+
 ``` bash
 @reboot [SMARTHOME_DIR]/bin/service_manager.sh start autostart start_modules
 ```
 
 add to /etc/sudoers
+
 ``` bash
 smarthomelight ALL= NOPASSWD: /usr/sbin/arp-scan
 
 ```
-
 
 
 RECOMENDED:

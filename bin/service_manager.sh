@@ -1,5 +1,5 @@
 #!/bin/bash 
-source ~/.bashrc
+source ~/.smarthomelight
 
 ACTION="$1"
 MODULE_NAME="$2"
