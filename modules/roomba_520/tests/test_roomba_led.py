@@ -2,8 +2,9 @@
 import datetime, time
 import RPi.GPIO as GPIO 
 
-#gpioID = 27
-gpioID = 17
+gpioID = 27
+#gpioID = 17
+
 
 #set relay config
 GPIO.setwarnings(False)
@@ -26,8 +27,8 @@ def sendZero():
 while True:
 
     GPIO.output(gpioID, GPIO.LOW)
-    time.sleep(5)
+    time.sleep(3)
     sendZero()
 
-    time.sleep(5)
+    time.sleep(3)
     sendOne()

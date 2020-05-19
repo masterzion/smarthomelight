@@ -4,18 +4,10 @@ Based in this tutorial:
 https://iada.nl/en/blog/article/temperature-monitoring-raspberry-pi
 
 
-INSTALL
-``` bash
-sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd mpc authbind
-
-sudo raspi-config
-```
-
-In Interfacing Options, enable IC2
-
-
+# Install dependences
 
 ``` bash
+sudo apt-get install python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd mpc authbind mpdscribble
 sudo pip install tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT pytuya
 
 git clone https://github.com/masterzion/WiringPi.git
@@ -23,6 +15,16 @@ cd WiringPi
 ./build
 cd
 
+
+sudo raspi-config
+```
+In Interfacing Options, enable IC2
+
+
+
+# Configure the environment:
+
+``` bash
 sudo mkdir /media/usb
 sudo echo "/dev/sda1 /media/usb/ ntfs none 0 0" >> /dev/fstab
 sudo mount -a
@@ -47,22 +49,23 @@ sudo chown smarthomelight:smarthomelight /opt/smarthomelight/modules/weatherstat
 touch /opt/smarthomelight/modules/webserver/home/js/day.json
 chmod 765 /opt/smarthomelight/modules/webserver/home/js/day.json
 chown smarthomelight:smarthomelight /opt/smarthomelight/modules/webserver/home/js/day.json
-
-sudo raspi-config
 ``` 
-In Interfacing Options, enable IC2
 
+Add the lines to the file /boot/config.txt
 
-
-add this line in  /boot/config.txt
 ``` ini
+
 dtoverlay=w1-gpio
+dtoverlay=gpio-ir-tx,gpio_pin=27
+dtoverlay=lirc-rpi
+
 ```
 
 
 Create the variables ~/.smarthomelight 
 
 ``` bash
+
 export SMARTHOME_DIR=/opt/smarthomelight
 export SMARTHOME_LOCKDIR="/tmp/"
 export SMARTHOME_MEMDB_PORT=3030
@@ -86,28 +89,24 @@ export WEATHER_SERVER_PWD='WEB_PASSWORD'
 export WEATHER_SERVER_SALT='add some random chars here'
 
 export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
+
 ```
 
 Add it to the ~/.bashrc file
 
 ``` bash
+
 source ~/.smarthomelight
+
 ``` 
-
-
-add the crontabfile content in your crontab and reboot
-
-``` bash
-@reboot [SMARTHOME_DIR]/bin/service_manager.sh start autostart start_modules
-```
 
 add to /etc/sudoers
 
-``` bash
+``` ini
+
 smarthomelight ALL= NOPASSWD: /usr/sbin/arp-scan
 
 ```
-
 
 RECOMENDED:
 ``` bash
