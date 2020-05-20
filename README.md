@@ -108,10 +108,27 @@ smarthomelight ALL= NOPASSWD: /usr/sbin/arp-scan
 
 ```
 
+
+
 RECOMENDED:
 ``` bash
-  apt-get install sysstat
+
+# system monitor
+apt-get install sysstat
+
+# backup file
+sudo git clone https://github.com/andreafabrizi/Dropbox-Uploader.git &&  cd Dropbox-Uploader/ && ./dropbox_uploader.sh && ./dropbox_uploader.sh list
+sudo crontab -e
+
 ```
+
+add this line to the root crontab for the backup (RECOMENDED step required)
+
+``` bash
+@daily $(sudo -u smarthomelight bash -c 'source $HOME/.smarthomelight && echo $SMARTHOME_DIR')/bin/backup.sh
+
+```
+
 
 TODO:
 https://certbot.eff.org/lets-encrypt/debianwheezy-apache
