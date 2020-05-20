@@ -71,6 +71,6 @@ Google Charts: https://developers.google.com/chart/
 ![weather](/docs/weather.jpg)
 ![milight](/docs/milight.jpg)
 ![music](/docs/music.jpg)
-
+![GPIOs](/docs/gpio.jpg)
 
 
