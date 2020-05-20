@@ -1,0 +1,23 @@
+export SMARTHOME_DIR=/opt/smarthomelight
+export SMARTHOME_LOCKDIR="/tmp/"
+export SMARTHOME_MEMDB_PORT=3030
+
+export MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
+
+export SERVER_NAME="pass@localhost"
+export SERVER_PORT="6600"
+
+export MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
+export MILIGHT_PORT="8899"
+export MILIGHT_GROUP="1"
+
+export CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
+
+export IFACE=eth0
+
+export GPIO=/usr/local/bin/gpio
+
+export WEATHER_SERVER_PWD='WEB_PASSWORD'
+export WEATHER_SERVER_SALT='add some random chars here'
+
+export FILE_CINEMAMODE="$SMARTHOME_LOCKDIR/cinemamode.lock"
