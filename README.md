@@ -66,6 +66,8 @@ Tornado (REST): http://www.tornadoweb.org/en/stable/
 
 Google Charts: https://developers.google.com/chart/
 
+Better Check Boxes: https://tutorialzine.com/2011/03/better-check-boxes-jquery-css
+
 ![hardware](/docs/circuit.jpg)
 ![home screen](/docs/home.jpg)
 ![weather](/docs/weather.jpg)
