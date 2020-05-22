@@ -1,8 +1,10 @@
+#!/usr/bin/python
+
 import os                                                  # import os module
 import glob                                                # import glob module
 import time                                                # import time module
 os.system('modprobe w1-gpio')                              # load one wire communication device kernel modules
-os.system('modprobe w1-therm')                                                 
+os.system('modprobe w1-therm')
 base_dir = '/sys/bus/w1/devices/'                          # point to the address
 device_folder = glob.glob(base_dir + '28*')[0]             # find device with address starting from 28*
 device_file = device_folder + '/w1_slave'                  # store the details
