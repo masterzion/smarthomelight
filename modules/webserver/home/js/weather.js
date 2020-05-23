@@ -42,58 +42,66 @@ function drawCurveTypes() {
         json_external.push(entry[1]);
         json_internal.push(entry[2]);
       });
-      var config = {
-        type: 'line',
-        data: {
-          labels: json_labels,
-          datasets: [{
-            label: 'Internal',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: json_internal,
-            fill: false,
-          }, {
-            label: 'External',
-            fill: false,
-            backgroundColor: 'rgb(54, 162, 235)',
-            borderColor: 'rgb(54, 162, 235)',
-            data:  json_external,
-          }]
-        },
-        options: {
-          responsive: true,
-          title: {
-            display: true,
-            text: 'Today'
-          },
-          tooltips: {
-            mode: 'index',
-            intersect: false,
-          },
-          hover: {
-            mode: 'nearest',
-            intersect: true
-          },
-          scales: {
-            xAxes: [{
-              display: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Time'
-              }
-            }],
-            yAxes: [{
-              display: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Value'
-              }
+      if (typeof window.mychartjs == 'undefined') {
+        var config = {
+          type: 'line',
+          data: {
+            labels: json_labels,
+            datasets: [{
+              label: 'Internal',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: json_internal,
+              fill: false,
+            }, {
+              label: 'External',
+              fill: false,
+              backgroundColor: 'rgb(54, 162, 235)',
+              borderColor: 'rgb(54, 162, 235)',
+              data:  json_external,
             }]
+          },
+          options: {
+            responsive: true,
+            title: {
+              display: true,
+              text: 'Today'
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false,
+            },
+            hover: {
+              mode: 'nearest',
+              intersect: true
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time'
+                }
+              }],
+              yAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Value'
+                }
+              }]
+            }
           }
-        }
-      };
-      ctx = document.getElementById('canvas').getContext('2d');
-      window.myLine = new Chart(ctx, config);
+        };
+        ctx = document.getElementById('canvas').getContext('2d');
+        window.mychartjs = new Chart(ctx, config);
+      } else {
+        window.mychartjs.data.labels = json_labels
+        window.mychartjs.data.datasets[0].data = json_external;
+        window.mychartjs.data.datasets[1].data = json_internal;
+        window.mychartjs.update();
+      }
+
     }
   });
 }
@@ -113,3 +121,4 @@ $( window ).load(function() {
   getLastTempResult();
   drawCurveTypes();
 });
+
