@@ -4,6 +4,7 @@
 
 import time, sys, socket
 import Adafruit_DHT
+from datetime import datetime
 
 # gpio pin used by the sensor
 gpio=18
@@ -24,16 +25,13 @@ def DBSendText(text):
 #main loop
 while True:
     #get the value of the sensor                  v-- Using DHT22 here
-    data = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
-
+    humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
     #send to the server
-#    print data
-    humidity=str(data[0])
-    temperature=str(data[1])
-    if humidity == 'None' or temperature == 'None' or temperature < 5:
-        print 'None'
-        time.sleep(5)
+    if not isinstance(temperature, float) or float(temperature) < 5.0:
+        print ('ERROR:'+ datetime.now().strftime("%H:%M:%S"))
+#        time.sleep(20)
     else:
-        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
-        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
+#        print temperature
+        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+str(humidity))
+        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+str(temperature))
         time.sleep(60)
