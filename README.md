@@ -42,6 +42,10 @@ RECOMENDED:
 
 # system monitor
 sudo apt-get install sysstat
+# Enable it
+sudo nano /etc/default/sysstat
+sudo service sysstat restart 
+
 
 # backup file
 sudo git clone https://github.com/andreafabrizi/Dropbox-Uploader.git &&  cd Dropbox-Uploader/ && ./dropbox_uploader.sh && ./dropbox_uploader.sh list
