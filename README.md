@@ -41,12 +41,15 @@ RECOMENDED:
 ``` bash
 
 # system monitor
-apt-get install sysstat
+sudo apt-get install sysstat
 
 # backup file
 sudo git clone https://github.com/andreafabrizi/Dropbox-Uploader.git &&  cd Dropbox-Uploader/ && ./dropbox_uploader.sh && ./dropbox_uploader.sh list
 sudo crontab -e
 
+# normalize music
+sudo apt-get install vbrfix normalize-audio
+find /media/usb/mp3 -name "*.mp3" -exec vbrfix -makevbr -always {} {} \; -exec normalize-audio -b {} \;
 ```
 
 add this line to the root crontab for the backup (RECOMENDED step required)
