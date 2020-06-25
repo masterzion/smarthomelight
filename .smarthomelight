@@ -1,18 +1,27 @@
+#app config
 export SMARTHOME_DIR=/opt/smarthomelight
 export SMARTHOME_LOCKDIR="/tmp/"
 export SMARTHOME_MEMDB_PORT=3030
 
+#for mobile devices
 export MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
 
+#for tuya devices
+export TUYA_MAC_LIST="AA:BB:CC:DD:EE:FF AA:BB:CC:DD:EE:FF"
+
+#chromecast mac 
+export CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
+
+#mpd server
 export SERVER_NAME="pass@localhost"
 export SERVER_PORT="6600"
 
+#milight configuration
 export MILIGHT_MAC="AA:BB:CC:DD:EE:FF"
 export MILIGHT_PORT="8899"
 export MILIGHT_GROUP="1"
 
-export CHROMECAST_MAC="AA:BB:CC:DD:EE:FF"
-
+#network interface
 export IFACE=eth0
 
 export GPIO=/usr/local/bin/gpio
