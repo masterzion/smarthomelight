@@ -1,26 +1,32 @@
 #!/usr/bin/env python2.7
-import os, sys, socket, time, urllib
+import os, sys, pytuya, socket, time, ConfigParser
 
 memdb_host = 'localhost'
 memdb_port=int(sys.argv[1])
 modulename=sys.argv[2]
-ips=sys.argv[3].split()
-
-#print(ips)
-#count(ips)
 
 moduleitem=modulename+'_manager'
 
-count = len(ips)
+
+
+configParser = ConfigParser.RawConfigParser()
+configFilePath = r'tuya.conf'
+configParser.read(configFilePath)
+
+count = int(configParser.get('MAIN', 'COUNT'))
+
+ids = []
+ips = []
+keys = []
 ar_status = []
 
 
 def getstatus(index):
 #    print index
     try:
-        f = urllib.urlopen('http://'+ips[index]+'/?m=1')
-        myfile = f.read()
-        return myfile.find(">ON<") > -1
+        d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
+        data = d.status()
+        return data['dps']['1']
     except:
         print "Unexpected error:", sys.exc_info()[0]
         return False
@@ -29,10 +35,22 @@ def setstatus(index, status, count):
     count+=1
 #    print count,index,status
     try:
-        if not getstatus(index) == status:
-            f = urllib.urlopen('http://'+ips[index]+'/?m=1&o=1')
-            myfile = f.read()
-            return myfile.find(">ON<") > -1
+        d = pytuya.OutletDevice(ids[index], ips[index], keys[index])
+        data = d.status()  # NOTE this does NOT require a valid key
+#        print data
+        if isinstance(data, basestring):
+#            print basestring
+            time.sleep(2 * count)
+            return setstatus(index, status, count)
+        else:
+            if status == data['dps']['1']:
+               return status
+            else:
+               data = d.set_status(status)
+               time.sleep(2)
+               data = d.status()
+#               print data
+               return data
     except IOError as e:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
         time.sleep(2 * count)
@@ -70,6 +88,9 @@ def getgroup(group):
 
 for index in range(count):
 #    print index
+    ids.append( configParser.get(str(index), 'ID') )
+    ips.append( configParser.get(str(index), 'IP') )
+    keys.append( configParser.get(str(index), 'KEY') )
     if getstatus(index):
         ar_status.append('1')
     else:

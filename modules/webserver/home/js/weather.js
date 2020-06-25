@@ -97,8 +97,8 @@ function drawCurveTypes() {
         window.mychartjs = new Chart(ctx, config);
       } else {
         window.mychartjs.data.labels = json_labels
-        window.mychartjs.data.datasets[0].data = json_external;
-        window.mychartjs.data.datasets[1].data = json_internal;
+        window.mychartjs.data.datasets[0].data = json_internal;
+        window.mychartjs.data.datasets[1].data = json_external;
         window.mychartjs.update();
       }
 

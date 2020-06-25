@@ -1,9 +1,4 @@
 #!/bin/bash
-#
-# require:  mpc
-# apt-get install mpc
-
-#!/bin/bash
 source ~/.smarthomelight
 
 MODULE_NAME=$(cat modulename.txt)
