@@ -1,2 +1,3 @@
 memorydb
-thermometer internal_thermometer
+thermometer
+tuya

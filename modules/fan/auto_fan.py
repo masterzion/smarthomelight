@@ -33,16 +33,11 @@ def getmintemp( s ):
 #   print("temp:"+str(val))
    return val
 
-
-
 def setmintemp( s, temp ):
    s.send(set_mintemp_string+str(temp))
    data =  s.recv(1024)
 #   print "settempres:" + data + str(temp)
    return data
-
-
-
 
 def gethouseisempty( s ):
    s.send(get_houseisempty_string)
@@ -79,7 +74,7 @@ while True:
                 if internal_temp in turnon_temperature_range:
                     setEnable = True
     else:
-#        print  date.hour 
+#        print  date.hour
         if date.hour not in silenthours:
             internal_temp=gettemperature(s)
 #            print internal_temp
@@ -103,5 +98,3 @@ while True:
        if not newtemp == mintemp:
           mintemp=newtemp
           break
-
-
