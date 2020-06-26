@@ -23,7 +23,7 @@ sudo ./install.sh
 
 ```
 
- 
+
 # prepare boot config
 
 Add the lines to the file /boot/config.txt
@@ -44,7 +44,7 @@ RECOMENDED:
 sudo apt-get install sysstat
 # Enable it
 sudo nano /etc/default/sysstat
-sudo service sysstat restart 
+sudo service sysstat restart
 
 
 # backup file
@@ -67,7 +67,7 @@ add this line to the root crontab for the backup (RECOMENDED step required)
 TODO:
 https://certbot.eff.org/lets-encrypt/debianwheezy-apache
 
-Using: 
+Using:
 
 Tornado (REST): http://www.tornadoweb.org/en/stable/
 
@@ -80,6 +80,4 @@ Better Check Boxes: https://tutorialzine.com/2011/03/better-check-boxes-jquery-c
 ![weather](/docs/weather.jpg)
 ![milight](/docs/milight.jpg)
 ![music](/docs/music.jpg)
-![GPIOs](/docs/gpio.jpg)
-
-
+![GPIOs](/docs/Raspberry-Pi-GPIO-Explained.png)

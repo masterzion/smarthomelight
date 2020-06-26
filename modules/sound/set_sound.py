@@ -23,7 +23,7 @@ moduleitem="sound_turnon"
 cinemamode_str="cinemamode cinemamode_on"
 
 
-gpio_relay=19
+gpio_relay=6
 gpio_channel=17
 
 GPIO.setmode(GPIO.BCM)
@@ -35,7 +35,7 @@ sendtext('S VALUES '+modulename+' '+moduleitem+' 0')
 
 while True:
     value=sendtext('G PIDS '+modulename+' '+moduleitem)
-   
+
 
     if value == "":
        value="0"
@@ -45,7 +45,7 @@ while True:
        GPIO.output(gpio_relay, GPIO.HIGH)
     else:
        GPIO.output(gpio_relay, GPIO.LOW)
-   
+
 
     cinemamode=sendtext('G PIDS '+cinemamode_str)
 
