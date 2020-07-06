@@ -16,14 +16,16 @@ RADIO_PLAYLIST=$(cat radioplaylist.txt)
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="play"
 
+mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "random" "on" > /dev/null
+mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "next" > /dev/null
 mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "pause" > /dev/null
 
 RADIOEMISSOR_STRING="radiotransmitter radio_turnon"
 
 LAST_VOLUME=0
 MAX_HOUR=22
-MIN_HOUR=10
-MIN_VOL=10
+MIN_HOUR=30
+MIN_VOL=40
 LASTPLAYLIST=""
 
 addplaylists () {
