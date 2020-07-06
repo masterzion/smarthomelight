@@ -55,7 +55,7 @@ def gettemperature( s ):
 silenthours = range(0,9)
 workinghours = range(16,18)
 
-setmintemp(s, 40)
+setmintemp(s, 10)
 time.sleep(1)
 mintemp=getmintemp(s)
 time.sleep(1)
