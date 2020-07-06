@@ -43,15 +43,15 @@ do
 
     if [ "$CHROMECAST" == "1" ]; then
 #        echo "Chromecast online = 3"
-        $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode 3 > /dev/null
+        $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES cinemamode auto_cinemamode 3 > /dev/null
         sleep 60
     else
-        VAL=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES cinemamode auto_cinemamode)
+        VAL=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G VALUES cinemamode auto_cinemamode)
         if [ $VAL -gt 0 ]; then
            VAL=$((VAL-1))
         fi
 #        echo "Chromecast offline  $VAL"
-        $SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode $VAL > /dev/null
+        $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES cinemamode auto_cinemamode $VAL > /dev/null
     fi
 
     if [ $ISEMPT == "1" ]; then

@@ -10,7 +10,7 @@ milight_port  = int(sys.argv[4])
 
 modulitem='light_manager'
 
-#connect to milight 
+#connect to milight
 controller = milight.MiLight({'host': milight_ip, 'port': milight_port}, wait_duration=0)
 light = milight.LightBulb(['rgbw']) # Can specify which types of bulbs to use
 
@@ -53,7 +53,7 @@ while True:
     color = getcolor(1)+','+getcolor(2)+','+getcolor(3)+','+getcolor(4)
 #    print status
 #    print color
-    
+
     if not (status == last_status and color == last_color):
         for group in [0,1,2,3] :
             ar_status = status.split(',')

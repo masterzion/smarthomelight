@@ -41,7 +41,7 @@ else:
           print("ERROR: Minimum 4 paramters for set operation. Check the documentation. ;)\n")
         else:
           item=split[3]
-          value=split[4] 
+          value=split[4]
           s.send(operation+' '+table+' '+item+' '+value)
           data = s.recv(1024)
     print data.strip()

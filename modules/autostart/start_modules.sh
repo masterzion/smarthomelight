@@ -10,7 +10,7 @@ grep -v  '^#' itens.conf | grep -v -e '^$'  | while read -r line ; do
     if [ "memorydb memorydb_server" == "$line" ] ; then
        PID="0"
     else
-        PID=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G PIDS $line)
+        PID=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $line)
     fi
 
     if [ "$PID" == "" ] ; then

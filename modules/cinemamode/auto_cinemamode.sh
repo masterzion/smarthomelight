@@ -7,11 +7,11 @@ MODULE_ITEM=cinemamode_on
 
 LAST_STATUS=false
 
-$SMARTHOME_DIR/bin/memdb_client.py 3030 S VALUES cinemamode auto_cinemamode 0
+$SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES cinemamode auto_cinemamode 0
 
 while true;
 do
-    CHROMECAST=$($SMARTHOME_DIR/bin/memdb_client.py 3030 G VALUES cinemamode auto_cinemamode)
+    CHROMECAST=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G VALUES cinemamode auto_cinemamode)
 
     if [ "$CHROMECAST" == "0" ]; then
          STATUS=false

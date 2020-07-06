@@ -16,8 +16,6 @@ RADIO_PLAYLIST=$(cat radioplaylist.txt)
 MODULE_NAME=$(cat modulename.txt)
 MODULE_ITEM="play"
 
-mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "random" "on" > /dev/null
-mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "next" > /dev/null
 mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "pause" > /dev/null
 
 RADIOEMISSOR_STRING="radiotransmitter radio_turnon"
@@ -35,6 +33,7 @@ addplaylists () {
        for l in $1 ; do
           mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  load $l > /dev/null
        done
+       mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "random" "on" > /dev/null
        mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  play > /dev/null
        mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  next > /dev/null
    fi
@@ -90,6 +89,8 @@ do
         sleep 6
         addplaylists $RADIO_PLAYLIST
         mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 100 > /dev/null
+        VOLUME=100
+        LAST_VOLUME=$VOLUME
     fi
 
     sleep 2
