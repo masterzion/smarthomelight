@@ -1,1 +1,1 @@
-* * * * * /usr/bin/irsend SEND_ONCE  iRobot_Roomba clean --count 5 && sleep 2 &&  rm -f /etc/cron.d/ROOMBA_Now >/dev/null 2>&1
+* * * * * /usr/bin/irsend SEND_ONCE  iRobot_Roomba clean --count 5 && sleep 2 && source ~/.smarthomelight &&  rm -f $SMARTHOME_DIR/smartcron/ROOMBA_Now >/dev/null 2>&1

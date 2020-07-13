@@ -4,7 +4,8 @@ source ~/.smarthomelight
 
 MODULENAME=$(cat modulename.txt)
 FILE_MASK=$(echo $MODULENAME"_" | tr '[a-z]' '[A-Z]')
-CRON_PATH=/etc/cron.d/
+CRON_PATH=$SMARTHOME_DIR/smartcron/
+
 
 
 #Restore status
@@ -20,7 +21,7 @@ fi
 
 while true;
 do
-   STATUS=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULENAME autostart 2> /dev/null )
+   STATUS=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULENAME insect_killer autostart> /dev/null )
    FILE=$(echo $CRON_PATH$FILE_MASK"Start")
    if [ "$STATUS" == "0" ] ; then
         if [ -f $FILE ]; then
@@ -31,6 +32,6 @@ do
             cp $SMARTHOME_DIR/modules/$MODULENAME/cron/* $CRON_PATH
         fi
    fi
-   sleep 300
+   sleep 3
 done
 
