@@ -21,7 +21,7 @@ fi
 
 while true;
 do
-   STATUS=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULENAME insect_killer autostart> /dev/null )
+   STATUS=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULENAME autostart )
    FILE=$(echo $CRON_PATH$FILE_MASK"Start")
    if [ "$STATUS" == "0" ] ; then
         if [ -f $FILE ]; then
@@ -32,6 +32,6 @@ do
             cp $SMARTHOME_DIR/modules/$MODULENAME/cron/* $CRON_PATH
         fi
    fi
-   sleep 3
+   sleep 10
 done
 
