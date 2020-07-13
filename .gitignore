@@ -8,3 +8,5 @@ modules/webserver/home/js/*.json
 modules/tuya/tuya.conf
 modules/webserver/home/js/salt.js
 modules/weatherstation/db/smarthome.db
+smartcron/*
+!smartcron/00000_do_not_remove
