@@ -32,6 +32,6 @@ do
             cp $SMARTHOME_DIR/modules/$MODULENAME/cron/* $CRON_PATH
         fi
    fi
-   sleep 10
+   sleep 300
 done
 
