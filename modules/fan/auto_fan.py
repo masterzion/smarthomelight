@@ -1,15 +1,13 @@
 #!/usr/bin/python
 import datetime, time, socket, sys
 
-gpioID = 24
-
 lastStatus = 99
 setEnable = True
 
 modulename=sys.argv[2]
 item_name='fan_turnon'
 
-turnon_temperature_range = range(25,40)
+const_temp = 29
 
 #connect to the memory db
 port=int(sys.argv[1])
@@ -28,10 +26,7 @@ def getmintemp( s ):
    s.send(get_mintemp_string)
    data =  s.recv(1024)
 #   print "temp_sensibility:" + data
-   val= (100-int(data)) / 20
-   val = val+22
-#   print("temp:"+str(val))
-   return val
+   return int(data)
 
 def setmintemp( s, temp ):
    s.send(set_mintemp_string+str(temp))
@@ -57,44 +52,40 @@ workinghours = range(16,18)
 
 setmintemp(s, 10)
 time.sleep(1)
-mintemp=getmintemp(s)
-time.sleep(1)
 
 while True:
     setEnable = False
+    internal_temp=gettemperature(s)
+    time.sleep(1)
+    target_temp=const_temp-(getmintemp(s)/10)
+
+#    print("target_temp: " + str(target_temp) )
+    time.sleep(1)
     date = datetime.datetime.today()
     houseisempty = gethouseisempty(s)
-    turnon_temperature_range = range(mintemp, 40)
 
     if houseisempty:
 #        print "is empty"
         if not date.weekday() in [5,6]:
             if date.hour in workinghours:
-                internal_temp=gettemperature(s)
-                if internal_temp in turnon_temperature_range:
+                if internal_temp > target_temp:
                     setEnable = True
     else:
 #        print  date.hour
         if date.hour not in silenthours:
-            internal_temp=gettemperature(s)
-#            print internal_temp
-            if internal_temp in turnon_temperature_range:
+#            print("if internal_temp > target_temp: " +  str(internal_temp) + " " + str(target_temp))
+            if internal_temp > target_temp:
                 setEnable = True
 
+    if setEnable:
+       s.send('S PIDS '+modulename+' '+item_name+' -1')
+       data = s.recv(1024)
+    else:
+#       print("internal_temp-1: "+str(internal_temp-1))
+       if internal_temp < target_temp-1:
+#         print "sending"
+         s.send('S PIDS '+modulename+' '+item_name+' 0')
+         data = s.recv(1024)
 
-#    print setEnable
-    if setEnable != lastStatus :
-#        print "different"
-        if setEnable:
-            s.send('S PIDS '+modulename+' '+item_name+' -1')
-            data = s.recv(1024)
-        else:
-            s.send('S PIDS '+modulename+' '+item_name+' 0')
-            data = s.recv(1024)
-        lastStatus = setEnable
-    for n in range(10):
-       time.sleep(60)
-       newtemp=getmintemp(s)
-       if not newtemp == mintemp:
-          mintemp=newtemp
-          break
+    time.sleep(3)
+
