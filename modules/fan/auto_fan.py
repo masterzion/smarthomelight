@@ -25,25 +25,25 @@ set_mintemp_string='S VALUES fan auto_fan_sensibility '
 def getmintemp( s ):
    s.send(get_mintemp_string)
    data =  s.recv(1024)
-#   print "temp_sensibility:" + data
+#   print("temp_sensibility:" + data)
    return int(data)
 
 def setmintemp( s, temp ):
    s.send(set_mintemp_string+str(temp))
    data =  s.recv(1024)
-#   print "settempres:" + data + str(temp)
+#   print("settempres:" + data + str(temp))
    return data
 
 def gethouseisempty( s ):
    s.send(get_houseisempty_string)
    data = s.recv(1024)
-#   print data
+#   print(data)
    return (data == "1")
 
 def gettemperature( s ):
    s.send(get_internal_thermometer_string)
    data =  s.recv(1024)
-#   print "temperature:" + data
+#   print("temperature:" + data)
    return int(float(data))
 
 
@@ -65,7 +65,7 @@ while True:
     houseisempty = gethouseisempty(s)
 
     if houseisempty:
-#        print "is empty"
+#        print("is empty")
         if not date.weekday() in [5,6]:
             if date.hour in workinghours:
                 if internal_temp > target_temp:
@@ -76,16 +76,17 @@ while True:
 #            print("if internal_temp > target_temp: " +  str(internal_temp) + " " + str(target_temp))
             if internal_temp > target_temp:
                 setEnable = True
-
-    if setEnable:
-       s.send('S PIDS '+modulename+' '+item_name+' -1')
-       data = s.recv(1024)
-    else:
-#       print("internal_temp-1: "+str(internal_temp-1))
-       if internal_temp < target_temp-1:
-#         print "sending"
-         s.send('S PIDS '+modulename+' '+item_name+' 0')
+    if not lastStatus == setEnable:
+      lastStatus=setEnable
+      if setEnable:
+         print("enabled")
+         s.send('S PIDS '+modulename+' '+item_name+' -1')
          data = s.recv(1024)
-
-    time.sleep(3)
+      else:
+#         print("internal_temp-1: "+str(internal_temp-1))
+         if internal_temp < target_temp-1:
+           print("disabled")
+           s.send('S PIDS '+modulename+' '+item_name+' 0')
+           data = s.recv(1024)
+    time.sleep(60)
 
