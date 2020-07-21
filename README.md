@@ -53,7 +53,7 @@ sudo crontab -e
 
 # normalize music
 sudo apt-get install vbrfix normalize-audio
-find /media/usb/mp3 -name "*.mp3" -exec vbrfix -makevbr -always {} {} \; -exec normalize-audio -b {} \;
+find /media/usb/mp3 -name "*.mp3" -exec vbrfix -makevbr -always {} {} \; -exec normalize-audio -b {} \; -exec bpm-tag  {} \;
 ```
 
 add this line to the root crontab for the backup (RECOMENDED step required)
