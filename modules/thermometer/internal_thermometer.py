@@ -6,8 +6,18 @@ import time, sys, socket
 import Adafruit_DHT
 from datetime import datetime
 
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
+
 # gpio pin used by the sensor
 gpio=18
+gpio_DHT=26
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(gpio_DHT, GPIO.OUT, initial=GPIO.HIGH)
+
 
 modulename=sys.argv[2]
 modulitem="internal_thermometer"
@@ -32,7 +42,10 @@ while True:
     #send to the server
     if not isinstance(temperature, float) or float(temperature) < 5.0:
         print('ERROR:'+ datetime.now().strftime("%H:%M:%S"))
-#        time.sleep(20)
+        GPIO.output(gpio_DHT, GPIO.LOW)
+        time.sleep(5)
+        GPIO.output(gpio_DHT, GPIO.HIGH)
+        time.sleep(5)
     else:
         humidity="{:.2f}".format(humidity)
         temperature="{:.2f}".format(temperature)
