@@ -7,6 +7,8 @@ class EchoHandler(asyncore.dispatcher_with_send):
 
     def handle_read(self):
         data = self.recv(8192)
+        if not isinstance(data, basestring):
+            data=data.decode()
         if data:
             print("data: "+data+" \n")
             split = data.split(' ')
@@ -47,10 +49,10 @@ class EchoServer(asyncore.dispatcher):
         pair = self.accept()
         if pair is not None:
             sock, addr = pair
-            print 'Incoming connection from %s' % repr(addr)
+            print('Incoming connection from %s' % repr(addr))
             handler = EchoHandler(sock)
 port=3030
-print len(sys.argv)
+print(len(sys.argv))
 if len(sys.argv) > 1:
    port=int(sys.argv[1])
    print("Starting in the  port "+str(port) )
