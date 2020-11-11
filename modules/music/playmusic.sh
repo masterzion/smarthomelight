@@ -87,10 +87,12 @@ do
         addplaylists $DEFAULT_PLAYLIST
     else
         sleep 6
-        addplaylists $RADIO_PLAYLIST
-        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume 100 > /dev/null
         VOLUME=100
-        LAST_VOLUME=$VOLUME
+        if [ ! "$LAST_VOLUME" == "$VOLUME" ] ; then
+           mpc -h "$SERVER_NAME" -p "$SERVER_PORT" volume $VOLUME > /dev/null
+           LAST_VOLUME=$VOLUME
+        fi
+        addplaylists $RADIO_PLAYLIST
     fi
 
     sleep 2
