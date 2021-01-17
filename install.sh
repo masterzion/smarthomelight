@@ -5,7 +5,7 @@ echo INTALLING ALL DEPENDENCES
 echo ##########################
 
 
-apt-get install -y  python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd mpc authbind mpdscribble bpm-tools
+apt-get install -y  python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd mpc authbind mpdscribble bpm-tools miniupnpc
 pip install --yes tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT pytuya
 
 git clone https://github.com/masterzion/WiringPi.git
@@ -18,6 +18,11 @@ rm -rf WiringPi
 echo ##########################
 echo Preparing the environment
 echo ##########################
+
+echo ':msg, contains, "device eth1 entered promiscuous mode"   ~' >> /etc/rsyslog.d/zz-promiscuous.conf
+echo ':msg, contains, "device eth1 left promiscuous mode"      ~' >> /etc/rsyslog.d/zz-promiscuous.conf
+service rsyslog restart
+
 
 mkdir -p /opt/smarthomelight
 cp -rf * /opt/smarthomelight

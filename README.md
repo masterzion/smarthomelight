@@ -63,7 +63,15 @@ add this line to the root crontab for the backup (RECOMENDED step required)
 
 ```
 
+Optional
+``` bash
+@daily upnpc -a 192.168.0.21 8080 8080 tcp
+@daily upnpc -a 192.168.0.21 8081 8081 tcp
+```
+
 https://github.com/trick77/ipset-blacklist
+
+https://pivpn.io/
 
 TODO:
 https://certbot.eff.org/lets-encrypt/debianwheezy-apache

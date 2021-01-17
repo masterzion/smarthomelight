@@ -22,8 +22,6 @@ def sendtext(text):
     return data.strip()
 
 
-    
-
 def doaction(start):
     if start:
         action='start'
@@ -31,14 +29,10 @@ def doaction(start):
         action='stop'
 
     data=sendtext('G VALUES '+modulename+' '+modulitem+'_'+action)
-    
     if data == "":
         data="0"
-    
-    
     if not data == "0":
         data=data.split(";")
-        
         for i in data:
 #            print i
             item=i.split('/')
