@@ -23,12 +23,13 @@ s.connect((host, port))
 
 #main loop
 while True:
-    value = str( sensor.get_temperature() )
-    #print value
-    
+    value =  sensor.get_temperature()
+    time.sleep(2)
+    value = str ( (sensor.get_temperature()+value) /2 )
+
+    #print(value)
     #send to the server
     s.send('S VALUES '+modulename+' '+modulitem+' '+value)
-    
     #get the answer
     data = s.recv(1024)
     #print data

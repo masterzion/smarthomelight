@@ -2,4 +2,9 @@
 
 source ~/.smarthomelight
 
-./external_thermometer.py $SMARTHOME_MEMDB_PORT $(cat modulename.txt)
+while :
+do
+  ./external_thermometer.py $SMARTHOME_MEMDB_PORT $(cat modulename.txt)
+  sleep 1
+done
+
