@@ -49,8 +49,10 @@ while True:
     else:
         humidity="{:.2f}".format(humidity)
         temperature="{:.2f}".format(temperature)
-
-#        print(humidity, temperature)
-        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
-        data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
-        time.sleep(60)
+        if temperature > 10:
+#         print(humidity, temperature)
+          data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
+          data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
+          time.sleep(60)
+        else:
+          time.sleep(1)

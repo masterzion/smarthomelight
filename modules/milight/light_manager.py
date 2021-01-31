@@ -20,7 +20,7 @@ controller.send(light.all_off())
 status="0,0,0,0"
 color='ff8800,ff8800,ff8800,ff8800'
 last_status=status
-last_color=color
+last_color='ffffff,ffffff,ffffff,ffffff'
 
 def getgroup(group):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -39,8 +39,8 @@ def getcolor(group):
     s.send(str_conn)
     data = s.recv(1024)
 #    print str_conn+" = "+data
-    if data in ["ffffff", ""]:
-        return "ffffff"
+    if data in ["ff8800", ""]:
+        return "ff8800"
     else:
         return data
 

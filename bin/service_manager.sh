@@ -26,7 +26,7 @@ module_start () {
       exit 2
     fi
 
-    echo "Starting $MODULE_NAME... "
+    echo "Starting $MODULE_NAME $MODULE_ITEM ... "
     cd "$SMARTHOME_DIR/modules/$MODULE_NAME"
     ./$MODULE_ITEM.sh  &
     PID=$!
@@ -46,7 +46,7 @@ module_stop () {
       exit 2
     fi
 
-    echo "Stopping $MODULE_NAME... "
+    echo "Stopping $MODULE_NAME $MODULE_ITEM... "
     PID=$(module_status)
     if [ "$PID" == "0" ] ; then
       echo "Module is not running"
