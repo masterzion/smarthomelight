@@ -67,7 +67,7 @@ Optional
 ``` bash
 @daily upnpc -a 192.168.0.21 8080 8080 tcp
 @daily upnpc -a 192.168.0.21 8081 8081 tcp
-@daily echo "nameserver 8.8.8.8" > /etc/resolv.conf && systemctl daemon-reload && sudo systemctl restart systemd-resolved
+@daily sleep 5 && echo "nameserver 8.8.8.8" > /etc/resolv.conf && systemctl daemon-reload && systemctl restart systemd-resolved
 ```
 
 https://github.com/trick77/ipset-blacklist
