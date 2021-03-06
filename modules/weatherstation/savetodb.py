@@ -26,9 +26,11 @@ def savetodb(num):
         datetime=strftime("%d-%m-%Y %H:%M", time.localtime())
 
         sensor1_value   = DBSendText('G VALUES thermometer external_thermometer')
-        sensor2_value_h = DBSendText('G VALUES thermometer internal_thermometer_humidity  ')
+        time.sleep(1)
+        sensor2_value_h = DBSendText('G VALUES thermometer internal_thermometer_humidity')
+        time.sleep(1)
         sensor2_value_t = DBSendText('G VALUES thermometer internal_thermometer_temperature') 
-
+        time.sleep(1)
 #        print sensor1_value,sensor2_value_t, sensor2_value_h, datetime
 
         Sensors().InsertData(sensor1_value,sensor2_value_t, sensor2_value_h, datetime)
@@ -42,4 +44,4 @@ def savetodb(num):
          return False
 
 while savetodb(1):
-    time.sleep(60)
+    time.sleep(50)

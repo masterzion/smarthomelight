@@ -14,9 +14,12 @@ class MyThread(threading.Thread):
         global dataday
         from models import Sensors
         while True:
-            dataday = json.dumps( Sensors().getDay() )
+            try:
+               dataday = json.dumps( Sensors().getDay() )
+            except:
+               print("error reading db")
             time.sleep(30)
-        return 
+        return
 
 class myHandler(BaseHTTPRequestHandler):
     def do_GET(self):
