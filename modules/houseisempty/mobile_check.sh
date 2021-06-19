@@ -2,7 +2,7 @@
 
 source ~/.smarthomelight
 
-MAX_RETRY=100
+MAX_RETRY=20
 
 MODULENAME=$(cat modulename.txt)
 ITEMNAME="mobile_check"
