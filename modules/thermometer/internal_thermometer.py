@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # DHT22 sensor Module
 
 import time, sys, socket
-import Adafruit_DHT
+import adafruit_dht
 from datetime import datetime
 
 try:
@@ -11,13 +11,15 @@ try:
 except RuntimeError:
     print("Error importing RPi.GPIO!  This is probably because you need superuser privileges.  You can achieve this by using 'sudo' to run your script")
 
-# gpio pin used by the sensor
-gpio=18
-gpio_DHT=26
+
+gpio_dht=18 # sensor
+gpio_relay=26 # relay
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(gpio_DHT, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(gpio_relay, GPIO.OUT, initial=GPIO.HIGH)
 
+
+dhtDevice = adafruit_dht.DHT22(gpio_dht)
 
 modulename=sys.argv[2]
 modulitem="internal_thermometer"
@@ -38,21 +40,12 @@ def DBSendText(text):
 #main loop
 while True:
     #get the value of the sensor                  v-- Using DHT22 here
-    humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, gpio)
-    #send to the server
-    if not isinstance(temperature, float) or float(temperature) < 5.0:
-        print('ERROR:'+ datetime.now().strftime("%H:%M:%S"))
-        GPIO.output(gpio_DHT, GPIO.LOW)
-        time.sleep(5)
-        GPIO.output(gpio_DHT, GPIO.HIGH)
-        time.sleep(5)
+    humidity = dhtDevice.humidity
+    temperature = dhtDevice.temperature
+    if temperature > 5:
+#     print(humidity, temperature)
+      data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+str(humidity))
+      data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+str(temperature))
+      time.sleep(60)
     else:
-        humidity="{:.2f}".format(humidity)
-        temperature="{:.2f}".format(temperature)
-        if temperature > 10:
-#         print(humidity, temperature)
-          data=DBSendText('S VALUES '+modulename+' '+modulitem+'_humidity '+humidity)
-          data=DBSendText('S VALUES '+modulename+' '+modulitem+'_temperature '+temperature)
-          time.sleep(60)
-        else:
-          time.sleep(1)
+      time.sleep(1)

@@ -36,6 +36,7 @@ addplaylists () {
        mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "random" "on" > /dev/null
        mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  play > /dev/null
        mpc -h "$SERVER_NAME" -p "$SERVER_PORT"  next > /dev/null
+       bluetoothctl connect $(cat bluetooth.txt)
    fi
 }
 
@@ -43,6 +44,7 @@ while true;
 do
     # get the actual state
     PLAY=$($SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT G PIDS $MODULE_NAME $MODULE_ITEM)
+    PLAY=1
 
     if [ ! "$LASTSTATE" == "$PLAY" ]; then
         if [ "$PLAY" == "0" ]; then
@@ -58,12 +60,14 @@ do
             else
                $SMARTHOME_DIR/bin/memdb_client.py $SMARTHOME_MEMDB_PORT S VALUES $MODULE_NAME sound_volume 20 > /dev/null
             fi
-        else
+
+         else
             mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
         fi
 
         LASTSTATE=$PLAY
         sleep 10
+
         mpc -h "$SERVER_NAME" -p "$SERVER_PORT" "$SEND_COMMAND" > /dev/null
     fi
     if [ "$PLAY" == "0" ]; then

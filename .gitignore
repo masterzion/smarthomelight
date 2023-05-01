@@ -9,4 +9,6 @@ modules/tuya/tuya.conf
 modules/webserver/home/js/salt.js
 modules/weatherstation/db/smarthome.db
 smartcron/*
+modules/music/bluetooth.txt*
+!modules/music/bluetooth.txt.rename
 !smartcron/00000_do_not_remove

@@ -65,9 +65,13 @@ add this line to the root crontab for the backup (RECOMENDED step required)
 
 Optional
 ``` bash
+echo "nameserver 8.8.8.8" > /etc/resolv.conf && chattr +i  /etc/resolv.conf && systemctl daemon-reload && systemctl restart systemd-resolved
+```
+
+``` bash
 @daily upnpc -a 192.168.0.21 8080 8080 tcp
 @daily upnpc -a 192.168.0.21 8081 8081 tcp
-@daily sleep 5 && echo "nameserver 8.8.8.8" > /etc/resolv.conf && systemctl daemon-reload && systemctl restart systemd-resolved
+@daily upnpc -a 192.168.0.21 51820 51820 udp
 ```
 
 https://github.com/trick77/ipset-blacklist

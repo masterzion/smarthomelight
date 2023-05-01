@@ -26,7 +26,7 @@ def getmintemp( s ):
    s.send(get_mintemp_string)
    data =  s.recv(1024)
 #   print("temp_sensibility:" + data)
-   return int(data)
+   return float(data)
 
 def setmintemp( s, temp ):
    s.send(set_mintemp_string+str(temp))
@@ -43,8 +43,8 @@ def gethouseisempty( s ):
 def gettemperature( s ):
    s.send(get_internal_thermometer_string)
    data =  s.recv(1024)
-#   print("temperature:" + data)
-   return int(float(data))
+#   print("internal temperature:" + data)
+   return float(data)
 
 
 silenthours = range(0,9)
@@ -79,14 +79,14 @@ while True:
     if not lastStatus == setEnable:
       lastStatus=setEnable
       if setEnable:
-         print("enabled")
+#         print("enabled")
          s.send('S PIDS '+modulename+' '+item_name+' -1')
          data = s.recv(1024)
       else:
 #         print("internal_temp-1: "+str(internal_temp-1))
          if internal_temp < target_temp-1:
-           print("disabled")
+#           print("disabled")
            s.send('S PIDS '+modulename+' '+item_name+' 0')
            data = s.recv(1024)
-    time.sleep(60)
+    time.sleep(6)
 
