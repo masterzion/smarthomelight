@@ -4,9 +4,9 @@ echo ##########################
 echo INTALLING ALL DEPENDENCES
 echo ##########################
 
-
-apt-get install -y  python-setuptools python-pip python-dev build-essential git sqlite3 python-smbus i2c-tools arp-scan bc git screen mpd mpc authbind mpdscribble bpm-tools miniupnpc libgpiod-dev:armhf
-pip install --yes tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT pytuya adafruit_dht
+apt-get install -y  python3-setuptools python3-pip python3-dev python3
+apt-get install -y  build-essential git sqlite3 python3-smbus i2c-tools arp-scan bc git screen mpd mpc authbind mpdscribble bpm-tools miniupnpc libgpiod-dev:armhf wildmidi
+pip3 install --no-input tornado w1thermsensor pyping milight RPi.GPIO Adafruit_DHT pytuya adafruit_dht
 
 git clone https://github.com/masterzion/WiringPi.git
 cd WiringPi
